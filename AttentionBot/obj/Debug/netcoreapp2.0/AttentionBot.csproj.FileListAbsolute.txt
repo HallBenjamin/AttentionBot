@@ -1,0 +1,11 @@
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\obj\Debug\netcoreapp2.0\AttentionBot.csprojResolveAssemblyReference.cache
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\obj\Debug\netcoreapp2.0\AttentionBot.csproj.CoreCompileInputs.cache
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\obj\Debug\netcoreapp2.0\AttentionBot.AssemblyInfoInputs.cache
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\obj\Debug\netcoreapp2.0\AttentionBot.AssemblyInfo.cs
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\bin\Debug\netcoreapp2.0\AttentionBot.deps.json
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\bin\Debug\netcoreapp2.0\AttentionBot.runtimeconfig.json
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\bin\Debug\netcoreapp2.0\AttentionBot.runtimeconfig.dev.json
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\bin\Debug\netcoreapp2.0\AttentionBot.dll
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\bin\Debug\netcoreapp2.0\AttentionBot.pdb
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\obj\Debug\netcoreapp2.0\AttentionBot.dll
+C:\Users\hallb1016\Documents\discord_bots\AttentionBot\C#\AttentionBot\obj\Debug\netcoreapp2.0\AttentionBot.pdb
