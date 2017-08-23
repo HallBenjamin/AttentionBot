@@ -2,7 +2,7 @@ const Discord = require("discord.js");
 
 const client = new Discord.Client();
 
-const token = 'MzQ2MDY0OTkwMTUyODE4Njkw.DHEZrg.PWW68ODzek95ma8lX8PmdcC2kaI';
+const token = 'Removed for Security Purposes';
 
 const prefix = '\\';
 
