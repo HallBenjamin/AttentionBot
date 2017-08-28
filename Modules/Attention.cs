@@ -53,21 +53,24 @@ namespace AttentionBot.Modules
         [Command("help")]
         public async Task help(string botID = null)
         {
-            if(botID == "3949")
-                await Context.Channel.SendMessageAsync("Attention! Bot v1.0.1.3  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
+            if(botID == Program.botID)
+                await Context.Channel.SendMessageAsync("Attention! Bot v1.0.1.4  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
         }
 
         [Command("exit")]
         [RequireOwner]
-        public async Task exitAttentionBot()
+        public async Task exitAttentionBot(string botID = null)
         {
-            await Context.Channel.SendMessageAsync("Attention! Bot is now offline.");
+            if(botID == Program.botID)
+            {
+                await Context.Channel.SendMessageAsync("Attention! Bot is now offline.");
 
-            if(Program.isConsole)
-                Console.WriteLine("Attention! Bot Offline");
+                if (Program.isConsole)
+                    Console.WriteLine("Attention! Bot Offline");
 
-            Thread.Sleep(1000);
-            Environment.Exit(0);
+                Thread.Sleep(1000);
+                Environment.Exit(0);
+            }
         }
     }
 }

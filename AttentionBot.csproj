@@ -27,7 +27,7 @@
     <TargetCulture>en-US</TargetCulture>
     <ProductName>AttentionBot</ProductName>
     <PublisherName>Josedolf Staller</PublisherName>
-    <ApplicationRevision>3</ApplicationRevision>
+    <ApplicationRevision>4</ApplicationRevision>
     <ApplicationVersion>1.0.1.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
