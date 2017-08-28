@@ -20,6 +20,8 @@ namespace AttentionBot
         private CommandHandler _handler;
 
         public static bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
+
+        public static string botID = "3949";
         public async Task StartAsync()
         {
             if(isConsole)
