@@ -51,6 +51,12 @@ namespace AttentionBot.Modules
             await Context.Channel.SendMessageAsync(text + " (" + letter + number + ")");
         }
 
+        [Command("help")]
+        public async Task help()
+        {
+            await Context.Channel.SendMessageAsync("Attention! Bot v1.0.1.2  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
+        }
+
         [Command("exit")]
         [RequireOwner]
         public async Task exitAttentionBot()
