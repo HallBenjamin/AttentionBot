@@ -9,9 +9,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("AttentionBot")]
 [assembly: AssemblyDescription("Attention to the designated grid square! (E3)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("War Thunder®, Josedolf Staller")]
+[assembly: AssemblyCompany("Josedolf Staller, War Thunder®")]
 [assembly: AssemblyProduct("AttentionBot")]
-[assembly: AssemblyCopyright("Copyright ©  2017")]
+[assembly: AssemblyCopyright("Copyright © Josedolf Staller 2017")]
 [assembly: AssemblyTrademark("")]
 [assembly: AssemblyCulture("")]
 

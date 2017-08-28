@@ -56,7 +56,7 @@ namespace AttentionBot.Modules
         public async Task exitAttentionBot()
         {
             await Context.Channel.SendMessageAsync("Attention! Bot is now offline.");
-            AttentionBot.Program.endMain();
+            Console.WriteLine("Attention! Bot Offline");
             Thread.Sleep(1000);
             Environment.Exit(0);
         }

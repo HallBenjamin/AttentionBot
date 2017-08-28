@@ -3,6 +3,8 @@ using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
+using System.IO;
+using System.Threading;
 
 namespace AttentionBot
 {
@@ -11,9 +13,6 @@ namespace AttentionBot
         static void Main(string[] args)
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        public static void endMain()
-            => new Program().StopAsync().GetAwaiter();
-
         public String token = "Removed for Security";
 
         private DiscordSocketClient _client;
@@ -21,7 +20,8 @@ namespace AttentionBot
         private CommandHandler _handler;
         public async Task StartAsync()
         {
-            Console.Title = "Attention! Bot for Discord";
+            if(Console.OpenStandardInput(1) != Stream.Null)
+                Console.Title = "Attention! Bot for Discord";
 
             _client = new DiscordSocketClient();
 
@@ -29,19 +29,13 @@ namespace AttentionBot
 
             await _client.StartAsync();
 
+            await _client.SetGameAsync("Attention!");
+
             _handler = new CommandHandler(_client);
 
             Console.WriteLine("Attention! Bot Online");
 
             await Task.Delay(-1);
-        }
-        public async Task StopAsync()
-        {
-            Console.WriteLine("Attention! Bot Offline");
-
-            await _client.LogoutAsync();
-
-            await _client.StopAsync();
         }
     }
 }
