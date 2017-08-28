@@ -18,9 +18,11 @@ namespace AttentionBot
         private DiscordSocketClient _client;
 
         private CommandHandler _handler;
+
+        public static bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
         public async Task StartAsync()
         {
-            if(Console.OpenStandardInput(1) != Stream.Null)
+            if(isConsole)
                 Console.Title = "Attention! Bot for Discord";
 
             _client = new DiscordSocketClient();
@@ -33,7 +35,8 @@ namespace AttentionBot
 
             _handler = new CommandHandler(_client);
 
-            Console.WriteLine("Attention! Bot Online");
+            if(isConsole)
+                Console.WriteLine("Attention! Bot Online");
 
             await Task.Delay(-1);
         }
