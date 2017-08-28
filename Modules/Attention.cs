@@ -15,13 +15,13 @@ namespace AttentionBot.Modules
         public async Task attention(string position = null)
         {
             Random rnd = new Random();
-            int Number = rnd.Next(1, 9);
+            int Number = rnd.Next(1, 10);
 
             string[] Letter = new string[10] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 
             int number = Number;
 
-            string letter = Letter[rnd.Next(0, 9)];
+            string letter = Letter[rnd.Next(0, 10)];
 
             if(position != null)
             {
@@ -46,7 +46,7 @@ namespace AttentionBot.Modules
             
             string[] Text = new string[3] { "Attention to the designated grid square!", "Attention to the designated grid zone!", "Attention to the map!" };
 
-            string text = Text[rnd.Next(0, 2)];
+            string text = Text[rnd.Next(0, 3)];
 
             await Context.Channel.SendMessageAsync(text + " (" + letter + number + ")");
         }
