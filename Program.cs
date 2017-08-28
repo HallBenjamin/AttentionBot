@@ -33,7 +33,7 @@ namespace AttentionBot
 
             await _client.StartAsync();
 
-            await _client.SetGameAsync("Attention!");
+            await _client.SetGameAsync("Attention! \\help 3949");
 
             _handler = new CommandHandler(_client);
 

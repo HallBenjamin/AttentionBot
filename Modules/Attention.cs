@@ -54,7 +54,7 @@ namespace AttentionBot.Modules
         public async Task help(string _botID = null)
         {
             if(_botID == Program.botID)
-                await Context.Channel.SendMessageAsync("Attention! Bot v1.0.1.4  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
+                await Context.Channel.SendMessageAsync("Attention! Bot v1.0.2.0  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
         }
 
         [Command("exit")]
