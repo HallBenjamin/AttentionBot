@@ -11,7 +11,6 @@ namespace AttentionBot.Modules
     public class Attention : ModuleBase<SocketCommandContext>
     {
         [Command("attention")]
-        // TODO: Fix command, add randomizer
         public async Task attention(string position = null)
         {
             Random rnd = new Random();
@@ -52,9 +51,10 @@ namespace AttentionBot.Modules
         }
 
         [Command("help")]
-        public async Task help()
+        public async Task help(string botID = null)
         {
-            await Context.Channel.SendMessageAsync("Attention! Bot v1.0.1.2  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
+            if(botID == "3949")
+                await Context.Channel.SendMessageAsync("Attention! Bot v1.0.1.3  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
         }
 
         [Command("exit")]
