@@ -1,6 +1,6 @@
 # Attention! Bot for Discord
 ### Written using Discord.Net 1.0.1 and Microsoft.Net Framework 4.6.1
-Attention to the designated grid square! (E3) for Discord (from War Thunder, quite annoying). Do not compile and run (it's on a server, and you don't have the token).
+"Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
 Prefix: \
 
@@ -8,7 +8,7 @@ Commands:
 - \help 3949
 - \attention [position]
 
-Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter.
+Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
 
 # Release Notes
 ## v1.1.1.0a
