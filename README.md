@@ -13,7 +13,7 @@ Commands:
 Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
 
 # Release Notes
-## v1.1.1.0a
+## v1.1.0.1a
 - Made \restart message send a message to default or available channel on all servers connected
 - This is an alpha build. Features may not remain in it in the official release.
 ## v1.1.0.0
