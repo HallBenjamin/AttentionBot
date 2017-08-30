@@ -1,4 +1,5 @@
-# AttentionBot
+# Attention! Bot for Discord
+### Written using Discord.Net 1.0.1 and Microsoft.Net Framework 4.6.1
 Attention to the designated grid square! (E3) for Discord (from War Thunder, quite annoying). Do not compile and run (it's on a server, and you don't have the token).
 
 Prefix: \
