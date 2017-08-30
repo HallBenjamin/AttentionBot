@@ -13,10 +13,13 @@ Commands:
 Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
 
 # Release Notes
-## v1.2.0.0b
+## v1.2.1.0a
+- Add command to ping the bot for performance analysis
+- This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.2.0.0
 - Made \restart message send a message to default or available channel on all servers connected
 - Add Server Owner \announce command to set announcements channel
-- This is a beta build. Features are official, but it may take a while to finalize them.
+- Saved \announce channel arrays and lists to text file to load upon bot restart
 ## v1.1.0.1
 - Fixed \restart order of parameters to specify time but not bot
 - Fixed \exit command to shut down all bots on my machine
