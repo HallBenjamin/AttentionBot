@@ -24,6 +24,8 @@ Commands:
 - Add command to ping the bot for performance analysis
 - Add ability for bot to send message when back online
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.2.0.1
+- Fixed \help to show up-to-date commands
 ## v1.2.0.0
 - Made \restart message send a message to default or available channel on all servers connected
 - Add Server Owner \announce command to set announcements channel
