@@ -24,6 +24,8 @@ Commands:
 - Add command to ping the bot for performance analysis
 - Add ability for bot to send announcement when back online
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.2.0.2
+- Fixed a bug where announcements couldn't find the server ID
 ## v1.2.0.1
 - Fixed \help to show up-to-date commands
 - Changed \help formatting
