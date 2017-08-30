@@ -14,7 +14,7 @@ Position is one letter A-J (capitalization does not matter) and/or one number 1-
 
 # Release Notes
 ## v1.1.1.0a
-- Added owner ping command for debugging performance for optimization.
+- Made \restart message send a message to default or available channel on all servers connected
 - This is an alpha build. Features may not remain in it in the official release.
 ## v1.1.0.0
 - Added owner \restart command to give a warning to the user about a bot restart
