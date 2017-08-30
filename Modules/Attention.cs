@@ -55,7 +55,7 @@ namespace AttentionBot.Modules
         public async Task help(string _botID = null)
         {
             if (_botID == Program.botID)
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.2.0.1  -  Coded using Discord.Net**\n\n__Prefix:__ \\\n__Commands:__\n\n\\help 3949\n  - Lists all available commands for the bot.\n\n\\announce [channel id]\n  - **SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n\\attention [position]\n  - Position can contain one letter A-J and/or one number 1-9. Order and capitalization do not matter. Position is optional.");
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.2.0.2  -  Coded using Discord.Net**\n\n__Prefix:__ \\\n__Commands:__\n\n\\help 3949\n  - Lists all available commands for the bot.\n\n\\announce [channel id]\n  - **SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n\\attention [position]\n  - Position can contain one letter A-J and/or one number 1-9. Order and capitalization do not matter. Position is optional.");
         }
 
         [Command("announce")]
@@ -67,7 +67,10 @@ namespace AttentionBot.Modules
                 {
                     bool alreadyExists = Program.chanID.Contains(Convert.ToUInt64(_chanID));
                     if (!alreadyExists)
+                    {
                         Program.chanID.Add(Convert.ToUInt64(_chanID));
+                        Program.servID.Add(Context.Guild.Id);
+                    }
 
                     await Context.Channel.SendMessageAsync("The announcements channel is now the channel with id " + _chanID + ".");
                 }
@@ -86,14 +89,14 @@ namespace AttentionBot.Modules
             {
                 for (int i = 0; i < Program.chanIDs.Length; i++)
                 {
-                    await Context.Guild.GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot will go offline for an update in " + time + " minutes.");
+                    await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot will go offline for an update in " + time + " minutes.");
                 }
             }
             else if (_botID == null)
             {
                 for (int i = 0; i < Program.chanIDs.Length; i++)
                 {
-                    await Context.Guild.GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + time + " minutes.");
+                    await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + time + " minutes.");
                 }
             }
         }
@@ -106,10 +109,11 @@ namespace AttentionBot.Modules
             {
                 //await Context.Channel.SendMessageAsync("Attention! Bot is now offline.");
                 Program.chanIDs = Program.chanID.ToArray();
+                Program.servIDs = Program.servID.ToArray();
 
                 for (int i = 0; i < Program.chanIDs.Length; i++)
                 {
-                    await Context.Guild.GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot is now offline.");
+                    await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot is now offline.");
                 }
 
                 if (Program.isConsole)

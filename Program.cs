@@ -28,9 +28,16 @@ namespace AttentionBot
 
         public static ulong[] chanIDs;
 
+        public static List<ulong> servID = new List<ulong>();
+
+        public static ulong[] servIDs;
+
         public static bool loadedChans = false;
 
+        public static bool loadedServs = false;
+
         public static BinaryReader reader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
+        public static BinaryReader readers = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
         public async Task StartAsync()
         {
             if(isConsole)
@@ -58,6 +65,17 @@ namespace AttentionBot
                 chanIDs = chanID.ToArray();
                 reader.Close();
                 loadedChans = true;
+            }
+
+            if(!loadedServs)
+            {
+                for(int i = 0; i < readers.BaseStream.Length; i = i + 8)
+                {
+                    servID.Add(readers.ReadUInt64());
+                }
+                servIDs = servID.ToArray();
+                readers.Close();
+                loadedServs = true;
             }
 
             await Task.Delay(-1);
