@@ -55,7 +55,7 @@ namespace AttentionBot.Modules
         public async Task help(string _botID = null)
         {
             if (_botID == Program.botID)
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.2.0.1  -  Coded using Discord.Net**\n\n__Prefix:__ \\\n__Commands:__\n\n\\help 3949\n- Lists all available commands for the bot.\n\n\\announce [channel id]\n- SERVER OWNERS: Sets the specified channel as the channel for bot announcements.\n\n\\attention [position]\n- Position can contain one letter A-J and/or one number 1-9. Order and capitalization do not matter.");
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.2.0.1  -  Coded using Discord.Net**\n\n__Prefix:__ \\\n__Commands:__\n\n\\help 3949\n*Lists all available commands for the bot.*\n\n\\announce [channel id]\n***SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.*\n\n\\attention [position]\n*Position can contain one letter A-J and/or one number 1-9. Order and capitalization do not matter. Position is optional.*");
         }
 
         [Command("announce")]
