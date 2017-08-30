@@ -8,9 +8,16 @@ Prefix: \
 
 Commands:
 - \help 3949
+
+  - Lists available commands
+
+- \announce [channel id]
+
+  - SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements. Channel ID is mandatory.
+
 - \attention [position]
 
-Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
+  - Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
 
 # Release Notes
 ## v1.2.1.0a
