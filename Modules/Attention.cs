@@ -2,6 +2,7 @@
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Text;
 using System.Threading;
 using System.Threading.Tasks;
@@ -22,7 +23,7 @@ namespace AttentionBot.Modules
 
             string letter = Letter[rnd.Next(0, 10)];
 
-            if(position != null)
+            if (position != null)
             {
                 for (int i = 1; i <= 9; i++)
                 {
@@ -42,7 +43,7 @@ namespace AttentionBot.Modules
                     }
                 }
             }
-            
+
             string[] Text = new string[3] { "Attention to the designated grid square!", "Attention to the designated grid zone!", "Attention to the map!" };
 
             string text = Text[rnd.Next(0, 3)];
@@ -53,8 +54,28 @@ namespace AttentionBot.Modules
         [Command("help")]
         public async Task help(string _botID = null)
         {
-            if(_botID == Program.botID)
-                await Context.Channel.SendMessageAsync("Attention! Bot v1.1.0.1  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
+            if (_botID == Program.botID)
+                await Context.Channel.SendMessageAsync("Attention! Bot v1.2.0.0  -  Coded using Discord.Net\n\nPrefix: \\\nCommands: \\attention [position]\n\nPosition can contain one letter A-J and/or one number 1-9.\n\nExamples:\n\\attention\n\\attention a\n\\attention A\n\\attention 4\n\\attention A4\n\\attention a4\n\\attention 4A\n\\attention 4a");
+        }
+
+        [Command("announce")]
+        public async Task announceChan(string _chanID = null)
+        {
+            if (Context.User.Id == Context.Guild.OwnerId)
+            {
+                if (_chanID != null)
+                {
+                    bool alreadyExists = Program.chanID.Contains(Convert.ToUInt64(_chanID));
+                    if (!alreadyExists)
+                        Program.chanID.Add(Convert.ToUInt64(_chanID));
+
+                    await Context.Channel.SendMessageAsync("The announcements channel is now the channel with id " + _chanID + ".");
+                }
+                else
+                    await Context.Channel.SendMessageAsync("No channel ID given. Please try again.");
+            }
+            else
+                await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
         }
 
         [Command("restart")]
@@ -62,21 +83,43 @@ namespace AttentionBot.Modules
         public async Task restartWarning(string time = "2", string _botID = null)
         {
             if (_botID == Program.botID)
-                await Context.Channel.SendMessageAsync("Attention! Bot will go offline for an update in " + time + " minutes.");
+            {
+                for (int i = 0; i < Program.chanIDs.Length; i++)
+                {
+                    await Context.Guild.GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot will go offline for an update in " + time + " minutes.");
+                }
+            }
             else if (_botID == null)
-                await Context.Channel.SendMessageAsync("Attention! Bot's server will restart in " + time + " minutes.");
+            {
+                for (int i = 0; i < Program.chanIDs.Length; i++)
+                {
+                    await Context.Guild.GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + time + " minutes.");
+                }
+            }
         }
 
         [Command("exit")]
         [RequireOwner]
         public async Task exitAttentionBot(string _botID = null)
         {
-            if(_botID == Program.botID || _botID == null)
+            if (_botID == Program.botID || _botID == null)
             {
-                await Context.Channel.SendMessageAsync("Attention! Bot is now offline.");
+                //await Context.Channel.SendMessageAsync("Attention! Bot is now offline.");
+                Program.chanIDs = Program.chanID.ToArray();
+
+                for (int i = 0; i < Program.chanIDs.Length; i++)
+                {
+                    await Context.Guild.GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot is now offline.");
+                }
 
                 if (Program.isConsole)
                     Console.WriteLine("Attention! Bot Offline");
+
+                BinaryWriter writer = new BinaryWriter(File.Open("channels.txt", FileMode.Open));
+                foreach (var value in Program.chanIDs)
+                {
+                    writer.Write(value);
+                }
 
                 Thread.Sleep(1000);
                 Environment.Exit(0);

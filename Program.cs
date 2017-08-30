@@ -5,6 +5,7 @@ using Discord.WebSocket;
 using System.Threading.Tasks;
 using System.IO;
 using System.Threading;
+using System.Collections.Generic;
 
 namespace AttentionBot
 {
@@ -13,7 +14,7 @@ namespace AttentionBot
         static void Main(string[] args)
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        public String token = "Removed for Security";
+        public String token = "Removed Token for Security";
 
         private DiscordSocketClient _client;
 
@@ -22,6 +23,14 @@ namespace AttentionBot
         public static bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
 
         public static string botID = "3949";
+
+        public static List<ulong> chanID = new List<ulong>();
+
+        public static ulong[] chanIDs;
+
+        public static bool loadedChans = false;
+
+        public static BinaryReader reader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
         public async Task StartAsync()
         {
             if(isConsole)
@@ -39,6 +48,17 @@ namespace AttentionBot
 
             if(isConsole)
                 Console.WriteLine("Attention! Bot Online");
+
+            if(!loadedChans)
+            {
+                for (int i = 0; i < reader.BaseStream.Length; i = i + 8)
+                {
+                    chanID.Add(reader.ReadUInt64());
+                }
+                chanIDs = chanID.ToArray();
+                reader.Close();
+                loadedChans = true;
+            }
 
             await Task.Delay(-1);
         }
