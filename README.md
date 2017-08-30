@@ -13,9 +13,10 @@ Commands:
 Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
 
 # Release Notes
-## v1.1.0.2a
+## v1.1.0.2b
 - Made \restart message send a message to default or available channel on all servers connected
-- This is an alpha build. Features may not remain in it in the official release.
+- Add Server Owner \announce command to set announcements channel
+- This is a beta build. Features are official, but it may take a while to finalize them.
 ## v1.1.0.1
 - Fixed \restart order of parameters to specify time but not bot
 - Fixed \exit command to shut down all bots on my machine
