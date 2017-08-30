@@ -59,7 +59,7 @@ namespace AttentionBot.Modules
 
         [Command("restart")]
         [RequireOwner]
-        public async Task restartWarning(string _botID = null, string time)
+        public async Task restartWarning(string _botID = null, string time = "2")
         {
             if (_botID == Program.botID)
                 await Context.Channel.SendMessageAsync("Attention! Bot will go offline for an update in " + time + " minutes.");
