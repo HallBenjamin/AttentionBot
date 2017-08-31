@@ -36,8 +36,15 @@ namespace AttentionBot
 
         public static bool loadedServs = false;
 
+        public static bool loadedRoles = false;
+
+        public static List<ulong> roleID = new List<ulong>();
+
+        public static ulong[] roleIDs;
+
         public static BinaryReader reader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
         public static BinaryReader readers = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
+        public static BinaryReader roleder = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
         public async Task StartAsync()
         {
             if(isConsole)
@@ -76,6 +83,17 @@ namespace AttentionBot
                 servIDs = servID.ToArray();
                 readers.Close();
                 loadedServs = true;
+            }
+
+            if(!loadedRoles)
+            {
+                for(int i = 0; i < roleder.BaseStream.Length; i = i + 8)
+                {
+                    roleID.Add(roleder.ReadUInt64());
+                }
+                roleIDs = roleID.ToArray();
+                roleder.Close();
+                loadedRoles = true;
             }
 
             await Task.Delay(-1);
