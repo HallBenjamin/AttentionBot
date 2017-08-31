@@ -2,6 +2,8 @@
 ### Written using Discord.Net 1.0.1 and Microsoft.Net Framework 4.6.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
+##### Note: This bot is constantly evolving. With 2 commands and just over 100 lines of code yesterday, it now has 6 commands (4 for the public) with 400 lines of code.
+
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=203776
 
 Prefix: \
@@ -11,9 +13,13 @@ Commands:
 
   - Lists available commands
 
+- \admin [role id]
+
+  - SERVER OWNER ONLY! Sets the specified role as an administrative role for the bot's admin commands.
+
 - \announce [channel id]
 
-  - SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements. Channel ID is mandatory.
+  - ADMINS AND SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements. Channel ID is mandatory.
 
 - \attention [position]
 
