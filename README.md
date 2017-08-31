@@ -20,10 +20,21 @@ Commands:
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
 
 # Release Notes
-## v1.2.1.0a
+## v1.3.1.0a
 - Add command to ping the bot for performance analysis
 - Add ability for bot to send announcement when back online
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.0.1
+- Added \admin command to add administrative roles
+- Changed \announce command to let admin roles from above use it
+- Changed \announce command to only let one channel per server use it
+- Removed unused comment
+- Made external files for Channel, Server, and Role info save immediately in case of crash
+- Updated \help
+## v1.3.0.0 (beta tested)
+- Same release notes for v1.3.0.1
+- v1.3.0.1 fixed a bug where the \announce command wouldn't let admins use it, breaking the entire bot
+- v1.3.0.1 fixed a bug where the bot wouldn't finish starting up after reading the txt files
 ## v1.2.0.2
 - Fixed a bug where announcements couldn't find the server ID
 ## v1.2.0.1
