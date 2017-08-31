@@ -10,7 +10,7 @@ namespace AttentionBot
 {
     public class CommandHandler
     {
-        public static char prefix = '\\';
+        const char prefix = '\\';
 
         private DiscordSocketClient _client;
 
