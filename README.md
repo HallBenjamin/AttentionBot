@@ -30,6 +30,8 @@ Commands:
 - Add command to ping the bot for performance analysis
 - Add ability for bot to send announcement when back online
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.0.2
+- Made some public static variables local
 ## v1.3.0.1
 - Added \admin command to add administrative roles
 - Changed \announce command to let admin roles from above use it
