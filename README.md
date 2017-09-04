@@ -32,6 +32,8 @@ Commands:
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v1.3.0.3
 - Put Admin Commands in separate file
+- Removed unused usings
+- Made more public static variables local
 ## v1.3.0.2
 - Made some public static variables local
 - Fixed \help
