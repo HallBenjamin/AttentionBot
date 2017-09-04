@@ -1,10 +1,8 @@
 ﻿using System;
 using Discord;
-using Discord.Commands;
 using Discord.WebSocket;
 using System.Threading.Tasks;
 using System.IO;
-using System.Threading;
 using System.Collections.Generic;
 
 namespace AttentionBot
@@ -14,7 +12,7 @@ namespace AttentionBot
         static void Main(string[] args)
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        public String token = "Removed Token for Security";
+        String token = "Removed Token for Security";
 
         private DiscordSocketClient _client;
 
@@ -32,19 +30,15 @@ namespace AttentionBot
 
         public static ulong[] servIDs;
 
-        public static bool loadedChans = false;
-
-        public static bool loadedServs = false;
-
-        public static bool loadedRoles = false;
-
         public static List<ulong> roleID = new List<ulong>();
 
         public static ulong[] roleIDs;
 
-        public static BinaryReader reader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
-        public static BinaryReader readers = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
-        public static BinaryReader roleder = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
+        bool loadedChans = false;
+
+        bool loadedServs = false;
+
+        bool loadedRoles = false;
         public async Task StartAsync()
         {
             if(isConsole)
@@ -65,6 +59,7 @@ namespace AttentionBot
 
             if(!loadedChans)
             {
+                BinaryReader reader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < reader.BaseStream.Length; i = i + 8)
                 {
                     chanID.Add(reader.ReadUInt64());
@@ -76,7 +71,8 @@ namespace AttentionBot
 
             if(!loadedServs)
             {
-                for(int i = 0; i < readers.BaseStream.Length; i = i + 8)
+                BinaryReader readers = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
+                for (int i = 0; i < readers.BaseStream.Length; i = i + 8)
                 {
                     servID.Add(readers.ReadUInt64());
                 }
@@ -87,7 +83,8 @@ namespace AttentionBot
 
             if(!loadedRoles)
             {
-                for(int i = 0; i < roleder.BaseStream.Length; i = i + 8)
+                BinaryReader roleder = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
+                for (int i = 0; i < roleder.BaseStream.Length; i = i + 8)
                 {
                     roleID.Add(roleder.ReadUInt64());
                 }

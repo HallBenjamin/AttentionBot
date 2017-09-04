@@ -27,7 +27,7 @@
     <TargetCulture>en-US</TargetCulture>
     <ProductName>AttentionBot</ProductName>
     <PublisherName>Josedolf Staller</PublisherName>
-    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationRevision>3</ApplicationRevision>
     <ApplicationVersion>1.3.0.%2a</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -176,6 +176,7 @@
     </Reference>
   </ItemGroup>
   <ItemGroup>
+    <Compile Include="Modules\Admin.cs" />
     <Compile Include="Modules\Attention.cs" />
     <Compile Include="CommandHandler.cs" />
     <Compile Include="Program.cs" />
