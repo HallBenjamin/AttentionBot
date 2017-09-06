@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.1 and Microsoft.Net Framework 4.6.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just over 100 lines of code yesterday, it now has 8 commands (4 for the public) with 450 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 8 commands (4 for the public) with 450 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=203776
 
