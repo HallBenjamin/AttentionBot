@@ -6,7 +6,7 @@ using System.Threading.Tasks;
 
 namespace AttentionBot.Modules
 {
-    class Admin : ModuleBase<SocketCommandContext>
+    public class Admin : ModuleBase<SocketCommandContext>
     {
         [Command("admin")]
         public async Task adminRoles(string _roleID = null)
