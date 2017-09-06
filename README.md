@@ -26,10 +26,19 @@ Commands:
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
 
 # Release Notes
-## v1.3.1.0a
+## v1.3.2.0a
 - Add command to ping the bot for performance analysis
-- Add ability for bot to send announcement when back online
+- Modified ability for bot to send announcement when back online to be automated
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.1.0
+- Added ability for bot to send announcement when back online
+- Added ability for bot owner to send announcements
+- Fixed bug where admin commands wouldn't execute
+- Transfered Owner commands to separate C# file
+## v1.3.0.4 (beta tested)
+- Same release notes for v1.3.1.0
+- v1.3.1.0 Fixed the bug
+- v1.3.1.0 added the announcements feature
 ## v1.3.0.3
 - Put Admin Commands in separate file
 - Removed unused usings
