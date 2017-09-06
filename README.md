@@ -30,6 +30,9 @@ Commands:
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.1.1
+- Fixed issue where position number couldn't be 10
+- Fixed \help to show position number 10 as an option
 ## v1.3.1.0
 - Added ability for bot to send announcement when back online
 - Added ability for bot owner to send announcements
