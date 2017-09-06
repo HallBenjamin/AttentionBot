@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.1 and Microsoft.Net Framework 4.6.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just over 100 lines of code yesterday, it now has 6 commands (4 for the public) with 400 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just over 100 lines of code yesterday, it now has 8 commands (4 for the public) with 450 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=203776
 
@@ -23,7 +23,7 @@ Commands:
 
 - \attention [position]
 
-  - Position is one letter A-J (capitalization does not matter) and/or one number 1-9. Order does not matter. Position is not required for the command.
+  - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter. Position is not required for the command.
 
 # Release Notes
 ## v1.3.2.0a
