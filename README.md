@@ -29,6 +29,7 @@ Commands:
 ## v1.3.2.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
+- Let \attention mention user with specified id
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v1.3.1.1
 - Fixed issue where position number couldn't be 10
