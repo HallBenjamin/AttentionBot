@@ -26,11 +26,18 @@ Commands:
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter. Position is not required for the command.
 
 # Release Notes
-## v1.3.2.0a
+## v2.0.0.0e
+- Transfer into universal bot for more commands
+- This is a long-fetched, experimental idea that may never be created.
+## v1.3.3.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - Let \attention mention user with specified id
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.2.0
+- Updated to Discord.Net 1.0.2
+- Changed null to "all" for bot exit
+- Added length of time bot will be offline if for server shutdown
 ## v1.3.1.1
 - Fixed issue where position number couldn't be 10
 - Fixed \help to show position number 10 as an option
