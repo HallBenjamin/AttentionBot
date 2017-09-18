@@ -50,9 +50,9 @@ namespace AttentionBot.Modules
 
         [Command("exit")]
         [RequireOwner]
-        public async Task exitAttentionBot(string _botID = null)
+        public async Task exitAttentionBot(string _botID = "all", string _length = null)
         {
-            if (_botID == Program.botID || _botID == null)
+            if (_botID == Program.botID || _botID == "all")
             {
                 Program.chanIDs = Program.chanID.ToArray();
                 Program.servIDs = Program.servID.ToArray();
@@ -67,9 +67,18 @@ namespace AttentionBot.Modules
                 }
                 else
                 {
-                    for (int i = 0; i < Program.chanIDs.Length; i++)
+                    if(_length != null)
                     {
-                        await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline.");
+                        for (int i = 0; i < Program.chanIDs.Length; i++)
+                        {
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours.");
+                        }
+                    } else
+                    {
+                        for (int i = 0; i < Program.chanIDs.Length; i++)
+                        {
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline.");
+                        }
                     }
                 }
 
