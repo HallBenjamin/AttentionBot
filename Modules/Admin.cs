@@ -35,6 +35,48 @@ namespace AttentionBot.Modules
 
         }
 
+        [Command("mentions")]
+        public async Task mentionsPermitted(string _mentions)
+        {
+            bool hasRole = false;
+            for (int i = 0; i < Program.roleIDs.Length; i++)
+            {
+                hasRole = Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(Program.roleIDs[i]));
+                if (hasRole)
+                    break;
+            }
+            if (Context.User.Id == Context.Guild.OwnerId || hasRole)
+            {
+                if (_mentions == "0")
+                {
+                    if (Program.mentionID.Contains(Context.Guild.Id))
+                        Program.mentionID.Remove(Context.Guild.Id);
+
+                    await Context.Channel.SendMessageAsync("Mentions Disabled!");
+                }
+                else if (_mentions == "1")
+                {
+                    if (Program.mentionID.Contains(Context.Guild.Id))
+                        Program.mentionID.Remove(Context.Guild.Id);
+
+                    Program.mentionID.Add(Context.Guild.Id);
+
+                    await Context.Channel.SendMessageAsync("Mentions Enabled!");
+                }
+                else
+                    await Context.Channel.SendMessageAsync("Invalid Parameter. Valid parameters are 0 and 1");
+
+                Program.mentionIDs = Program.mentionID.ToArray();
+
+                BinaryWriter writion = new BinaryWriter(File.Open("mentions.txt", FileMode.Open));
+                foreach (var value in Program.mentionIDs)
+                {
+                    writion.Write(value);
+                }
+                writion.Close();
+            }
+        }
+
         [Command("announce")]
         public async Task announceChan(string _chanID = null)
         {

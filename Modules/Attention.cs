@@ -7,7 +7,7 @@ namespace AttentionBot.Modules
     public class Attention : ModuleBase<SocketCommandContext>
     {
         [Command("attention")]
-        public async Task attention(string position = null)
+        public async Task attention(string position = null, string _mentionID = null)
         {
             Random rnd = new Random();
             int Number = rnd.Next(1, 11);
@@ -43,14 +43,19 @@ namespace AttentionBot.Modules
 
             string text = Text[rnd.Next(0, 3)];
 
-            await Context.Channel.SendMessageAsync(text + " (" + letter + number + ")");
+            var myUser = Context.Guild.GetUser(Convert.ToUInt64(_mentionID));
+
+            if (Program.mentionID.Contains(Context.Guild.Id))
+                await Context.Channel.SendMessageAsync(myUser.Mention + " " + text + " (" + letter + number + ")");
+            else
+                await Context.Channel.SendMessageAsync(text + " (" + letter + number + ")");
         }
 
         [Command("help")]
         public async Task help(string _botID = null)
         {
             if (_botID == Program.botID)
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.3.2.0  -  Coded using Discord.Net**\n\n__Prefix:__ \\\n__Commands:__\n\n\\help 3949\n  - Lists all available commands for the bot.\n\n\\admin [role id]\n  - **SERVER OWNERS:** Sets the specified role as an administrative role for the bot's admin commands.\n\n\\announce [channel id]\n  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n\\attention [position]\n  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter. Position is optional.");
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.3.3.0  -  Coded using Discord.Net**\n\n__Prefix:__ \\\n__Commands:__\n\n\\help 3949\n  - Lists all available commands for the bot.\n\n\\admin [role id]\n  - **SERVER OWNERS:** Sets the specified role as an administrative role for the bot's admin commands.\n\n\\mentions [0/1]\n  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n\\announce [channel id]\n  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n\\attention [position] [user id]\n  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter. Position is optional.\nUser ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.");
         }
     }
 }

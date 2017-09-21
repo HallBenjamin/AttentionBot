@@ -34,11 +34,17 @@ namespace AttentionBot
 
         public static ulong[] roleIDs;
 
+        public static List<ulong> mentionID = new List<ulong>();
+
+        public static ulong[] mentionIDs;
+
         bool loadedChans = false;
 
         bool loadedServs = false;
 
         bool loadedRoles = false;
+
+        bool loadedMentions = false;
         public async Task StartAsync()
         {
             if(isConsole)
@@ -90,6 +96,18 @@ namespace AttentionBot
                 }
                 roleIDs = roleID.ToArray();
                 roleder.Close();
+                loadedRoles = true;
+            }
+
+            if (!loadedMentions)
+            {
+                BinaryReader roletion = new BinaryReader(File.Open("mentions.txt", FileMode.OpenOrCreate));
+                for (int i = 0; i < roletion.BaseStream.Length; i = i + 8)
+                {
+                    mentionID.Add(roletion.ReadUInt64());
+                }
+                mentionIDs = mentionID.ToArray();
+                roletion.Close();
                 loadedRoles = true;
             }
 
