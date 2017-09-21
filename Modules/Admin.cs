@@ -18,7 +18,7 @@ namespace AttentionBot.Modules
                     Program.roleID.Add(Convert.ToUInt64(_roleID));
                     Program.roleIDs = Program.roleID.ToArray();
 
-                    BinaryWriter roler = new BinaryWriter(File.Open("roles.txt", FileMode.Open));
+                    BinaryWriter roler = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
                     foreach (var value in Program.roleIDs)
                     {
                         roler.Write(value);
@@ -47,12 +47,14 @@ namespace AttentionBot.Modules
             }
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
+                string _mentionsEnabled;
+
                 if (_mentions == "0")
                 {
                     if (Program.mentionID.Contains(Context.Guild.Id))
                         Program.mentionID.Remove(Context.Guild.Id);
 
-                    await Context.Channel.SendMessageAsync("Mentions Disabled!");
+                    _mentionsEnabled = "Disabled";
                 }
                 else if (_mentions == "1")
                 {
@@ -61,20 +63,27 @@ namespace AttentionBot.Modules
 
                     Program.mentionID.Add(Context.Guild.Id);
 
-                    await Context.Channel.SendMessageAsync("Mentions Enabled!");
+                    _mentionsEnabled = "Enabled";
                 }
                 else
-                    await Context.Channel.SendMessageAsync("Invalid Parameter. Valid parameters are 0 and 1");
+                {
+                    await Context.Channel.SendMessageAsync("Invalid Parameter. Valid parameters are \"disabled\" and \"enabled\".");
+                    return;
+                }
 
                 Program.mentionIDs = Program.mentionID.ToArray();
 
-                BinaryWriter writion = new BinaryWriter(File.Open("mentions.txt", FileMode.Open));
+                BinaryWriter writion = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
                 foreach (var value in Program.mentionIDs)
                 {
                     writion.Write(value);
                 }
                 writion.Close();
+
+                await Context.Channel.SendMessageAsync("Mentions " + _mentionsEnabled + "!");
             }
+            else
+                await Context.Channel.SendMessageAsync("You are not the owner/admin of the server and cannot use this command.");
         }
 
         [Command("announce")]
@@ -109,14 +118,14 @@ namespace AttentionBot.Modules
                         Program.chanIDs = Program.chanID.ToArray();
                         Program.servIDs = Program.servID.ToArray();
 
-                        BinaryWriter writer = new BinaryWriter(File.Open("channels.txt", FileMode.Open));
+                        BinaryWriter writer = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
                         foreach (var value in Program.chanIDs)
                         {
                             writer.Write(value);
                         }
                         writer.Close();
 
-                        BinaryWriter writers = new BinaryWriter(File.Open("servers.txt", FileMode.Open));
+                        BinaryWriter writers = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
                         foreach (var value in Program.servIDs)
                         {
                             writers.Write(value);
@@ -130,7 +139,7 @@ namespace AttentionBot.Modules
                     await Context.Channel.SendMessageAsync("No channel ID given. Please try again.");
             }
             else
-                await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("You are not the owner/admin of the server and cannot use this command.");
         }
     }
 }
