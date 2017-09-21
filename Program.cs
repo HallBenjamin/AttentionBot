@@ -108,7 +108,7 @@ namespace AttentionBot
                 }
                 mentionIDs = mentionID.ToArray();
                 roletion.Close();
-                loadedRoles = true;
+                loadedMentions = true;
             }
 
             await Task.Delay(-1);
