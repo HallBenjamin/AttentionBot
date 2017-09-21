@@ -1,10 +1,10 @@
 # Attention! Bot for Discord
-### Written using Discord.Net 1.0.1 and Microsoft.Net Framework 4.6.1
+### Written using Discord.Net 1.0.2 and Microsoft.Net Framework 4.6.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 8 commands (4 for the public) with 450 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 9 commands (5 for the public) with 450 lines of code.
 
-Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=203776
+Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=104012800
 
 Prefix: \
 
@@ -17,21 +17,28 @@ Commands:
 
   - SERVER OWNER ONLY! Sets the specified role as an administrative role for the bot's admin commands.
 
+- \mentions [0/1]
+
+  - ADMINS AND SERVER OWNERS ONLY! Enables (1) or disables (0) user mentions for the bot.
+
 - \announce [channel id]
 
   - ADMINS AND SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements. Channel ID is mandatory.
 
-- \attention [position]
+- \attention [position] [user ID]
 
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter. Position is not required for the command.
+  
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention. User ID is optional.
 
 # Release Notes
 ## v2.0.0.0e
 - Transfer into universal bot for more commands
-- This is a long-fetched, experimental idea that may never be created.
+- This is a far-fetched, experimental idea that may never be created.
 ## v1.3.4.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
+- Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v1.3.3.1
 - Fixed an issue where multiple channels on the server could recieve bot announcements
