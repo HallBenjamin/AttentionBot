@@ -29,11 +29,13 @@ Commands:
 ## v2.0.0.0e
 - Transfer into universal bot for more commands
 - This is a long-fetched, experimental idea that may never be created.
-## v1.3.3.0a
+## v1.3.4.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
-- Let \attention mention user with specified id
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.3.0
+- Added ability for bot to mention user
+- Added \mentions command for Admins to control if user mentions are enabled for the bot
 ## v1.3.2.0
 - Updated to Discord.Net 1.0.2
 - Changed null to "all" for bot exit
