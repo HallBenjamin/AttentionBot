@@ -58,7 +58,7 @@ namespace AttentionBot.Modules
                 Program.servIDs = Program.servID.ToArray();
                 Program.roleIDs = Program.roleID.ToArray();
 
-                if(_botID != null)
+                if(_botID != "all")
                 {
                     for (int i = 0; i < Program.chanIDs.Length; i++)
                     {

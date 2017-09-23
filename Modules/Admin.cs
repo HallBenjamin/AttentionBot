@@ -133,7 +133,7 @@ namespace AttentionBot.Modules
                         writers.Close();
                     }
 
-                    await Context.Channel.SendMessageAsync("The announcements channel is now the channel with id " + _chanID + ".");
+                    await Context.Channel.SendMessageAsync("The announcements channel is now the channel with ID " + _chanID + ".");
                 }
                 else
                     await Context.Channel.SendMessageAsync("No channel ID given. Please try again.");
