@@ -35,11 +35,14 @@ Commands:
 ## v2.0.0.0e
 - Transfer into universal bot for more commands
 - This is a far-fetched, experimental idea that may never be created.
-## v1.3.4.0a
+## v1.3.5.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.4.0
+- Added parameters to \offline
+- Changed BinaryFile variable names for readability
 ## v1.3.3.1
 - Fixed an issue where multiple channels on the server could recieve bot announcements
 - Fixed an issue where \mention 0 wouldn't save
