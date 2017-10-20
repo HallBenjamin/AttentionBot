@@ -12,7 +12,7 @@ namespace AttentionBot
         static void Main(string[] args)
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        String token = "Removed Token for Security";
+        String token = "Removed for Security";
 
         private DiscordSocketClient _client;
 
@@ -65,53 +65,54 @@ namespace AttentionBot
 
             if(!loadedChans)
             {
-                BinaryReader reader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < reader.BaseStream.Length; i = i + 8)
+                BinaryReader chanReader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
+                for (int i = 0; i < chanReader.BaseStream.Length; i = i + 8)
                 {
-                    chanID.Add(reader.ReadUInt64());
+                    chanID.Add(chanReader.ReadUInt64());
                 }
                 chanIDs = chanID.ToArray();
-                reader.Close();
+                chanReader.Close();
                 loadedChans = true;
             }
 
             if(!loadedServs)
             {
-                BinaryReader readers = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < readers.BaseStream.Length; i = i + 8)
+                BinaryReader servReader = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
+                for (int i = 0; i < servReader.BaseStream.Length; i = i + 8)
                 {
-                    servID.Add(readers.ReadUInt64());
+                    servID.Add(servReader.ReadUInt64());
                 }
                 servIDs = servID.ToArray();
-                readers.Close();
+                servReader.Close();
                 loadedServs = true;
             }
 
             if(!loadedRoles)
             {
-                BinaryReader roleder = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < roleder.BaseStream.Length; i = i + 8)
+                BinaryReader roleReader = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
+                for (int i = 0; i < roleReader.BaseStream.Length; i = i + 8)
                 {
-                    roleID.Add(roleder.ReadUInt64());
+                    roleID.Add(roleReader.ReadUInt64());
                 }
                 roleIDs = roleID.ToArray();
-                roleder.Close();
+                roleReader.Close();
                 loadedRoles = true;
             }
 
             if (!loadedMentions)
             {
-                BinaryReader roletion = new BinaryReader(File.Open("mentions.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < roletion.BaseStream.Length; i = i + 8)
+                BinaryReader mentReader = new BinaryReader(File.Open("mentions.txt", FileMode.OpenOrCreate));
+                for (int i = 0; i < mentReader.BaseStream.Length; i = i + 8)
                 {
-                    mentionID.Add(roletion.ReadUInt64());
+                    mentionID.Add(mentReader.ReadUInt64());
                 }
                 mentionIDs = mentionID.ToArray();
-                roletion.Close();
+                mentReader.Close();
                 loadedMentions = true;
             }
 
             await Task.Delay(-1);
         }
+
     }
 }

@@ -18,12 +18,12 @@ namespace AttentionBot.Modules
                     Program.roleID.Add(Convert.ToUInt64(_roleID));
                     Program.roleIDs = Program.roleID.ToArray();
 
-                    BinaryWriter roler = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
+                    BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
                     foreach (var value in Program.roleIDs)
                     {
-                        roler.Write(value);
+                        roleWriter.Write(value);
                     }
-                    roler.Close();
+                    roleWriter.Close();
 
                     await Context.Channel.SendMessageAsync("Role has been added as an administrative role.");
                 }
@@ -73,12 +73,12 @@ namespace AttentionBot.Modules
 
                 Program.mentionIDs = Program.mentionID.ToArray();
 
-                BinaryWriter writion = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
+                BinaryWriter mentWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
                 foreach (var value in Program.mentionIDs)
                 {
-                    writion.Write(value);
+                    mentWriter.Write(value);
                 }
-                writion.Close();
+                mentWriter.Close();
 
                 await Context.Channel.SendMessageAsync("Mentions " + _mentionsEnabled + "!");
             }
@@ -118,19 +118,19 @@ namespace AttentionBot.Modules
                         Program.chanIDs = Program.chanID.ToArray();
                         Program.servIDs = Program.servID.ToArray();
 
-                        BinaryWriter writer = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                        BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
                         foreach (var value in Program.chanIDs)
                         {
-                            writer.Write(value);
+                            chanWriter.Write(value);
                         }
-                        writer.Close();
+                        chanWriter.Close();
 
-                        BinaryWriter writers = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                        BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
                         foreach (var value in Program.servIDs)
                         {
-                            writers.Write(value);
+                            servWriter.Write(value);
                         }
-                        writers.Close();
+                        servWriter.Close();
                     }
 
                     await Context.Channel.SendMessageAsync("The announcements channel is now the channel with ID " + _chanID + ".");

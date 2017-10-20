@@ -24,7 +24,7 @@ namespace AttentionBot.Modules
         {
             for (int i = 0; i < Program.chanIDs.Length; i++)
             {
-                await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync(announceMessage);
+                await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! " + announceMessage);
             }
         }
 
@@ -50,7 +50,7 @@ namespace AttentionBot.Modules
 
         [Command("exit")]
         [RequireOwner]
-        public async Task exitAttentionBot(string _botID = "all", string _length = null)
+        public async Task exitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
         {
             if (_botID == Program.botID || _botID == "all")
             {
@@ -69,10 +69,20 @@ namespace AttentionBot.Modules
                 {
                     if(_length != null)
                     {
-                        for (int i = 0; i < Program.chanIDs.Length; i++)
+                        if(_reason == null)
                         {
-                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours.");
+                            for (int i = 0; i < Program.chanIDs.Length; i++)
+                            {
+                                await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours.");
+                            }
+                        } else
+                        {
+                            for (int i = 0; i < Program.chanIDs.Length; i++)
+                            {
+                                await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours due to " + _reason + ".");
+                            }
                         }
+                        
                     } else
                     {
                         for (int i = 0; i < Program.chanIDs.Length; i++)
@@ -84,27 +94,6 @@ namespace AttentionBot.Modules
 
                 if (Program.isConsole)
                     Console.WriteLine("Attention! Bot Offline");
-
-                BinaryWriter writer = new BinaryWriter(File.Open("channels.txt", FileMode.Open));
-                foreach (var value in Program.chanIDs)
-                {
-                    writer.Write(value);
-                }
-                writer.Close();
-
-                BinaryWriter writers = new BinaryWriter(File.Open("servers.txt", FileMode.Open));
-                foreach (var value in Program.servIDs)
-                {
-                    writers.Write(value);
-                }
-                writers.Close();
-
-                BinaryWriter roler = new BinaryWriter(File.Open("roles.txt", FileMode.Open));
-                foreach (var value in Program.roleIDs)
-                {
-                    roler.Write(value);
-                }
-                roler.Close();
 
                 Thread.Sleep(1000);
                 Environment.Exit(0);
