@@ -40,6 +40,10 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.4.1
+- Changed syntax of Owner \restart
+- Added parameters to Owner \restart
+- Optimized and compressed code for Owner \exit
 ## v1.3.4.0
 - Added parameters to \offline
 - Changed BinaryFile variable names for readability
