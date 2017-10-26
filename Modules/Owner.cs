@@ -12,7 +12,7 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task onlineNotify()
         {
-            for(int i = 0; i < Program.chanIDs.Length; i++)
+            for (int i = 0; i < Program.chanIDs.Length; i++)
             {
                 await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot is now online.");
             }
@@ -30,20 +30,40 @@ namespace AttentionBot.Modules
 
         [Command("restart")]
         [RequireOwner]
-        public async Task restartWarning(string time = "2", string _botID = null)
+        public async Task restartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
         {
             if (_botID == Program.botID)
             {
                 for (int i = 0; i < Program.chanIDs.Length; i++)
                 {
-                    await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot will go offline for an update in " + time + " minutes.");
+                    await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot will go offline for an update in " + _time + " minutes.");
                 }
             }
-            else if (_botID == null)
+            else if (_botID == "all")
             {
-                for (int i = 0; i < Program.chanIDs.Length; i++)
+                if (_length == null)
                 {
-                    await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + time + " minutes.");
+                    for (int i = 0; i < Program.chanIDs.Length; i++)
+                    {
+                        await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + _time + " minutes.");
+                    }
+                }
+                else
+                {
+                    if (_reason == null)
+                    {
+                        for (int i = 0; i < Program.chanIDs.Length; i++)
+                        {
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + _time + " minutes for " + _length + " hours.");
+                        }
+                    }
+                    else
+                    {
+                        for (int i = 0; i < Program.chanIDs.Length; i++)
+                        {
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + _time + " minutes for " + _length + " hours due to " + _reason + ".");
+                        }
+                    }
                 }
             }
         }
@@ -52,52 +72,52 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task exitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
         {
-            if (_botID == Program.botID || _botID == "all")
-            {
-                Program.chanIDs = Program.chanID.ToArray();
-                Program.servIDs = Program.servID.ToArray();
-                Program.roleIDs = Program.roleID.ToArray();
+            Program.chanIDs = Program.chanID.ToArray();
+            Program.servIDs = Program.servID.ToArray();
+            Program.roleIDs = Program.roleID.ToArray();
 
-                if(_botID != "all")
+            if (_botID == Program.botID)
+            {
+                for (int i = 0; i < Program.chanIDs.Length; i++)
+                {
+                    await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot is now offline.");
+                }
+            }
+            else if (_botID == "all")
+            {
+                if (_length == null)
                 {
                     for (int i = 0; i < Program.chanIDs.Length; i++)
                     {
-                        await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot is now offline.");
+                        await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline.");
                     }
                 }
                 else
                 {
-                    if(_length != null)
-                    {
-                        if(_reason == null)
-                        {
-                            for (int i = 0; i < Program.chanIDs.Length; i++)
-                            {
-                                await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours.");
-                            }
-                        } else
-                        {
-                            for (int i = 0; i < Program.chanIDs.Length; i++)
-                            {
-                                await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours due to " + _reason + ".");
-                            }
-                        }
-                        
-                    } else
+                    if (_reason == null)
                     {
                         for (int i = 0; i < Program.chanIDs.Length; i++)
                         {
-                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline.");
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours.");
                         }
                     }
+                    else
+                    {
+                        for (int i = 0; i < Program.chanIDs.Length; i++)
+                        {
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours due to " + _reason + ".");
+                        }
+                    }
+
                 }
 
-                if (Program.isConsole)
-                    Console.WriteLine("Attention! Bot Offline");
-
-                Thread.Sleep(1000);
-                Environment.Exit(0);
             }
+
+            if (Program.isConsole)
+                Console.WriteLine("Attention! Bot Offline");
+
+            Thread.Sleep(1000);
+            Environment.Exit(0);
         }
     }
 }
