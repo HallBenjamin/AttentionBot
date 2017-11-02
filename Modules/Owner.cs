@@ -54,14 +54,14 @@ namespace AttentionBot.Modules
                     {
                         for (int i = 0; i < Program.chanIDs.Length; i++)
                         {
-                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + _time + " minutes for " + _length + " hours.");
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes for " + _length + " hours.");
                         }
                     }
                     else
                     {
                         for (int i = 0; i < Program.chanIDs.Length; i++)
                         {
-                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will restart in " + _time + " minutes for " + _length + " hours due to " + _reason + ".");
+                            await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes for " + _length + " hours due to " + _reason + ".");
                         }
                     }
                 }
