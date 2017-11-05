@@ -34,6 +34,7 @@ Commands:
 # Release Notes
 ## v2.0.0.0e
 - Transfer into universal bot for more commands
+  - Add built-in moderation and administrative commands for a server to reduce the number of bots a server needs to run
 - This is a far-fetched, experimental idea that may never be created.
 ## v1.3.5.0a
 - Add command to ping the bot for performance analysis
