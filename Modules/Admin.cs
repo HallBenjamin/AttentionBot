@@ -15,7 +15,8 @@ namespace AttentionBot.Modules
             {
                 if (_roleID != null)
                 {
-                    Program.roleID.Add(Convert.ToUInt64(_roleID));
+                    if (!Program.roleID.Contains(Convert.ToUInt64(_roleID)))
+                        Program.roleID.Add(Convert.ToUInt64(_roleID));
                     Program.roleIDs = Program.roleID.ToArray();
 
                     BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
@@ -58,10 +59,8 @@ namespace AttentionBot.Modules
                 }
                 else if (_mentions == "1")
                 {
-                    if (Program.mentionID.Contains(Context.Guild.Id))
-                        Program.mentionID.Remove(Context.Guild.Id);
-
-                    Program.mentionID.Add(Context.Guild.Id);
+                    if (!Program.mentionID.Contains(Context.Guild.Id))
+                        Program.mentionID.Add(Context.Guild.Id);
 
                     _mentionsEnabled = "Enabled";
                 }
@@ -83,7 +82,7 @@ namespace AttentionBot.Modules
                 await Context.Channel.SendMessageAsync("Mentions " + _mentionsEnabled + "!");
             }
             else
-                await Context.Channel.SendMessageAsync("You are not the owner/admin of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("You are not the owner or admin of the server and cannot use this command.");
         }
 
         [Command("announce")]
@@ -101,15 +100,12 @@ namespace AttentionBot.Modules
             {
                 if (_chanID != null)
                 {
-                    bool alreadyExists = Program.chanID.Contains(Convert.ToUInt64(_chanID));
-                    bool alreadyExist = Program.servID.Contains(Context.Guild.Id);
-                    if (!alreadyExists)
+                    if (!Program.chanID.Contains(Convert.ToUInt64(_chanID)))
                     {
-                        if (alreadyExist)
+                        if (Program.servID.Contains(Context.Guild.Id))
                         {
                             Program.chanID.Remove(Convert.ToUInt64(_chanID));
                             Program.servID.Remove(Context.Guild.Id);
-
                         }
 
                         Program.chanID.Add(Convert.ToUInt64(_chanID));
@@ -139,7 +135,7 @@ namespace AttentionBot.Modules
                     await Context.Channel.SendMessageAsync("No channel ID given. Please try again.");
             }
             else
-                await Context.Channel.SendMessageAsync("You are not the owner/admin of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("You are not the owner or admin of the server and cannot use this command.");
         }
     }
 }

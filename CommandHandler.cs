@@ -32,7 +32,7 @@ namespace AttentionBot
             var context = new SocketCommandContext(_client, msg);
 
             int argPos = 0;
-            if(msg.HasCharPrefix(prefix, ref argPos))
+            if (msg.HasCharPrefix(prefix, ref argPos))
             {
                 var result = await _service.ExecuteAsync(context, argPos);
 
