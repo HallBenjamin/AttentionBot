@@ -32,15 +32,15 @@ Commands:
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention. User ID is optional.
 
 # Release Notes
-## v2.0.0.0e
-- Transfer into universal bot for more commands
-  - Add built-in moderation and administrative commands for a server to reduce the number of bots a server needs to run
-- This is a far-fetched, experimental idea that may never be created.
 ## v1.3.5.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.4.3
+- Updated .NET Framework Components
+- Updated code formatting
+- Optimized some of the code
 ## v1.3.4.2
 - Fixed output text of Owner \restart with the [length] parameter
 ## v1.3.4.1
