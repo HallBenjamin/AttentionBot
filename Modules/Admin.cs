@@ -102,10 +102,13 @@ namespace AttentionBot.Modules
                 {
                     if (!Program.chanID.Contains(Convert.ToUInt64(_chanID)))
                     {
-                        if (Program.servID.Contains(Context.Guild.Id))
+                        for(int i = 0; i < Program.servIDs.Length; i++)
                         {
-                            Program.chanID.Remove(Convert.ToUInt64(_chanID));
-                            Program.servID.Remove(Context.Guild.Id);
+                            if(Program.servIDs[i] == Context.Guild.Id)
+                            {
+                                Program.chanID.Remove(Program.chanIDs[i]);
+                                Program.servID.Remove(Context.Guild.Id);
+                            }
                         }
 
                         Program.chanID.Add(Convert.ToUInt64(_chanID));
