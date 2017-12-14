@@ -37,6 +37,10 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.4.6
+- Fixed error where if bot was kicked from a server, it couldn't send announcements
+## v1.3.4.5
+- Fixed Owner \exit command saying "Shutting down" instead of "Restarting"
 ## v1.3.4.4
 - Fixed a code-breaking bug with saving the \announce info to the text file
 ## v1.3.4.3
