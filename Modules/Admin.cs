@@ -107,7 +107,8 @@ namespace AttentionBot.Modules
                             if(Program.servIDs[i] == Context.Guild.Id)
                             {
                                 Program.chanID.Remove(Program.chanIDs[i]);
-                                Program.servID.Remove(Context.Guild.Id);
+                                Program.servID.Remove(Program.servIDs[i]);
+                                break;
                             }
                         }
 

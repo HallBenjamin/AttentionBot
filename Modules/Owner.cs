@@ -1,5 +1,6 @@
 ﻿using Discord.Commands;
 using System;
+using System.IO;
 using System.Threading;
 using System.Threading.Tasks;
 
@@ -11,6 +12,31 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task onlineNotify()
         {
+            for (int i = 0; i < Program.servIDs.Length; i++)
+            {
+                if (!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected))
+                {
+                    Program.servID.Remove(Program.servIDs[i]);
+                    Program.chanID.Remove(Program.chanIDs[i]);
+                    Program.servIDs = Program.servID.ToArray();
+                    Program.chanIDs = Program.chanID.ToArray();
+
+                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                    foreach (var value in Program.chanIDs)
+                    {
+                        chanWriter.Write(value);
+                    }
+                    chanWriter.Close();
+
+                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                    foreach (var value in Program.servIDs)
+                    {
+                        servWriter.Write(value);
+                    }
+                    servWriter.Close();
+                }
+            }
+
             for (int i = 0; i < Program.chanIDs.Length; i++)
             {
                 await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot is now online.");
@@ -21,6 +47,31 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task announcement(string announceMessage)
         {
+            for (int i = 0; i < Program.servIDs.Length; i++)
+            {
+                if (!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected))
+                {
+                    Program.servID.Remove(Program.servIDs[i]);
+                    Program.chanID.Remove(Program.chanIDs[i]);
+                    Program.servIDs = Program.servID.ToArray();
+                    Program.chanIDs = Program.chanID.ToArray();
+
+                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                    foreach (var value in Program.chanIDs)
+                    {
+                        chanWriter.Write(value);
+                    }
+                    chanWriter.Close();
+
+                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                    foreach (var value in Program.servIDs)
+                    {
+                        servWriter.Write(value);
+                    }
+                    servWriter.Close();
+                }
+            }
+
             for (int i = 0; i < Program.chanIDs.Length; i++)
             {
                 await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! " + announceMessage);
@@ -31,6 +82,31 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task restartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
         {
+            for(int i = 0; i < Program.servIDs.Length; i++)
+            {
+                if(!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected))
+                {
+                    Program.servID.Remove(Program.servIDs[i]);
+                    Program.chanID.Remove(Program.chanIDs[i]);
+                    Program.servIDs = Program.servID.ToArray();
+                    Program.chanIDs = Program.chanID.ToArray();
+
+                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                    foreach (var value in Program.chanIDs)
+                    {
+                        chanWriter.Write(value);
+                    }
+                    chanWriter.Close();
+
+                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                    foreach (var value in Program.servIDs)
+                    {
+                        servWriter.Write(value);
+                    }
+                    servWriter.Close();
+                }
+            }
+
             if (_botID == Program.botID)
             {
                 for (int i = 0; i < Program.chanIDs.Length; i++)
@@ -71,9 +147,30 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task exitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
         {
-            Program.chanIDs = Program.chanID.ToArray();
-            Program.servIDs = Program.servID.ToArray();
-            Program.roleIDs = Program.roleID.ToArray();
+            for (int i = 0; i < Program.servIDs.Length; i++)
+            {
+                if (!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected))
+                {
+                    Program.servID.Remove(Program.servIDs[i]);
+                    Program.chanID.Remove(Program.chanIDs[i]);
+                    Program.servIDs = Program.servID.ToArray();
+                    Program.chanIDs = Program.chanID.ToArray();
+
+                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                    foreach (var value in Program.chanIDs)
+                    {
+                        chanWriter.Write(value);
+                    }
+                    chanWriter.Close();
+
+                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                    foreach (var value in Program.servIDs)
+                    {
+                        servWriter.Write(value);
+                    }
+                    servWriter.Close();
+                }
+            }
 
             if (_botID == Program.botID)
             {
@@ -88,7 +185,7 @@ namespace AttentionBot.Modules
                 {
                     for (int i = 0; i < Program.chanIDs.Length; i++)
                     {
-                        await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now offline.");
+                        await Context.Client.GetGuild(Program.servIDs[i]).GetTextChannel(Program.chanIDs[i]).SendMessageAsync("Attention! Bot's server is now restarting.");
                     }
                 }
                 else

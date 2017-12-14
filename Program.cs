@@ -12,7 +12,7 @@ namespace AttentionBot
         static void Main(string[] args)
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        String token = "Token Removed for Security";
+        String token = "Removed for Security";
 
         private DiscordSocketClient _client;
 
