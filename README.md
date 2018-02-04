@@ -41,6 +41,8 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.4.0.1
+- Fixed Owner.cs commands to check if the bot has access to a channel and, if not, remove the channel and server frmo the database.
 ## v1.4.0.0 (uploaded to GitHub as v1.3.5.0)
 - Data saved in txt files now saved as strings for easier management of bot errors
 - Cleaned up the role function
