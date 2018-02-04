@@ -17,6 +17,10 @@ Commands:
 
   - SERVER OWNER ONLY! Sets the specified role as an administrative role for the bot's admin commands.
 
+- \noadmin [role id]
+
+  - SERVER OWNER OLNY: Removes the specified role from the list of administrative roles for the bot.
+
 - \mentions [0/1]
 
   - ADMINS AND SERVER OWNERS ONLY! Enables (1) or disables (0) user mentions for the bot.
@@ -32,11 +36,15 @@ Commands:
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention. User ID is optional.
 
 # Release Notes
-## v1.3.5.0a
+## v1.4.1.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.4.0.0 (uploaded to GitHub as v1.3.5.0)
+- Data saved in txt files now saved as strings for easier management of bot errors
+- Cleaned up the role function
+- Added new command "noadmin"
 ## v1.3.4.7
 - Updated the Microsoft .NET XML dependency to v1.3.1 (old: v1.3.0)
 ## v1.3.4.6
