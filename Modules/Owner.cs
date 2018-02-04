@@ -49,7 +49,7 @@ namespace AttentionBot.Modules
         {
             for (int i = 0; i < Program.servIDs.Length; i++)
             {
-                if (!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected))
+                if (!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected) || Context.Client.GetGuild(Program.servIDs[i]).GetChannel(Program.chanIDs[i]).Users.Count == 0)
                 {
                     Program.servID.Remove(Program.servIDs[i]);
                     Program.chanID.Remove(Program.chanIDs[i]);
@@ -84,7 +84,7 @@ namespace AttentionBot.Modules
         {
             for(int i = 0; i < Program.servIDs.Length; i++)
             {
-                if(!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected))
+                if(!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected) || Context.Client.GetGuild(Program.servIDs[i]).GetChannel(Program.chanIDs[i]).Users.Count == 0)
                 {
                     Program.servID.Remove(Program.servIDs[i]);
                     Program.chanID.Remove(Program.chanIDs[i]);
@@ -149,7 +149,7 @@ namespace AttentionBot.Modules
         {
             for (int i = 0; i < Program.servIDs.Length; i++)
             {
-                if (!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected))
+                if (!(Context.Client.GetGuild(Program.servIDs[i]).IsConnected) || Context.Client.GetGuild(Program.servIDs[i]).GetChannel(Program.chanIDs[i]).Users.Count == 0)
                 {
                     Program.servID.Remove(Program.servIDs[i]);
                     Program.chanID.Remove(Program.chanIDs[i]);
