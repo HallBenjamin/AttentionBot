@@ -37,6 +37,8 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.3.4.7
+- Updated the Microsoft .NET XML dependency to v1.3.1 (old: v1.3.0)
 ## v1.3.4.6
 - Fixed error where if bot was kicked from a server, it couldn't send announcements
 ## v1.3.4.5
