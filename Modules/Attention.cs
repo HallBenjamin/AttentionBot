@@ -55,12 +55,14 @@ namespace AttentionBot.Modules
         public async Task help(string _botID = null)
         {
             if (_botID == Program.botID)
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.3.4.7  -  Programmed using Discord.Net**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.3.5.0  -  Programmed using Discord.Net**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
                     "\\help 3949\n  - Lists all available commands for the bot.\n\n" +
                     "\\admin [role id]\n" +
                     "  - **SERVER OWNERS:** Sets the specified role as an administrative role for the bot's admin commands.\n\n" +
+                    "\\noadmin [role id]\n" +
+                    "  - **SERVER OWNERS:** Removes the specified role from the list of administrative roles for the bot.\n\n" +
                     "\\mentions [0/1]\n" +
                     "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n" +
                     "\\announce [channel id]\n" +

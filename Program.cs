@@ -65,22 +65,26 @@ namespace AttentionBot
 
             if (!loadedChans)
             {
+                String chanString;
                 BinaryReader chanReader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < chanReader.BaseStream.Length; i += 8)
+                for (int i = 0; i < chanReader.BaseStream.Length; i += chanString.Length + 1)
                 {
-                    chanID.Add(chanReader.ReadUInt64());
+                    chanString = chanReader.ReadString();
+                    chanID.Add(Convert.ToUInt64(chanString));
                 }
                 chanIDs = chanID.ToArray();
                 chanReader.Close();
                 loadedChans = true;
             }
-
+            
             if (!loadedServs)
             {
+                String servString;
                 BinaryReader servReader = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < servReader.BaseStream.Length; i += 8)
+                for (int i = 0; i < servReader.BaseStream.Length; i += servString.Length + 1)
                 {
-                    servID.Add(servReader.ReadUInt64());
+                    servString = servReader.ReadString();
+                    servID.Add(Convert.ToUInt64(servString));
                 }
                 servIDs = servID.ToArray();
                 servReader.Close();
@@ -89,10 +93,12 @@ namespace AttentionBot
 
             if (!loadedRoles)
             {
+                String roleString;
                 BinaryReader roleReader = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < roleReader.BaseStream.Length; i += 8)
+                for (int i = 0; i < roleReader.BaseStream.Length; i += roleString.Length + 1)
                 {
-                    roleID.Add(roleReader.ReadUInt64());
+                    roleString = roleReader.ReadString();
+                    roleID.Add(Convert.ToUInt64(roleString));
                 }
                 roleIDs = roleID.ToArray();
                 roleReader.Close();
@@ -101,16 +107,18 @@ namespace AttentionBot
 
             if (!loadedMentions)
             {
+                String mentionString;
                 BinaryReader mentReader = new BinaryReader(File.Open("mentions.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < mentReader.BaseStream.Length; i += 8)
+                for (int i = 0; i < mentReader.BaseStream.Length; i += mentionString.Length + 1)
                 {
-                    mentionID.Add(mentReader.ReadUInt64());
+                    mentionString = mentReader.ReadString();
+                    mentionID.Add(Convert.ToUInt64(mentionString));
                 }
                 mentionIDs = mentionID.ToArray();
                 mentReader.Close();
                 loadedMentions = true;
             }
-
+            
             await Task.Delay(-1);
         }
 

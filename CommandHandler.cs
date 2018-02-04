@@ -38,7 +38,7 @@ namespace AttentionBot
 
                 if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
                 {
-                    await context.Channel.SendMessageAsync(result.ErrorReason);
+                    await context.Channel.SendMessageAsync("Error: " + result.ErrorReason);
                 }
             }
         }

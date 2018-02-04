@@ -9,36 +9,66 @@ namespace AttentionBot.Modules
     public class Admin : ModuleBase<SocketCommandContext>
     {
         [Command("admin")]
-        public async Task adminRoles(string _roleID = null)
+        public async Task adminRoles(string _roleID)
         {
             if (Context.User.Id == Context.Guild.OwnerId)
             {
-                if (_roleID != null)
+                if (!Program.roleID.Contains(Convert.ToUInt64(_roleID)))
                 {
-                    if (!Program.roleID.Contains(Convert.ToUInt64(_roleID)))
-                        Program.roleID.Add(Convert.ToUInt64(_roleID));
+                    Program.roleID.Add(Convert.ToUInt64(_roleID));
                     Program.roleIDs = Program.roleID.ToArray();
 
                     BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
                     foreach (var value in Program.roleIDs)
                     {
-                        roleWriter.Write(value);
+                        roleWriter.Write(value.ToString());
                     }
                     roleWriter.Close();
 
                     await Context.Channel.SendMessageAsync("Role has been added as an administrative role.");
                 }
                 else
-                    await Context.Channel.SendMessageAsync("No role ID was given. Please try again.");
+                {
+                    await Context.Channel.SendMessageAsync("Role is already an administrative role.");
+                }
             }
             else
                 await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
 
         }
 
+        [Command("noadmin")]
+        public async Task notAdmin(string _roleID)
+        {
+            if(Context.User.Id == Context.Guild.OwnerId)
+            {
+                if (Program.roleID.Contains(Convert.ToUInt64(_roleID)))
+                {
+                    Program.roleID.Remove(Convert.ToUInt64(_roleID));
+                    Program.roleIDs = Program.roleID.ToArray();
+
+                    BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
+                    foreach (var value in Program.roleIDs)
+                    {
+                        roleWriter.Write(value.ToString());
+                    }
+                    roleWriter.Close();
+
+                    await Context.Channel.SendMessageAsync("Role is no longer an administrative role.");
+                }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Error: Role is not an administrative role.");
+                }
+            }
+            else
+                await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
+        }
+
         [Command("mentions")]
         public async Task mentionsPermitted(string _mentions)
         {
+            
             bool hasRole = false;
             for (int i = 0; i < Program.roleIDs.Length; i++)
             {
@@ -75,7 +105,7 @@ namespace AttentionBot.Modules
                 BinaryWriter mentWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
                 foreach (var value in Program.mentionIDs)
                 {
-                    mentWriter.Write(value);
+                    mentWriter.Write(value.ToString());
                 }
                 mentWriter.Close();
 
@@ -121,14 +151,14 @@ namespace AttentionBot.Modules
                         BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
                         foreach (var value in Program.chanIDs)
                         {
-                            chanWriter.Write(value);
+                            chanWriter.Write(value.ToString());
                         }
                         chanWriter.Close();
 
                         BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
                         foreach (var value in Program.servIDs)
                         {
-                            servWriter.Write(value);
+                            servWriter.Write(value.ToString());
                         }
                         servWriter.Close();
                     }
