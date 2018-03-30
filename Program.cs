@@ -48,7 +48,9 @@ namespace AttentionBot
         public async Task StartAsync()
         {
             if (isConsole)
+            {
                 Console.Title = "Attention! Bot for Discord";
+            }
 
             _client = new DiscordSocketClient();
 
