@@ -29,21 +29,6 @@ namespace AttentionBot.Modules
                 }
                 else
                 {
-                    await Context.Channel.SendMessageAsync("Role is already an administrative role.");
-                }
-            }
-            else
-                await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
-
-        }
-
-        [Command("noadmin")]
-        public async Task notAdmin(string _roleID)
-        {
-            if(Context.User.Id == Context.Guild.OwnerId)
-            {
-                if (Program.roleID.Contains(Convert.ToUInt64(_roleID)))
-                {
                     Program.roleID.Remove(Convert.ToUInt64(_roleID));
                     Program.roleIDs = Program.roleID.ToArray();
 
@@ -56,13 +41,12 @@ namespace AttentionBot.Modules
 
                     await Context.Channel.SendMessageAsync("Role is no longer an administrative role.");
                 }
-                else
-                {
-                    await Context.Channel.SendMessageAsync("Error: Role is not an administrative role.");
-                }
             }
             else
+            {
                 await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
+            }
+
         }
 
         [Command("mentions")]
@@ -83,14 +67,18 @@ namespace AttentionBot.Modules
                 if (_mentions == "0")
                 {
                     if (Program.mentionID.Contains(Context.Guild.Id))
+                    {
                         Program.mentionID.Remove(Context.Guild.Id);
+                    }
 
                     _mentionsEnabled = "Disabled";
                 }
                 else if (_mentions == "1")
                 {
                     if (!Program.mentionID.Contains(Context.Guild.Id))
+                    {
                         Program.mentionID.Add(Context.Guild.Id);
+                    }
 
                     _mentionsEnabled = "Enabled";
                 }
@@ -112,7 +100,9 @@ namespace AttentionBot.Modules
                 await Context.Channel.SendMessageAsync("Mentions " + _mentionsEnabled + "!");
             }
             else
+            {
                 await Context.Channel.SendMessageAsync("You are not the owner or admin of the server and cannot use this command.");
+            }
         }
 
         [Command("announce")]
@@ -123,7 +113,9 @@ namespace AttentionBot.Modules
             {
                 hasRole = Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(Program.roleIDs[i]));
                 if (hasRole)
+                {
                     break;
+                }
             }
 
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
@@ -132,9 +124,9 @@ namespace AttentionBot.Modules
                 {
                     if (!Program.chanID.Contains(Convert.ToUInt64(_chanID)))
                     {
-                        for(int i = 0; i < Program.servIDs.Length; i++)
+                        for (int i = 0; i < Program.servIDs.Length; i++)
                         {
-                            if(Program.servIDs[i] == Context.Guild.Id)
+                            if (Program.servIDs[i] == Context.Guild.Id)
                             {
                                 Program.chanID.Remove(Program.chanIDs[i]);
                                 Program.servID.Remove(Program.servIDs[i]);
@@ -166,10 +158,14 @@ namespace AttentionBot.Modules
                     await Context.Channel.SendMessageAsync("The announcements channel is now the channel with ID " + _chanID + ".");
                 }
                 else
+                {
                     await Context.Channel.SendMessageAsync("No channel ID given. Please try again.");
+                }
             }
             else
+            {
                 await Context.Channel.SendMessageAsync("You are not the owner or admin of the server and cannot use this command.");
+            }
         }
     }
 }

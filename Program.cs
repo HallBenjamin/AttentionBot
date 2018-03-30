@@ -9,7 +9,7 @@ namespace AttentionBot
 {
     public class Program
     {
-        static void Main(string[] args)
+        static void Main()
             => new Program().StartAsync().GetAwaiter().GetResult();
 
         String token = "Removed for Security";
@@ -61,7 +61,9 @@ namespace AttentionBot
             _handler = new CommandHandler(_client);
 
             if (isConsole)
+            {
                 Console.WriteLine("Attention! Bot Online");
+            }
 
             if (!loadedChans)
             {
@@ -118,7 +120,12 @@ namespace AttentionBot
                 mentReader.Close();
                 loadedMentions = true;
             }
-            
+
+            if (isConsole)
+            {
+                Console.WriteLine("Attention! Bot has finished Loading");
+            }
+
             await Task.Delay(-1);
         }
 
