@@ -35,7 +35,7 @@ Commands:
   
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention. User ID is optional.
   
--  \usercount
+- \usercount
   
   - Lists number of users on the server by status.
 
