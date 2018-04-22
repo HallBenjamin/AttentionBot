@@ -132,7 +132,7 @@ namespace AttentionBot.Modules
             if (_botID == Program.botID)
             {
                 await Context.Channel.SendMessageAsync("Changelog can be found at:\n" +
-                    "https://github.com/josedolf-staller/AttentionBot/blob/master/README.md#release-notes");
+                    "https://github.com/josedolf-staller/AttentionBot#release-notes");
             }
         }
 
