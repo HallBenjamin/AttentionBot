@@ -34,6 +34,10 @@ Commands:
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter. Position is not required for the command.
   
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention. User ID is optional.
+  
+  \usercount
+  
+  - Lists number of users on the server by status.
 
 # Release Notes
 ## v1.4.1.0a
@@ -41,6 +45,14 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.5.1.0
+- Removed the arrays in Program.cs since they were identical to the Lists (replace all instances of the arrays with the Lists)
+- Added code to detect if an instance of the program is already running and, if it is, display a message saying it's already running and close the new instance; this prevents the bot from logging in a second time, resetting the bot token
+## v1.5.0.1
+- Fixed a bug where having mentions enabled on the server but not putting in a user ID would crash the bot
+## v1.5.0.0
+- Added \usercount (lists the number of users on the server by status)
+- Made various variables private, static, or constant (programming practices / security)
 ## v1.4.0.1
 - Fixed Owner.cs commands to check if the bot has access to a channel and, if not, remove the channel and server frmo the database.
 ## v1.4.0.0 (uploaded to GitHub as v1.3.5.0)

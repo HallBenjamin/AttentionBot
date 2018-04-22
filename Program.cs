@@ -4,6 +4,8 @@ using Discord.WebSocket;
 using System.Threading.Tasks;
 using System.IO;
 using System.Collections.Generic;
+using System.Linq;
+using System.Runtime.InteropServices;
 
 namespace AttentionBot
 {
@@ -12,39 +14,28 @@ namespace AttentionBot
         static void Main()
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        String token = "Removed for Security";
+        private const String token = "MzQ2MDY0OTkwMTUyODE4Njkw.DIT5gw.OqsjAoRGxazdU7T8t88807qUDgQ";
+        public const string botID = "3949";
 
+        private DiscordSocketConfig _config = new DiscordSocketConfig();
         private DiscordSocketClient _client;
-
         private CommandHandler _handler;
 
         public static bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
 
-        public static string botID = "3949";
-
         public static List<ulong> chanID = new List<ulong>();
-
-        public static ulong[] chanIDs;
-
         public static List<ulong> servID = new List<ulong>();
-
-        public static ulong[] servIDs;
-
         public static List<ulong> roleID = new List<ulong>();
-
-        public static ulong[] roleIDs;
-
         public static List<ulong> mentionID = new List<ulong>();
 
-        public static ulong[] mentionIDs;
+        private bool loadedChans = false;
+        private bool loadedServs = false;
+        private bool loadedRoles = false;
+        private bool loadedMentions = false;
 
-        bool loadedChans = false;
+        [DllImport("User32.dll", CharSet = CharSet.Unicode)]
+        public static extern int MessageBox(IntPtr h, string m, string c, int type);
 
-        bool loadedServs = false;
-
-        bool loadedRoles = false;
-
-        bool loadedMentions = false;
         public async Task StartAsync()
         {
             if (isConsole)
@@ -52,10 +43,18 @@ namespace AttentionBot
                 Console.Title = "Attention! Bot for Discord";
             }
 
-            _client = new DiscordSocketClient();
+            bool isRunning = System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Count() > 1;
+            if (isRunning)
+            {
+                MessageBox((IntPtr) 0, "Program is already running", "Attention! Bot for Discord", 0);
+                return;
+            }
+
+            _config.AlwaysDownloadUsers = false;
+
+            _client = new DiscordSocketClient(_config);
 
             await _client.LoginAsync(TokenType.Bot, token);
-
             await _client.StartAsync();
 
             await _client.SetGameAsync("Attention! \\help 3949");
@@ -76,7 +75,6 @@ namespace AttentionBot
                     chanString = chanReader.ReadString();
                     chanID.Add(Convert.ToUInt64(chanString));
                 }
-                chanIDs = chanID.ToArray();
                 chanReader.Close();
                 loadedChans = true;
             }
@@ -90,7 +88,6 @@ namespace AttentionBot
                     servString = servReader.ReadString();
                     servID.Add(Convert.ToUInt64(servString));
                 }
-                servIDs = servID.ToArray();
                 servReader.Close();
                 loadedServs = true;
             }
@@ -104,7 +101,6 @@ namespace AttentionBot
                     roleString = roleReader.ReadString();
                     roleID.Add(Convert.ToUInt64(roleString));
                 }
-                roleIDs = roleID.ToArray();
                 roleReader.Close();
                 loadedRoles = true;
             }
@@ -118,7 +114,6 @@ namespace AttentionBot
                     mentionString = mentReader.ReadString();
                     mentionID.Add(Convert.ToUInt64(mentionString));
                 }
-                mentionIDs = mentionID.ToArray();
                 mentReader.Close();
                 loadedMentions = true;
             }
@@ -130,6 +125,5 @@ namespace AttentionBot
 
             await Task.Delay(-1);
         }
-
     }
 }

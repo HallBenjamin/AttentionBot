@@ -27,7 +27,9 @@ namespace AttentionBot
         {
             var msg = s as SocketUserMessage;
             if (msg == null)
+            {
                 return;
+            }
 
             var context = new SocketCommandContext(_client, msg);
 

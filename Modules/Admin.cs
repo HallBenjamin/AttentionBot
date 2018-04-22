@@ -16,10 +16,9 @@ namespace AttentionBot.Modules
                 if (!Program.roleID.Contains(Convert.ToUInt64(_roleID)))
                 {
                     Program.roleID.Add(Convert.ToUInt64(_roleID));
-                    Program.roleIDs = Program.roleID.ToArray();
 
                     BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
-                    foreach (var value in Program.roleIDs)
+                    foreach (var value in Program.roleID)
                     {
                         roleWriter.Write(value.ToString());
                     }
@@ -30,10 +29,9 @@ namespace AttentionBot.Modules
                 else
                 {
                     Program.roleID.Remove(Convert.ToUInt64(_roleID));
-                    Program.roleIDs = Program.roleID.ToArray();
 
                     BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
-                    foreach (var value in Program.roleIDs)
+                    foreach (var value in Program.roleID)
                     {
                         roleWriter.Write(value.ToString());
                     }
@@ -52,14 +50,16 @@ namespace AttentionBot.Modules
         [Command("mentions")]
         public async Task mentionsPermitted(string _mentions)
         {
-            
-            bool hasRole = false;
-            for (int i = 0; i < Program.roleIDs.Length; i++)
+            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
+            foreach (ulong role in Program.roleID)
             {
-                hasRole = Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(Program.roleIDs[i]));
+                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(role)); // If already true, ignore
                 if (hasRole)
+                {
                     break;
+                }
             }
+
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
                 string _mentionsEnabled;
@@ -88,10 +88,8 @@ namespace AttentionBot.Modules
                     return;
                 }
 
-                Program.mentionIDs = Program.mentionID.ToArray();
-
                 BinaryWriter mentWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
-                foreach (var value in Program.mentionIDs)
+                foreach (var value in Program.mentionID)
                 {
                     mentWriter.Write(value.ToString());
                 }
@@ -108,10 +106,10 @@ namespace AttentionBot.Modules
         [Command("announce")]
         public async Task announceChan(string _chanID = null)
         {
-            bool hasRole = false;
-            for (int i = 0; i < Program.roleIDs.Length; i++)
+            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
+            foreach(ulong role in Program.roleID)
             {
-                hasRole = Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(Program.roleIDs[i]));
+                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(role)); // If already true, ignore
                 if (hasRole)
                 {
                     break;
@@ -124,12 +122,12 @@ namespace AttentionBot.Modules
                 {
                     if (!Program.chanID.Contains(Convert.ToUInt64(_chanID)))
                     {
-                        for (int i = 0; i < Program.servIDs.Length; i++)
+                        for (int i = 0; i < Program.servID.Count; i++)
                         {
-                            if (Program.servIDs[i] == Context.Guild.Id)
+                            if (Program.servID[i] == Context.Guild.Id)
                             {
-                                Program.chanID.Remove(Program.chanIDs[i]);
-                                Program.servID.Remove(Program.servIDs[i]);
+                                Program.chanID.Remove(Program.chanID[i]);
+                                Program.servID.Remove(Program.servID[i]);
                                 break;
                             }
                         }
@@ -137,18 +135,15 @@ namespace AttentionBot.Modules
                         Program.chanID.Add(Convert.ToUInt64(_chanID));
                         Program.servID.Add(Context.Guild.Id);
 
-                        Program.chanIDs = Program.chanID.ToArray();
-                        Program.servIDs = Program.servID.ToArray();
-
                         BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                        foreach (var value in Program.chanIDs)
+                        foreach (var value in Program.chanID)
                         {
                             chanWriter.Write(value.ToString());
                         }
                         chanWriter.Close();
 
                         BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                        foreach (var value in Program.servIDs)
+                        foreach (var value in Program.servID)
                         {
                             servWriter.Write(value.ToString());
                         }
