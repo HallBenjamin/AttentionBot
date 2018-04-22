@@ -10,14 +10,13 @@ namespace AttentionBot
         const char prefix = '\\';
 
         private DiscordSocketClient _client;
-
         private CommandService _service;
+
         public CommandHandler(DiscordSocketClient client)
         {
             _client = client;
 
             _service = new CommandService();
-
             _service.AddModulesAsync(Assembly.GetEntryAssembly());
 
             _client.MessageReceived += HandleCommandAsync;
