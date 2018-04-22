@@ -126,15 +126,28 @@ namespace AttentionBot.Modules
             await Context.Channel.SendMessageAsync("", false, onlineMessage);
         }
 
+        [Command("changelog")]
+        public async Task changelog(string _botID = null)
+        {
+            if (_botID == Program.botID)
+            {
+                await Context.Channel.SendMessageAsync("Changelog can be found at:\n" +
+                    "https://github.com/josedolf-staller/AttentionBot/blob/master/README.md#release-notes");
+            }
+        }
+
         [Command("help")]
         public async Task help(string _botID = null)
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.1.0  -  Programmed using Discord.Net**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.2.0  -  Programmed using Discord.Net**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
-                    "\\help 3949\n  - Lists all available commands for the bot.\n\n" +
+                    "\\help 3949\n" +
+                    "  - Lists all available commands for the bot.\n\n" +
+                    "\\changelog 3949\n" +
+                    "  - Sends a link to the version history (changelog) of the bot.\n\n" +
                     "\\admin [role id]\n" +
                     "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
                     "\\mentions [0/1]\n" +

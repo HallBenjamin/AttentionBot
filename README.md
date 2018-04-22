@@ -13,6 +13,10 @@ Commands:
 
   - Lists available commands
 
+- \changelog 3949
+
+  - Sends a link to the version history (changelog) of the bot.
+
 - \admin [role id]
 
   - SERVER OWNER ONLY! Sets the specified role as an administrative role for the bot's admin commands.
@@ -45,20 +49,22 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.5.2.0
+- New command: \changelog 3949 (sends a link to the version history / changelog of the bot)
 ## v1.5.1.0
 - Removed the arrays in Program.cs since they were identical to the Lists (replace all instances of the arrays with the Lists)
 - Added code to detect if an instance of the program is already running and, if it is, display a message saying it's already running and close the new instance; this prevents the bot from logging in a second time, resetting the bot token
 ## v1.5.0.1
 - Fixed a bug where having mentions enabled on the server but not putting in a user ID would crash the bot
 ## v1.5.0.0
-- Added \usercount (lists the number of users on the server by status)
+- New command: \usercount (lists the number of users on the server by status)
 - Made various variables private, static, or constant (programming practices / security)
 ## v1.4.0.1
 - Fixed Owner.cs commands to check if the bot has access to a channel and, if not, remove the channel and server frmo the database.
 ## v1.4.0.0 (uploaded to GitHub as v1.3.5.0)
 - Data saved in txt files now saved as strings for easier management of bot errors
 - Cleaned up the role function
-- Added new command "noadmin"
+- New command: "noadmin"
 ## v1.3.4.7
 - Updated the Microsoft .NET XML dependency to v1.3.1 (old: v1.3.0)
 ## v1.3.4.6
@@ -110,7 +116,7 @@ Commands:
 - Made some public static variables local
 - Fixed \help
 ## v1.3.0.1
-- Added \admin command to add administrative roles
+- New command (Server Owners): \admin (adds administrative roles)
 - Changed \announce command to let admin roles from above use it
 - Changed \announce command to only let one channel per server use it
 - Removed unused comment
@@ -127,7 +133,7 @@ Commands:
 - Changed \help formatting
 ## v1.2.0.0
 - Made \restart message send a message to default or available channel on all servers connected
-- Add Server Owner \announce command to set announcements channel
+- New command (Server Owners): \announce command to set announcements channel
 - Saved \announce channel arrays and lists to text file to load upon bot restart
 ## v1.1.0.1
 - Fixed \restart order of parameters to specify time but not bot

@@ -14,7 +14,7 @@ namespace AttentionBot
         static void Main()
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        private const String token = "MzQ2MDY0OTkwMTUyODE4Njkw.DIT5gw.OqsjAoRGxazdU7T8t88807qUDgQ";
+        private const String token = "Removed for Security";
         public const string botID = "3949";
 
         private DiscordSocketConfig _config = new DiscordSocketConfig();
