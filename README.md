@@ -49,7 +49,7 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.2.0
+## v1.5.2.0 (Stable)
 - New command: \changelog 3949 (sends a link to the version history / changelog of the bot)
 ## v1.5.1.0
 - Removed the arrays in Program.cs since they were identical to the Lists (replace all instances of the arrays with the Lists)
