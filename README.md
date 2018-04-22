@@ -40,7 +40,7 @@ Commands:
   - Lists number of users on the server by status.
 
 # Release Notes
-## v1.4.1.0a
+## v1.6.0.0a
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
