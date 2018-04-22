@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.2 and Microsoft.Net Framework 4.5.2
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 10 commands (6 for the public) with over 500 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 11 commands (7 for the public) with over 500 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
@@ -35,7 +35,7 @@ Commands:
   
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention. User ID is optional.
   
-  \usercount
+-  \usercount
   
   - Lists number of users on the server by status.
 
