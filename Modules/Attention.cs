@@ -77,50 +77,71 @@ namespace AttentionBot.Modules
         {
             await Context.Guild.DownloadUsersAsync();
 
-            int online = 0, away = 0, doNotDisturb = 0, invisible = 0, offline = 0;
-
             int total = Context.Guild.MemberCount;
+            int totalBots = 0, onlineBots = 0, offlineBots = 0;
+            int totalUsers = 0, onlineUsers = 0, awayUsers = 0, doNotDisturbUsers = 0, invisibleUsers = 0, offlineUsers = 0;
 
             foreach (SocketGuildUser user in Context.Guild.Users)
             {
                 if(!user.IsBot)
                 {
+                    totalUsers++;
+
                     switch (user.Status)
                     {
                         case UserStatus.AFK:
                         case UserStatus.Idle:
-                            away++;
+                            awayUsers++;
                             break;
                         case UserStatus.DoNotDisturb:
-                            doNotDisturb++;
+                            doNotDisturbUsers++;
                             break;
                         case UserStatus.Invisible:
-                            invisible++;
+                            invisibleUsers++;
                             break;
                         case UserStatus.Online:
-                            online++;
+                            onlineUsers++;
                             break;
                         case UserStatus.Offline:
                         default:
-                            offline++;
+                            offlineUsers++;
                             break;
                     }
                 }
                 else
                 {
-                    total--;
+                    totalBots++;
+
+                    switch (user.Status)
+                    {
+                        case UserStatus.AFK:
+                        case UserStatus.Idle:
+                        case UserStatus.DoNotDisturb:
+                        case UserStatus.Invisible:
+                        case UserStatus.Online:
+                            onlineBots++;
+                            break;
+                        case UserStatus.Offline:
+                        default:
+                            offlineBots++;
+                            break;
+                    }
                 }
             }
 
             var onlineMessage = new EmbedBuilder();
             onlineMessage.WithColor(23, 90, 150);
             onlineMessage.WithTitle("User Count");
-            onlineMessage.WithDescription("**Total:** " + total +
-                "\nOnline: " + online +
-                "\nAway: " + away +
-                "\nDo Not Disturb: " + doNotDisturb +
-                "\nInvisible: " + invisible +
-                "\nOffline: " + offline);
+            onlineMessage.WithDescription("__**Total:** " + total + "__\n" +
+                "\n**Users:** " + totalUsers +
+                "\nOnline: " + onlineUsers +
+                "\nAway: " + awayUsers +
+                "\nDo Not Disturb: " + doNotDisturbUsers +
+                "\nInvisible: " + invisibleUsers +
+                "\nOffline: " + offlineUsers + "\n" +
+                "\n**Bots:** " + totalBots +
+                "\nOnline: " + onlineBots +
+                "\nOffline: " + offlineBots);
             onlineMessage.WithCurrentTimestamp();
 
             await Context.Channel.SendMessageAsync("", false, onlineMessage);
@@ -141,7 +162,7 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.2.1  -  Programmed using Discord.Net**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.3.0  -  Programmed using Discord.Net**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
                     "\\help 3949\n" +
@@ -158,7 +179,7 @@ namespace AttentionBot.Modules
                     "  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.\n" +
                     "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
                     "\\usercount\n" +
-                    "  - Lists number of users on the server by status.");
+                    "  - Lists number of users and bots on the server by status.");
             }
         }
     }

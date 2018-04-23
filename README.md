@@ -49,7 +49,14 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.2.1 (Stable)
+## v1.5.3.0 (Stable)
+- Changed \usercount to display more information:
+  - Total: displays the total number of users and bots on the server
+  - Users: displays the total number of users on the server
+    - Online, Away, Do Not Disturb, Invisible, Offline: displays the number of users with that status on the server
+  - Bots: displays the total number of bots on the server
+    - Online, Offline: displays the number of bots with that status on the server
+## v1.5.2.1
 - Fixed an issue with the \usercount command crashing the bot's internal network connectivity on large servers
 ## v1.5.2.0
 - New command: \changelog 3949 (sends a link to the version history / changelog of the bot)
