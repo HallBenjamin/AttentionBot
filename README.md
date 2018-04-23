@@ -49,7 +49,9 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.4.1 (Beta)
+## v1.5.4.2 (Stable)
+- Updated \help to show the version of .NET Framework and Discord.Net the bot uses
+## v1.5.4.1
 - Fixed a bug where \usercount crashed the computer's network capabilities
 ## v1.5.4.0 (Stable)
 - Changed \usercount layout to use inline fields with an EmbedBuilder, looks much cleaner and more organized now

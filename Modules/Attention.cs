@@ -175,7 +175,7 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.1  -  Programmed using Discord.Net**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.2  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
                     "\\help 3949\n" +
