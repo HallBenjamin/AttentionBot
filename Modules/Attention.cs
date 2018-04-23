@@ -75,8 +75,6 @@ namespace AttentionBot.Modules
         [Command("usercount")]
         public async Task userCount()
         {
-            await Context.Guild.DownloadUsersAsync();
-
             int total = Context.Guild.MemberCount;
             int totalBots = 0, onlineBots = 0, offlineBots = 0;
             int totalUsers = 0, onlineUsers = 0, awayUsers = 0, doNotDisturbUsers = 0, invisibleUsers = 0, offlineUsers = 0;
@@ -177,7 +175,7 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.0  -  Programmed using Discord.Net**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.1  -  Programmed using Discord.Net**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
                     "\\help 3949\n" +

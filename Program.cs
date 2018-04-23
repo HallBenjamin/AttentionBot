@@ -17,7 +17,7 @@ namespace AttentionBot
         private const String token = "Removed for Security";
         public const string botID = "3949";
 
-        private DiscordSocketConfig _config = new DiscordSocketConfig();
+        private DiscordSocketConfig _config;
         private DiscordSocketClient _client;
         private CommandHandler _handler;
 
@@ -50,7 +50,8 @@ namespace AttentionBot
                 return;
             }
 
-            _config.AlwaysDownloadUsers = true;
+            _config = new DiscordSocketConfig();
+            _config.AlwaysDownloadUsers = false;
 
             _client = new DiscordSocketClient(_config);
 
