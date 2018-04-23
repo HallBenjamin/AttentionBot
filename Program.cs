@@ -50,7 +50,7 @@ namespace AttentionBot
                 return;
             }
 
-            _config.AlwaysDownloadUsers = false;
+            _config.AlwaysDownloadUsers = true;
 
             _client = new DiscordSocketClient(_config);
 

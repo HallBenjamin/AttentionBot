@@ -49,7 +49,9 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.2.0 (Stable)
+## v1.5.2.1
+- Fixed an issue with the \usercount command crashing the bot's internal network connectivity on large servers
+## v1.5.2.0
 - New command: \changelog 3949 (sends a link to the version history / changelog of the bot)
 ## v1.5.1.0
 - Removed the arrays in Program.cs since they were identical to the Lists (replace all instances of the arrays with the Lists)
