@@ -44,12 +44,14 @@ Commands:
   - Lists number of users on the server by status.
 
 # Release Notes
-## v1.6.0.0a
+## v1.6.0.0 (Alpha)
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.3.0 (Stable)
+## v1.5.4.0 (Stable)
+- Changed \usercount layout to use inline fields with an EmbedBuilder, looks much cleaner and more organized now
+## v1.5.3.0
 - Changed \usercount to display more information:
   - Total: displays the total number of users and bots on the server
   - Users: displays the total number of users on the server

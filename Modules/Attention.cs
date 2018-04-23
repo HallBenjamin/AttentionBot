@@ -131,18 +131,33 @@ namespace AttentionBot.Modules
 
             var onlineMessage = new EmbedBuilder();
             onlineMessage.WithColor(23, 90, 150);
-            onlineMessage.WithTitle("User Count");
-            onlineMessage.WithDescription("__**Total:** " + total + "__\n" +
-                "\n**Users:** " + totalUsers +
+            onlineMessage.WithTitle("__User Count__");
+            onlineMessage.WithCurrentTimestamp();
+
+            EmbedFieldBuilder totalBuilder = new EmbedFieldBuilder();
+            totalBuilder.WithIsInline(false);
+            totalBuilder.WithName("Total");
+            totalBuilder.WithValue(total);
+            onlineMessage.AddField(totalBuilder);
+
+            EmbedFieldBuilder userBuilder = new EmbedFieldBuilder();
+            userBuilder.WithIsInline(true);
+            userBuilder.WithName("\nUsers: " + totalUsers);
+            userBuilder.WithValue(
                 "\nOnline: " + onlineUsers +
                 "\nAway: " + awayUsers +
                 "\nDo Not Disturb: " + doNotDisturbUsers +
                 "\nInvisible: " + invisibleUsers +
-                "\nOffline: " + offlineUsers + "\n" +
-                "\n**Bots:** " + totalBots +
+                "\nOffline: " + offlineUsers + "\n");
+            onlineMessage.AddField(userBuilder);
+
+            EmbedFieldBuilder botBuilder = new EmbedFieldBuilder();
+            botBuilder.WithIsInline(true);
+            botBuilder.WithName("\nBots: " + totalBots);
+            botBuilder.WithValue(
                 "\nOnline: " + onlineBots +
                 "\nOffline: " + offlineBots);
-            onlineMessage.WithCurrentTimestamp();
+            onlineMessage.AddField(botBuilder);
 
             await Context.Channel.SendMessageAsync("", false, onlineMessage);
         }
@@ -162,7 +177,7 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.3.0  -  Programmed using Discord.Net**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.0  -  Programmed using Discord.Net**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
                     "\\help 3949\n" +
