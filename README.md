@@ -115,8 +115,8 @@ Commands:
 - Added ability for bot owner to send announcements
 - Fixed bug where admin commands wouldn't execute
 - Transfered Owner commands to separate C# file
-## v1.3.0.4 (beta tested)
-- Same release notes for v1.3.1.0
+## v1.3.0.4 (Beta)
+- Same release notes as v1.3.1.0
 - v1.3.1.0 Fixed the bug
 - v1.3.1.0 added the announcements feature
 ## v1.3.0.3
@@ -133,8 +133,8 @@ Commands:
 - Removed unused comment
 - Made external files for Channel, Server, and Role info save immediately in case of crash
 - Updated \help
-## v1.3.0.0 (beta tested)
-- Same release notes for v1.3.0.1
+## v1.3.0.0 (Beta)
+- Same release notes as v1.3.0.1
 - v1.3.0.1 fixed a bug where the \announce command wouldn't let admins use it, breaking the entire bot
 - v1.3.0.1 fixed a bug where the bot wouldn't finish starting up after reading the txt files
 ## v1.2.0.2
@@ -150,13 +150,13 @@ Commands:
 - Fixed \restart order of parameters to specify time but not bot
 - Fixed \exit command to shut down all bots on my machine
 ## v1.1.0.0
-- Added owner \restart command to give a warning to the user about a bot restart
+- New command (Owner): \restart command to give a warning to the user about a bot restart
 ## v1.0.5.0
-- Added owner \exit parameter to specify which bot to shut down
-- Added \help parameter to specify which bot's help information to show
+- New command (Owner): \exit parameter to specify which bot to shut down
+- Added parameter to \help to specify which bot's help information to show
 ## v1.0.4.0
 - Fixed an issue with owner \exit command and optimized code
 ## v1.0.3.0
-- Added \help command
+- New command: \help
 ## v1.0.2.0 and older
 - Original release, unstable/low on features/slow. Bot runs on newest stable version (no letter after version number).
