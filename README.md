@@ -53,7 +53,7 @@ Commands:
 - Updated \help to show the version of .NET Framework and Discord.Net the bot uses
 ## v1.5.4.1
 - Fixed a bug where \usercount crashed the computer's network capabilities
-## v1.5.4.0 (Stable)
+## v1.5.4.0
 - Changed \usercount layout to use inline fields with an EmbedBuilder, looks much cleaner and more organized now
 ## v1.5.3.0
 - Changed \usercount to display more information:
