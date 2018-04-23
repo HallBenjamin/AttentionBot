@@ -122,7 +122,7 @@ namespace AttentionBot.Modules
                 {
                     if (!Program.chanID.Contains(Convert.ToUInt64(_chanID)))
                     {
-                        for (int i = 0; i < Program.servID.Count; i++)
+                        for (int i = 0; i < Program.servID.ToList().Count; i++)
                         {
                             if (Program.servID[i] == Context.Guild.Id)
                             {

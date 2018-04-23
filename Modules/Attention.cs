@@ -2,7 +2,9 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using System;
+using System.Collections.Generic;
 using System.IO;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AttentionBot.Modules
@@ -47,21 +49,6 @@ namespace AttentionBot.Modules
 
             var _myUser = Context.Guild.GetUser(Convert.ToUInt64(_mentionID));
 
-            foreach(ulong serv in Program.mentionID)
-            {
-                if(!Context.Client.GetGuild(serv).IsConnected)
-                {
-                    Program.mentionID.Remove(serv);
-
-                    BinaryWriter mentionWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
-                    foreach (var value in Program.mentionID)
-                    {
-                        mentionWriter.Write(value.ToString());
-                    }
-                    mentionWriter.Close();
-                }
-            }
-
             if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null)
             {
                 await Context.Channel.SendMessageAsync(_myUser.Mention + " " + text + " (" + letter + number + ")");
@@ -69,6 +56,30 @@ namespace AttentionBot.Modules
             else
             {
                 await Context.Channel.SendMessageAsync(text + " (" + letter + number + ")");
+            }
+
+            if (true)
+            {
+                List<ulong> guilds = new List<ulong>();
+                foreach (SocketGuild guild in Context.Client.Guilds)
+                {
+                    guilds.Add(guild.Id);
+                }
+                
+                foreach (ulong serv in Program.mentionID.ToList())
+                {
+                    if (!guilds.Contains(serv))
+                    {
+                        Program.mentionID.Remove(serv);
+                    }
+                }
+
+                BinaryWriter mentionWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
+                foreach (var value in Program.mentionID)
+                {
+                    mentionWriter.Write(value.ToString());
+                }
+                mentionWriter.Close();
             }
         }
 
@@ -175,7 +186,7 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.2  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.3  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
                     "\\help 3949\n" +

@@ -1,5 +1,7 @@
 ﻿using Discord.Commands;
+using Discord.WebSocket;
 using System;
+using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Threading;
@@ -9,16 +11,28 @@ namespace AttentionBot.Modules
 {
     public class Owner : ModuleBase<SocketCommandContext>
     {
-        [Command("powerup")]
+        [Command("online")]
         [RequireOwner]
         public async Task onlineNotify()
         {
-            for (int i = 0; i < Program.servID.Count; i++)
+            List<ulong> guilds = new List<ulong>();
+            List<ulong> channels = new List<ulong>();
+            foreach (SocketGuild guild in Context.Client.Guilds)
             {
-                if (!(Context.Client.GetGuild(Program.servID[i]).IsConnected) || Context.Client.GetGuild(Program.servID[i]).GetChannel(Program.chanID[i]).Users.Count == 0)
+                guilds.Add(guild.Id);
+
+                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
                 {
-                    Program.servID.Remove(Program.servID[i]);
+                    channels.Add(channel.Id);
+                }
+            }
+
+            for (int i = 0; i < Program.servID.ToList().Count; i++)
+            {
+                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
+                {
                     Program.chanID.Remove(Program.chanID[i]);
+                    Program.servID.Remove(Program.servID[i]);
 
                     BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
                     foreach (var value in Program.chanID)
@@ -46,12 +60,24 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task announcement(string announceMessage)
         {
-            for (int i = 0; i < Program.servID.Count; i++)
+            List<ulong> guilds = new List<ulong>();
+            List<ulong> channels = new List<ulong>();
+            foreach (SocketGuild guild in Context.Client.Guilds)
             {
-                if (!(Context.Client.GetGuild(Program.servID[i]).IsConnected) || Context.Client.GetGuild(Program.servID[i]).GetChannel(Program.chanID[i]).Users.Count == 0)
+                guilds.Add(guild.Id);
+
+                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
                 {
-                    Program.servID.Remove(Program.servID[i]);
+                    channels.Add(channel.Id);
+                }
+            }
+
+            for (int i = 0; i < Program.servID.ToList().Count; i++)
+            {
+                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
+                {
                     Program.chanID.Remove(Program.chanID[i]);
+                    Program.servID.Remove(Program.servID[i]);
 
                     BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
                     foreach (var value in Program.chanID)
@@ -79,12 +105,24 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task restartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
         {
-            for (int i = 0; i < Program.servID.Count; i++)
+            List<ulong> guilds = new List<ulong>();
+            List<ulong> channels = new List<ulong>();
+            foreach (SocketGuild guild in Context.Client.Guilds)
             {
-                if (!(Context.Client.GetGuild(Program.servID[i]).IsConnected) || Context.Client.GetGuild(Program.servID[i]).GetChannel(Program.chanID[i]).Users.Count == 0)
+                guilds.Add(guild.Id);
+
+                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
                 {
-                    Program.servID.Remove(Program.servID[i]);
+                    channels.Add(channel.Id);
+                }
+            }
+
+            for (int i = 0; i < Program.servID.ToList().Count; i++)
+            {
+                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
+                {
                     Program.chanID.Remove(Program.chanID[i]);
+                    Program.servID.Remove(Program.servID[i]);
 
                     BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
                     foreach (var value in Program.chanID)
@@ -142,12 +180,24 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task exitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
         {
-            for (int i = 0; i < Program.servID.Count; i++)
+            List<ulong> guilds = new List<ulong>();
+            List<ulong> channels = new List<ulong>();
+            foreach (SocketGuild guild in Context.Client.Guilds)
             {
-                if (!(Context.Client.GetGuild(Program.servID[i]).IsConnected) || Context.Client.GetGuild(Program.servID[i]).GetChannel(Program.chanID[i]).Users.Count == 0)
+                guilds.Add(guild.Id);
+
+                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
                 {
-                    Program.servID.Remove(Program.servID[i]);
+                    channels.Add(channel.Id);
+                }
+            }
+
+            for (int i = 0; i < Program.servID.ToList().Count; i++)
+            {
+                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
+                {
                     Program.chanID.Remove(Program.chanID[i]);
+                    Program.servID.Remove(Program.servID[i]);
 
                     BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
                     foreach (var value in Program.chanID)

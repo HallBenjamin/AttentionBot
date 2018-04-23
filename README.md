@@ -49,7 +49,12 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.4.2 (Stable)
+## v1.5.5.0 (Beta)
+- Optimize code to use Dictionaries in many locations to determine if the bot was kicked from a server or a channel/server was deleted
+  - This is a more permanent, more effective, and more efficient fix to the same bug v1.5.4.3 fixed
+## v1.5.4.3 (Stable)
+- Fixed a major bug where if a server or channel went missing (was deleted/bot was kicked), the bot would stop working altogether
+## v1.5.4.2
 - Updated \help to show the version of .NET Framework and Discord.Net the bot uses
 ## v1.5.4.1
 - Fixed a bug where \usercount crashed the computer's network capabilities
