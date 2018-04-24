@@ -11,10 +11,11 @@ namespace AttentionBot.Modules
 {
     public class Owner : ModuleBase<SocketCommandContext>
     {
-        [Command("online")]
+        [Command("cleanup")]
         [RequireOwner]
-        public async Task onlineNotify()
+        public async Task cleanupFiles()
         {
+            // Servers and channels
             List<ulong> guilds = new List<ulong>();
             List<ulong> channels = new List<ulong>();
             foreach (SocketGuild guild in Context.Client.Guilds)
@@ -27,32 +28,85 @@ namespace AttentionBot.Modules
                 }
             }
 
-            for (int i = 0; i < Program.servID.ToList().Count; i++)
+            foreach (ulong servID in Program.servChanID.Keys.ToList())
             {
-                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
+                if (!guilds.Contains(servID) || !channels.Contains(Program.servChanID[servID]))
                 {
-                    Program.chanID.Remove(Program.chanID[i]);
-                    Program.servID.Remove(Program.servID[i]);
+                    Program.servChanID.Remove(servID);
 
                     BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                    foreach (var value in Program.chanID)
+                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                    foreach (ulong serv in Program.servChanID.Keys)
                     {
-                        chanWriter.Write(value.ToString());
+                        chanWriter.Write(Program.servChanID[serv].ToString());
+                        servWriter.Write(serv.ToString());
                     }
                     chanWriter.Close();
-
-                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                    foreach (var value in Program.servID)
-                    {
-                        servWriter.Write(value.ToString());
-                    }
                     servWriter.Close();
                 }
             }
 
-            for (int i = 0; i < Program.chanID.Count; i++)
+            // Mentions
+            foreach (ulong serv in Program.mentionID.ToList())
             {
-                await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot is now online.");
+                if (!guilds.Contains(serv))
+                {
+                    Program.mentionID.Remove(serv);
+                }
+            }
+
+            BinaryWriter mentionWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
+            foreach (var value in Program.mentionID)
+            {
+                mentionWriter.Write(value.ToString());
+            }
+            mentionWriter.Close();
+
+            // Roles
+            List<ulong> roles = new List<ulong>();
+            foreach (ulong server in guilds)
+            {
+                foreach (ulong ID in Program.roleID.ToList())
+                {
+                    SocketRole role = Context.Guild.Roles.FirstOrDefault(x => x.Id == ID);
+                    if(Context.Client.GetGuild(server).Roles.Contains(role))
+                    {
+                        roles.Add(role.Id);
+                    }
+                }
+            }
+            Program.roleID = roles;
+
+            BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
+            foreach (var value in Program.roleID)
+            {
+                roleWriter.Write(value.ToString());
+            }
+            roleWriter.Close();
+
+            await Context.Channel.SendMessageAsync("Cleanup complete!");
+        }
+
+        [Command("reload")]
+        [RequireOwner]
+        public async Task reload()
+        {
+            await Context.Channel.SendMessageAsync("Reloaded bot!");
+
+            System.Diagnostics.Process.Start("AttentionBot.exe");
+
+            Environment.Exit(0);
+        }
+
+        [Command("online")]
+        [RequireOwner]
+        public async Task onlineNotify()
+        {
+            await cleanupFiles();
+
+            foreach (ulong serv in Program.servChanID.Keys)
+            {
+                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot is now online.");
             }
         }
 
@@ -60,44 +114,11 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task announcement(string announceMessage)
         {
-            List<ulong> guilds = new List<ulong>();
-            List<ulong> channels = new List<ulong>();
-            foreach (SocketGuild guild in Context.Client.Guilds)
+            await cleanupFiles();
+
+            foreach (ulong serv in Program.servChanID.Keys)
             {
-                guilds.Add(guild.Id);
-
-                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
-                {
-                    channels.Add(channel.Id);
-                }
-            }
-
-            for (int i = 0; i < Program.servID.ToList().Count; i++)
-            {
-                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
-                {
-                    Program.chanID.Remove(Program.chanID[i]);
-                    Program.servID.Remove(Program.servID[i]);
-
-                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                    foreach (var value in Program.chanID)
-                    {
-                        chanWriter.Write(value.ToString());
-                    }
-                    chanWriter.Close();
-
-                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                    foreach (var value in Program.servID)
-                    {
-                        servWriter.Write(value.ToString());
-                    }
-                    servWriter.Close();
-                }
-            }
-
-            for (int i = 0; i < Program.chanID.Count; i++)
-            {
-                await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! " + announceMessage);
+                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! " + announceMessage);
             }
         }
 
@@ -105,73 +126,38 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task restartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
         {
-            List<ulong> guilds = new List<ulong>();
-            List<ulong> channels = new List<ulong>();
-            foreach (SocketGuild guild in Context.Client.Guilds)
+            await cleanupFiles();
+
+            if(_length != null)
             {
-                guilds.Add(guild.Id);
-
-                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
-                {
-                    channels.Add(channel.Id);
-                }
+                _length = " for " + _length + " hours.";
             }
-
-            for (int i = 0; i < Program.servID.ToList().Count; i++)
+            else
             {
-                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
-                {
-                    Program.chanID.Remove(Program.chanID[i]);
-                    Program.servID.Remove(Program.servID[i]);
-
-                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                    foreach (var value in Program.chanID)
-                    {
-                        chanWriter.Write(value.ToString());
-                    }
-                    chanWriter.Close();
-
-                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                    foreach (var value in Program.servID)
-                    {
-                        servWriter.Write(value.ToString());
-                    }
-                    servWriter.Close();
-                }
+                _length = ".";
             }
-
             if (_botID == Program.botID)
             {
-                for (int i = 0; i < Program.chanID.Count; i++)
+                foreach (ulong serv in Program.servChanID.Keys)
                 {
-                    await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot will go offline for an update in " + _time + " minutes.");
+                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot will go offline for an update in " + _time + " minutes.");
                 }
             }
             else if (_botID == "all")
             {
-                if (_length == null)
+                if (_length != null)
                 {
-                    for (int i = 0; i < Program.chanID.Count; i++)
+                    _length = " for " + _length + " hours";
+
+                    if (_reason != null)
                     {
-                        await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot's server will restart in " + _time + " minutes.");
+                        _reason = " due to " + _reason;
                     }
                 }
-                else
+
+                foreach (ulong serv in Program.servChanID.Keys)
                 {
-                    if (_reason == null)
-                    {
-                        for (int i = 0; i < Program.chanID.Count; i++)
-                        {
-                            await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes for " + _length + " hours.");
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < Program.chanID.Count; i++)
-                        {
-                            await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes for " + _length + " hours due to " + _reason + ".");
-                        }
-                    }
+                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes" + _length + _reason + ".");
                 }
             }
         }
@@ -180,74 +166,35 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task exitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
         {
-            List<ulong> guilds = new List<ulong>();
-            List<ulong> channels = new List<ulong>();
-            foreach (SocketGuild guild in Context.Client.Guilds)
-            {
-                guilds.Add(guild.Id);
-
-                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
-                {
-                    channels.Add(channel.Id);
-                }
-            }
-
-            for (int i = 0; i < Program.servID.ToList().Count; i++)
-            {
-                if (!guilds.Contains(Program.servID[i]) || !channels.Contains(Program.chanID[i]))
-                {
-                    Program.chanID.Remove(Program.chanID[i]);
-                    Program.servID.Remove(Program.servID[i]);
-
-                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                    foreach (var value in Program.chanID)
-                    {
-                        chanWriter.Write(value.ToString());
-                    }
-                    chanWriter.Close();
-
-                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                    foreach (var value in Program.servID)
-                    {
-                        servWriter.Write(value.ToString());
-                    }
-                    servWriter.Close();
-                }
-            }
+            await cleanupFiles();
 
             if (_botID == Program.botID)
             {
-                for (int i = 0; i < Program.chanID.Count; i++)
+                foreach (ulong serv in Program.servChanID.Keys)
                 {
-                    await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot is now offline.");
+                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot is now offline.");
                 }
             }
             else if (_botID == "all")
             {
                 if (_length == null)
                 {
-                    for (int i = 0; i < Program.chanID.Count; i++)
-                    {
-                        await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot's server is now restarting.");
-                    }
+                    _length = "restarting";
                 }
                 else
                 {
-                    if (_reason == null)
+                    _length = "offline for " + _length + " hours";
+
+                    if (_reason != null)
                     {
-                        for (int i = 0; i < Program.chanID.Count; i++)
-                        {
-                            await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours.");
-                        }
-                    }
-                    else
-                    {
-                        for (int i = 0; i < Program.chanID.Count; i++)
-                        {
-                            await Context.Client.GetGuild(Program.servID[i]).GetTextChannel(Program.chanID[i]).SendMessageAsync("Attention! Bot's server is now offline for " + _length + " hours due to " + _reason + ".");
-                        }
+                        _reason = " due to " + _reason;
                     }
 
+                }
+
+                foreach (ulong serv in Program.servChanID.Keys)
+                {
+                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server is now " + _length + _reason + ".");
                 }
 
             }
@@ -256,6 +203,16 @@ namespace AttentionBot.Modules
                 Console.WriteLine("Attention! Bot Offline");
 
             Thread.Sleep(1000);
+            Environment.Exit(0);
+        }
+
+        [Command("close")]
+        [RequireOwner]
+        public async Task close()
+        {
+            await cleanupFiles();
+
+            await Context.Channel.SendMessageAsync("Bot shutting down...");
             Environment.Exit(0);
         }
     }

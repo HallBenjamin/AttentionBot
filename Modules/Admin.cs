@@ -104,7 +104,7 @@ namespace AttentionBot.Modules
         }
 
         [Command("announce")]
-        public async Task announceChan(string _chanID = null)
+        public async Task announceChan(string _chanID)
         {
             bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
             foreach(ulong role in Program.roleID)
@@ -118,44 +118,22 @@ namespace AttentionBot.Modules
 
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
-                if (_chanID != null)
+                if (!Program.servChanID[Context.Guild.Id].Equals(Convert.ToUInt64(_chanID)))
                 {
-                    if (!Program.chanID.Contains(Convert.ToUInt64(_chanID)))
+                    Program.servChanID.Add(Context.Guild.Id, Convert.ToUInt64(_chanID));
+
+                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                    foreach (ulong serv in Program.servChanID.Keys)
                     {
-                        for (int i = 0; i < Program.servID.ToList().Count; i++)
-                        {
-                            if (Program.servID[i] == Context.Guild.Id)
-                            {
-                                Program.chanID.Remove(Program.chanID[i]);
-                                Program.servID.Remove(Program.servID[i]);
-                                break;
-                            }
-                        }
-
-                        Program.chanID.Add(Convert.ToUInt64(_chanID));
-                        Program.servID.Add(Context.Guild.Id);
-
-                        BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                        foreach (var value in Program.chanID)
-                        {
-                            chanWriter.Write(value.ToString());
-                        }
-                        chanWriter.Close();
-
-                        BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                        foreach (var value in Program.servID)
-                        {
-                            servWriter.Write(value.ToString());
-                        }
-                        servWriter.Close();
+                        chanWriter.Write(Program.servChanID[serv].ToString());
+                        servWriter.Write(serv.ToString());
                     }
+                    chanWriter.Close();
+                    servWriter.Close();
+                }
 
-                    await Context.Channel.SendMessageAsync("The announcements channel is now the channel with ID " + _chanID + ".");
-                }
-                else
-                {
-                    await Context.Channel.SendMessageAsync("No channel ID given. Please try again.");
-                }
+                await Context.Channel.SendMessageAsync("The announcements channel is now the channel with ID " + _chanID + ".");
             }
             else
             {

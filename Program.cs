@@ -22,14 +22,12 @@ namespace AttentionBot
         private CommandHandler _handler;
 
         public static bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
-
-        public static List<ulong> chanID = new List<ulong>();
-        public static List<ulong> servID = new List<ulong>();
+        
         public static List<ulong> roleID = new List<ulong>();
         public static List<ulong> mentionID = new List<ulong>();
-
-        private bool loadedChans = false;
-        private bool loadedServs = false;
+        public static Dictionary<ulong, ulong> servChanID = new Dictionary<ulong, ulong>();
+        
+        private bool loadedServChans = false;
         private bool loadedRoles = false;
         private bool loadedMentions = false;
 
@@ -46,8 +44,14 @@ namespace AttentionBot
             bool isRunning = System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Count() > 1;
             if (isRunning)
             {
-                MessageBox((IntPtr) 0, "Program is already running", "Attention! Bot for Discord", 0);
-                return;
+                await Task.Delay(1000);
+                isRunning = System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Count() > 1;
+
+                if(isRunning)
+                {
+                    MessageBox((IntPtr) 0, "Program is already running", "Attention! Bot for Discord", 0);
+                    return;
+                }
             }
 
             _config = new DiscordSocketConfig();
@@ -66,9 +70,12 @@ namespace AttentionBot
             {
                 Console.WriteLine("Attention! Bot Online");
             }
-
-            if (!loadedChans)
+            
+            if (!loadedServChans)
             {
+                List<ulong> chanID = new List<ulong>();
+                List<ulong> servID = new List<ulong>();
+
                 String chanString;
                 BinaryReader chanReader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < chanReader.BaseStream.Length; i += chanString.Length + 1)
@@ -77,11 +84,7 @@ namespace AttentionBot
                     chanID.Add(Convert.ToUInt64(chanString));
                 }
                 chanReader.Close();
-                loadedChans = true;
-            }
-            
-            if (!loadedServs)
-            {
+
                 String servString;
                 BinaryReader servReader = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < servReader.BaseStream.Length; i += servString.Length + 1)
@@ -90,7 +93,13 @@ namespace AttentionBot
                     servID.Add(Convert.ToUInt64(servString));
                 }
                 servReader.Close();
-                loadedServs = true;
+
+                for (int i = 0; i < servID.Count; i++)
+                {
+                    servChanID.Add(servID[i], chanID[i]);
+                }
+
+                loadedServChans = true;
             }
 
             if (!loadedRoles)

@@ -11,6 +11,7 @@ namespace AttentionBot.Modules
 {
     public class Attention : ModuleBase<SocketCommandContext>
     {
+        // Spam
         [Command("attention")]
         public async Task attention(string position = null, string _mentionID = null)
         {
@@ -57,45 +58,48 @@ namespace AttentionBot.Modules
             {
                 await Context.Channel.SendMessageAsync(text + " (" + letter + number + ")");
             }
+        }
 
-            if (true)
+        [Command("gary")]
+        public async Task saveMyFamily(string _mentionID = null)
+        {
+            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null)
             {
-                List<ulong> guilds = new List<ulong>();
-                foreach (SocketGuild guild in Context.Client.Guilds)
-                {
-                    guilds.Add(guild.Id);
-                }
-                
-                foreach (ulong serv in Program.mentionID.ToList())
-                {
-                    if (!guilds.Contains(serv))
-                    {
-                        Program.mentionID.Remove(serv);
-                    }
-                }
-
-                BinaryWriter mentionWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
-                foreach (var value in Program.mentionID)
-                {
-                    mentionWriter.Write(value.ToString());
-                }
-                mentionWriter.Close();
+                var user = Context.Guild.GetUser(Convert.ToUInt64(_mentionID));
+                await Context.Channel.SendMessageAsync(user.Mention + " We must save my family!");
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("We must save my family!");
             }
         }
 
+        [Command("bandits")]
+        public async Task banditsComing(string _mentionID = null)
+        {
+            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null)
+            {
+                var user = Context.Guild.GetUser(Convert.ToUInt64(_mentionID));
+                await Context.Channel.SendMessageAsync(user.Mention + " The bandits are coming!");
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("The bandits are coming!");
+            }
+        }
+
+        // Useful
         [Command("usercount")]
         public async Task userCount()
         {
-            int total = Context.Guild.MemberCount;
-            int totalBots = 0, onlineBots = 0, offlineBots = 0;
-            int totalUsers = 0, onlineUsers = 0, awayUsers = 0, doNotDisturbUsers = 0, invisibleUsers = 0, offlineUsers = 0;
+            long total = (long) Context.Guild.MemberCount;
+            long totalBots = 0L, onlineBots = 0L, offlineBots = 0L;
+            long totalUsers = total, onlineUsers = 0L, awayUsers = 0L, doNotDisturbUsers = 0L, invisibleUsers = 0L, offlineUsers = 0L;
 
             foreach (SocketGuildUser user in Context.Guild.Users)
             {
                 if(!user.IsBot)
                 {
-                    totalUsers++;
-
                     switch (user.Status)
                     {
                         case UserStatus.AFK:
@@ -113,12 +117,12 @@ namespace AttentionBot.Modules
                             break;
                         case UserStatus.Offline:
                         default:
-                            offlineUsers++;
                             break;
                     }
                 }
                 else
                 {
+                    totalUsers--;
                     totalBots++;
 
                     switch (user.Status)
@@ -132,11 +136,13 @@ namespace AttentionBot.Modules
                             break;
                         case UserStatus.Offline:
                         default:
-                            offlineBots++;
                             break;
                     }
                 }
             }
+
+            offlineUsers = totalUsers - (onlineUsers + awayUsers + doNotDisturbUsers + invisibleUsers);
+            offlineBots = totalBots - onlineBots;
 
             var onlineMessage = new EmbedBuilder();
             onlineMessage.WithColor(23, 90, 150);
@@ -186,24 +192,34 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.4.3  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.5.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
+
+                    "**Useful:**\n" +
                     "\\help 3949\n" +
                     "  - Lists all available commands for the bot.\n\n" +
                     "\\changelog 3949\n" +
                     "  - Sends a link to the version history (changelog) of the bot.\n\n" +
+                    "\\usercount\n" +
+                    "  - Lists number of users and bots on the server by status.\n\n" +
+
+                    "**Admins:**\n" +
                     "\\admin [role id]\n" +
                     "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
                     "\\mentions [0/1]\n" +
                     "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n" +
                     "\\announce [channel id]\n" +
                     "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n" +
+
+                    "**Fun Spam:**\n" +
                     "\\attention [position (optional)] [user ID (optional)]\n" +
                     "  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.\n" +
                     "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
-                    "\\usercount\n" +
-                    "  - Lists number of users and bots on the server by status.");
+                    "\\gary [user ID (optional)]\n" +
+                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
+                    "\\bandits [user ID (optional)]\n" +
+                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.");
             }
         }
     }

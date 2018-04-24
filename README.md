@@ -2,13 +2,16 @@
 ### Written using Discord.Net 1.0.2 and Microsoft.Net Framework 4.5.2
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 11 commands (7 for the public) with over 500 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 16 commands (9 for the public) with over 600 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
 Prefix: \
 
 Commands:
+
+Useful:
+
 - \help 3949
 
   - Lists available commands
@@ -16,6 +19,12 @@ Commands:
 - \changelog 3949
 
   - Sends a link to the version history (changelog) of the bot.
+  
+- \usercount
+  
+  - Lists number of users on the server by status.
+
+Admins:
 
 - \admin [role id]
 
@@ -31,17 +40,23 @@ Commands:
 
 - \announce [channel id]
 
-  - ADMINS AND SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements. Channel ID is mandatory.
+  - ADMINS AND SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements.
 
-- \attention [position] [user ID]
+Fun Spam:
 
-  - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter. Position is not required for the command.
+- \attention [position (optional)] [user ID (optional)]
+
+  - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter.
   
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention. User ID is optional.
-  
-- \usercount
-  
-  - Lists number of users on the server by status.
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+
+- \gary [user ID (optional)]
+
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+
+- \bandits [user ID (optional)]
+
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 # Release Notes
 ## v1.6.0.0 (Alpha)
@@ -49,10 +64,21 @@ Commands:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.5.0 (Beta)
-- Optimize code to use Dictionaries in many locations to determine if the bot was kicked from a server or a channel/server was deleted
+## v1.5.5.1 (Beta)
+- Improve formatting for \help to be an embed
+## v1.5.5.0 (Stable)
+- Optimize code to use Dictionaries for server and channel IDs since they are linked anyways
   - This is a more permanent, more effective, and more efficient fix to the same bug v1.5.4.3 fixed
-## v1.5.4.3 (Stable)
+- Optimized code so things loop less, and common lines of code are outside of the if statements while the individually different statements remain within
+- New command: \gary [user ID (optional)]
+  - "We must save my family!"
+  - Sword Art Online Abridged reference
+- New command: \bandits [user ID (optional)]
+  - "The bandits are coming!"
+  - Sword Art Online Abridged reference
+- New commands (Owner): \cleanup (cleans up the files that stores bot data), \close (closes the bot silently), \reload (reloads the bot)
+- Improved formatting for \help
+## v1.5.4.3
 - Fixed a major bug where if a server or channel went missing (was deleted/bot was kicked), the bot would stop working altogether
 ## v1.5.4.2
 - Updated \help to show the version of .NET Framework and Discord.Net the bot uses
