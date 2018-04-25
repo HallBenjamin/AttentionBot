@@ -53,9 +53,9 @@ Fun Spam:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.5.2 (Beta)
+## v1.5.5.2 (Stable)
 - Improve formatting for \help to be an embed
-## v1.5.5.1 (Stable)
+## v1.5.5.1
 - Changed Owner commands to not output that a cleanup finished every single time
 - Renamed \usercount to \membercount
 ## v1.5.5.0

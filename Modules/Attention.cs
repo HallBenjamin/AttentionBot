@@ -34,11 +34,11 @@ namespace AttentionBot.Modules
                     }
                 }
 
-                for (int i = 0; i <= 9; i++)
+                foreach (String lett in Letter)
                 {
-                    if (position.Contains(Letter[i]) || position.Contains(Letter[i].ToLower()))
+                    if (position.Contains(lett) || position.Contains(lett.ToLower()))
                     {
-                        letter = Letter[i];
+                        letter = lett;
                         break;
                     }
                 }
@@ -144,7 +144,7 @@ namespace AttentionBot.Modules
             offlineUsers = totalUsers - (onlineUsers + awayUsers + doNotDisturbUsers + invisibleUsers);
             offlineBots = totalBots - onlineBots;
 
-            var onlineMessage = new EmbedBuilder();
+            EmbedBuilder onlineMessage = new EmbedBuilder();
             onlineMessage.WithColor(23, 90, 150);
             onlineMessage.WithTitle("__User Count__");
             onlineMessage.WithCurrentTimestamp();
@@ -192,34 +192,58 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.5.1  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
-                    "__Prefix:__ \\\n\n" +
-                    "__Commands:__\n\n" +
+                EmbedBuilder helpMessage = new EmbedBuilder();
 
-                    "**Useful:**\n" +
+                helpMessage.WithTitle("Attention! Bot for Discord");
+                helpMessage.WithDescription("Version 1.5.5.2  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2");
+                helpMessage.WithColor(23, 90, 150);
+                helpMessage.WithCurrentTimestamp();
+
+                EmbedFieldBuilder prefixField = new EmbedFieldBuilder();
+                prefixField.WithIsInline(false);
+                prefixField.WithName("Prefix");
+                prefixField.WithValue(CommandHandler.prefix.ToString() + "\n\u200b");
+                helpMessage.AddField(prefixField);
+
+                EmbedFieldBuilder usefulField = new EmbedFieldBuilder();
+                usefulField.WithIsInline(true);
+                usefulField.WithName("Useful");
+                usefulField.WithValue(
                     "\\help 3949\n" +
                     "  - Lists all available commands for the bot.\n\n" +
                     "\\changelog 3949\n" +
                     "  - Sends a link to the version history (changelog) of the bot.\n\n" +
                     "\\membercount\n" +
-                    "  - Lists number of users and bots on the server by status.\n\n" +
+                    "  - Lists number of users and bots on the server by status.\n\u200b");
+                helpMessage.AddField(usefulField);
 
-                    "**Admins:**\n" +
-                    "\\admin [role id]\n" +
-                    "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
-                    "\\mentions [0/1]\n" +
-                    "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n" +
-                    "\\announce [channel id]\n" +
-                    "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n" +
-
-                    "**Fun Spam:**\n" +
+                EmbedFieldBuilder spamField = new EmbedFieldBuilder();
+                spamField.WithIsInline(true);
+                spamField.WithName("Fun Spams");
+                spamField.WithValue(
                     "\\attention [position (optional)] [user ID (optional)]\n" +
                     "  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.\n" +
                     "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
                     "\\gary [user ID (optional)]\n" +
                     "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
                     "\\bandits [user ID (optional)]\n" +
-                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.");
+                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\u200b");
+                helpMessage.AddField(spamField);
+
+                EmbedFieldBuilder adminField = new EmbedFieldBuilder();
+                adminField.WithIsInline(false);
+                adminField.WithName("Admins");
+                adminField.WithValue(
+                    "*NOTE: Users with the \"Administrators\" power are considered Server Owners for these roles. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+                    "\\admin [role id]\n" +
+                    "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
+                    "\\mentions [0/1]\n" +
+                    "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n" +
+                    "\\announce [channel id]\n" +
+                    "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.");
+                helpMessage.AddField(adminField);
+
+                await Context.Channel.SendMessageAsync("", false, helpMessage);
             }
         }
     }
