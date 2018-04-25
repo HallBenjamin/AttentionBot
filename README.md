@@ -13,49 +13,38 @@ Commands:
 Useful:
 
 - \help 3949
-
   - Lists available commands
 
 - \changelog 3949
-
   - Sends a link to the version history (changelog) of the bot.
   
-- \usercount
-  
+- \membercount
   - Lists number of users on the server by status.
 
 Admins:
 
 - \admin [role id]
-
   - SERVER OWNER ONLY! Sets the specified role as an administrative role for the bot's admin commands.
 
 - \noadmin [role id]
-
   - SERVER OWNER OLNY: Removes the specified role from the list of administrative roles for the bot.
 
 - \mentions [0/1]
-
   - ADMINS AND SERVER OWNERS ONLY! Enables (1) or disables (0) user mentions for the bot.
 
 - \announce [channel id]
-
   - ADMINS AND SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements.
 
 Fun Spam:
 
 - \attention [position (optional)] [user ID (optional)]
-
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter.
-  
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 - \gary [user ID (optional)]
-
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 - \bandits [user ID (optional)]
-
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 # Release Notes
@@ -64,9 +53,12 @@ Fun Spam:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.5.1 (Beta)
+## v1.5.5.2 (Beta)
 - Improve formatting for \help to be an embed
-## v1.5.5.0 (Stable)
+## v1.5.5.1 (Stable)
+- Changed Owner commands to not output that a cleanup finished every single time
+- Renamed \usercount to \membercount
+## v1.5.5.0
 - Optimize code to use Dictionaries for server and channel IDs since they are linked anyways
   - This is a more permanent, more effective, and more efficient fix to the same bug v1.5.4.3 fixed
 - Optimized code so things loop less, and common lines of code are outside of the if statements while the individually different statements remain within

@@ -13,7 +13,7 @@ namespace AttentionBot.Modules
     {
         [Command("cleanup")]
         [RequireOwner]
-        public async Task cleanupFiles()
+        public async Task cleanupFiles(bool reply = true)
         {
             // Servers and channels
             List<ulong> guilds = new List<ulong>();
@@ -84,7 +84,14 @@ namespace AttentionBot.Modules
             }
             roleWriter.Close();
 
-            await Context.Channel.SendMessageAsync("Cleanup complete!");
+            if(reply)
+            {
+                await Context.Channel.SendMessageAsync("Cleanup complete!");
+            }
+            else
+            {
+                await Task.Delay(0);
+            }
         }
 
         [Command("reload")]
@@ -102,7 +109,7 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task onlineNotify()
         {
-            await cleanupFiles();
+            await cleanupFiles(false);
 
             foreach (ulong serv in Program.servChanID.Keys)
             {
@@ -114,7 +121,7 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task announcement(string announceMessage)
         {
-            await cleanupFiles();
+            await cleanupFiles(false);
 
             foreach (ulong serv in Program.servChanID.Keys)
             {
@@ -126,7 +133,7 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task restartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
         {
-            await cleanupFiles();
+            await cleanupFiles(false);
 
             if(_length != null)
             {
@@ -166,7 +173,7 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task exitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
         {
-            await cleanupFiles();
+            await cleanupFiles(false);
 
             if (_botID == Program.botID)
             {
@@ -210,7 +217,7 @@ namespace AttentionBot.Modules
         [RequireOwner]
         public async Task close()
         {
-            await cleanupFiles();
+            await cleanupFiles(false);
 
             await Context.Channel.SendMessageAsync("Bot shutting down...");
             Environment.Exit(0);

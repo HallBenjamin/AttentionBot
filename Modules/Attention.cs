@@ -89,8 +89,8 @@ namespace AttentionBot.Modules
         }
 
         // Useful
-        [Command("usercount")]
-        public async Task userCount()
+        [Command("membercount")]
+        public async Task memberCount()
         {
             long total = (long) Context.Guild.MemberCount;
             long totalBots = 0L, onlineBots = 0L, offlineBots = 0L;
@@ -192,7 +192,7 @@ namespace AttentionBot.Modules
         {
             if (_botID == Program.botID)
             {
-                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.5.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
+                await Context.Channel.SendMessageAsync("**Attention! Bot v1.5.5.1  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.5.2**\n" +
                     "__Prefix:__ \\\n\n" +
                     "__Commands:__\n\n" +
 
@@ -201,7 +201,7 @@ namespace AttentionBot.Modules
                     "  - Lists all available commands for the bot.\n\n" +
                     "\\changelog 3949\n" +
                     "  - Sends a link to the version history (changelog) of the bot.\n\n" +
-                    "\\usercount\n" +
+                    "\\membercount\n" +
                     "  - Lists number of users and bots on the server by status.\n\n" +
 
                     "**Admins:**\n" +
