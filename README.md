@@ -56,7 +56,7 @@ Admins:
 ## v1.5.5.3 (Stable)
 - Fixed a bug that caused saved Admin roles to be deleted from the bot's database upon performing a \cleanup
 - Updated the bot to use Microsoft .NET 4.7.1
-## v1.5.5.2 (Stable)
+## v1.5.5.2
 - Improve formatting for \help to be an embed
 ## v1.5.5.1
 - Changed Owner commands to not output that a cleanup finished every single time
