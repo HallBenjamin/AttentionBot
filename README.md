@@ -1,5 +1,5 @@
 # Attention! Bot for Discord
-### Written using Discord.Net 1.0.2 and Microsoft.Net Framework 4.5.2
+### Written using Discord.Net 1.0.2 and Microsoft.Net Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
 ##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 16 commands (9 for the public) with over 600 lines of code.
@@ -21,6 +21,18 @@ Useful:
 - \membercount
   - Lists number of users on the server by status.
 
+Fun Spam:
+
+- \attention [position (optional)] [user ID (optional)]
+  - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter.
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+
+- \gary [user ID (optional)]
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+
+- \bandits [user ID (optional)]
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+
 Admins:
 
 - \admin [role id]
@@ -35,24 +47,15 @@ Admins:
 - \announce [channel id]
   - ADMINS AND SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements.
 
-Fun Spam:
-
-- \attention [position (optional)] [user ID (optional)]
-  - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter.
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
-
-- \gary [user ID (optional)]
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
-
-- \bandits [user ID (optional)]
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
-
 # Release Notes
 ## v1.6.0.0 (Alpha)
 - Add command to ping the bot for performance analysis
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.5.5.3 (Stable)
+- Fixed a bug that caused saved Admin roles to be deleted from the bot's database upon performing a \cleanup
+- Updated the bot to use Microsoft .NET 4.7.1
 ## v1.5.5.2 (Stable)
 - Improve formatting for \help to be an embed
 ## v1.5.5.1

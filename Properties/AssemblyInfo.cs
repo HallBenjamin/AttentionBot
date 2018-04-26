@@ -9,10 +9,10 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Attention! Bot")]
 [assembly: AssemblyDescription("Attention to the designated grid square! (E3)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("A Menacing 8-bit Chicken, War Thunder®")]
+[assembly: AssemblyCompany("A Menacing 8-bit Chicken")]
 [assembly: AssemblyProduct("Attention! Bot")]
 [assembly: AssemblyCopyright("Copyright © A Menacing 8-bit Chicken 2017-2018")]
-[assembly: AssemblyTrademark("")]
+[assembly: AssemblyTrademark("War Thunder®")]
 [assembly: AssemblyCulture("")]
 
 // Setting ComVisible to false makes the types in this assembly not visible
@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.5.5.2")]
+[assembly: AssemblyFileVersion("1.5.5.3")]
 [assembly: NeutralResourcesLanguage("en-US")]
 

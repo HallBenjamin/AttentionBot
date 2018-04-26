@@ -68,7 +68,7 @@ namespace AttentionBot.Modules
             {
                 foreach (ulong ID in Program.roleID.ToList())
                 {
-                    SocketRole role = Context.Guild.Roles.FirstOrDefault(x => x.Id == ID);
+                    SocketRole role = Context.Client.GetGuild(server).Roles.FirstOrDefault(x => x.Id == ID);
                     if(Context.Client.GetGuild(server).Roles.Contains(role))
                     {
                         roles.Add(role.Id);
