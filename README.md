@@ -53,7 +53,9 @@ Admins:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.5.4 (Stable)
+## v1.5.5.5 (Stable)
+- Fixed a bug where \announce would not work if your server was not already in the announcement channels database
+## v1.5.5.4
 - Changed: \help and \changelog no longer require the "3949" parameter; however, it is recommended so other bots don't show their help/changelog messages as well
 ## v1.5.5.3 SF1
 - Security Fix 1: Fixed a problem with a leaked bot security token, now saved in a separate file

@@ -118,20 +118,17 @@ namespace AttentionBot.Modules
 
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
-                if (!Program.servChanID[Context.Guild.Id].Equals(Convert.ToUInt64(_chanID)))
-                {
-                    Program.servChanID.Add(Context.Guild.Id, Convert.ToUInt64(_chanID));
+                Program.servChanID.Add(Context.Guild.Id, Convert.ToUInt64(_chanID));
 
-                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                    foreach (ulong serv in Program.servChanID.Keys)
-                    {
-                        chanWriter.Write(Program.servChanID[serv].ToString());
-                        servWriter.Write(serv.ToString());
-                    }
-                    chanWriter.Close();
-                    servWriter.Close();
+                BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                foreach (ulong serv in Program.servChanID.Keys)
+                {
+                    chanWriter.Write(Program.servChanID[serv].ToString());
+                    servWriter.Write(serv.ToString());
                 }
+                chanWriter.Close();
+                servWriter.Close();
 
                 await Context.Channel.SendMessageAsync("The announcements channel is now the channel with ID " + _chanID + ".");
             }
