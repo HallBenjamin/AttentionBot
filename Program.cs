@@ -14,9 +14,6 @@ namespace AttentionBot
         static void Main()
             => new Program().StartAsync().GetAwaiter().GetResult();
 
-        private const String token = "Removed for Security";
-        public const string botID = "3949";
-
         private DiscordSocketConfig _config;
         private DiscordSocketClient _client;
         private CommandHandler _handler;
@@ -59,7 +56,7 @@ namespace AttentionBot
 
             _client = new DiscordSocketClient(_config);
 
-            await _client.LoginAsync(TokenType.Bot, token);
+            await _client.LoginAsync(TokenType.Bot, SecurityInfo.token);
             await _client.StartAsync();
 
             await _client.SetGameAsync("Attention! \\help 3949");

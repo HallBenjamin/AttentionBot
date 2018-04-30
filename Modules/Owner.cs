@@ -143,7 +143,7 @@ namespace AttentionBot.Modules
             {
                 _length = ".";
             }
-            if (_botID == Program.botID)
+            if (_botID == SecurityInfo.botID)
             {
                 foreach (ulong serv in Program.servChanID.Keys)
                 {
@@ -175,7 +175,7 @@ namespace AttentionBot.Modules
         {
             await cleanupFiles(false);
 
-            if (_botID == Program.botID)
+            if (_botID == SecurityInfo.botID)
             {
                 foreach (ulong serv in Program.servChanID.Keys)
                 {

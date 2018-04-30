@@ -180,7 +180,7 @@ namespace AttentionBot.Modules
         [Command("changelog")]
         public async Task changelog(string _botID = null)
         {
-            if (_botID == Program.botID)
+            if (_botID == SecurityInfo.botID)
             {
                 await Context.Channel.SendMessageAsync("Changelog can be found at:\n" +
                     "https://github.com/josedolf-staller/AttentionBot#release-notes");
@@ -190,7 +190,7 @@ namespace AttentionBot.Modules
         [Command("help")]
         public async Task help(string _botID = null)
         {
-            if (_botID == Program.botID)
+            if (_botID == SecurityInfo.botID)
             {
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
