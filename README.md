@@ -53,6 +53,8 @@ Admins:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v1.5.5.3 SF1 (Stable)
+- Security Fix 1: Fixed a problem with a leaked bot security token, now saved in a separate file
 ## v1.5.5.3 (Stable)
 - Fixed a bug that caused saved Admin roles to be deleted from the bot's database upon performing a \cleanup
 - Updated the bot to use Microsoft .NET 4.7.1
