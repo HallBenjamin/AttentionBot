@@ -2,9 +2,6 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using System;
-using System.Collections.Generic;
-using System.IO;
-using System.Linq;
 using System.Threading.Tasks;
 
 namespace AttentionBot.Modules
@@ -180,7 +177,7 @@ namespace AttentionBot.Modules
         [Command("changelog")]
         public async Task changelog(string _botID = null)
         {
-            if (_botID == SecurityInfo.botID)
+            if (_botID == SecurityInfo.botID || _botID == null)
             {
                 await Context.Channel.SendMessageAsync("Changelog can be found at:\n" +
                     "https://github.com/josedolf-staller/AttentionBot#release-notes");
@@ -190,12 +187,12 @@ namespace AttentionBot.Modules
         [Command("help")]
         public async Task help(string _botID = null)
         {
-            if (_botID == SecurityInfo.botID)
+            if (_botID == SecurityInfo.botID || _botID == null)
             {
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.5.3 SF1  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithDescription("Bot Version 1.5.5.4  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
                 helpMessage.WithColor(23, 90, 150);
                 helpMessage.WithCurrentTimestamp();
 
@@ -209,9 +206,9 @@ namespace AttentionBot.Modules
                 usefulField.WithIsInline(true);
                 usefulField.WithName("Useful");
                 usefulField.WithValue(
-                    "\\help 3949\n" +
+                    "\\help [3949 (optional)]\n" +
                     "  - Lists all available commands for the bot.\n\n" +
-                    "\\changelog 3949\n" +
+                    "\\changelog [3949 (optional)]\n" +
                     "  - Sends a link to the version history (changelog) of the bot.\n\n" +
                     "\\membercount\n" +
                     "  - Lists number of users and bots on the server by status.\n\u200b");
@@ -234,7 +231,7 @@ namespace AttentionBot.Modules
                 adminField.WithIsInline(false);
                 adminField.WithName("Admins");
                 adminField.WithValue(
-                    "*NOTE: Users with the \"Administrators\" power are considered Server Owners for these roles. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+                    "*NOTE: Users with the \"Administrators\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
                     "\\admin [role id]\n" +
                     "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
                     "\\mentions [0/1]\n" +

@@ -12,10 +12,10 @@ Commands:
 
 Useful:
 
-- \help 3949
+- \help [3949 (optional)]
   - Lists available commands
 
-- \changelog 3949
+- \changelog [3949 (optional)]
   - Sends a link to the version history (changelog) of the bot.
   
 - \membercount
@@ -53,7 +53,9 @@ Admins:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.5.3 SF1 (Stable)
+## v1.5.5.4 (Stable)
+- Changed: \help and \changelog no longer require the "3949" parameter; however, it is recommended so other bots don't show their help/changelog messages as well
+## v1.5.5.3 SF1
 - Security Fix 1: Fixed a problem with a leaked bot security token, now saved in a separate file
 ## v1.5.5.3
 - Fixed a bug that caused saved Admin roles to be deleted from the bot's database upon performing a \cleanup
