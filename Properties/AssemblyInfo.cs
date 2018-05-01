@@ -9,9 +9,9 @@ using System.Runtime.InteropServices;
 [assembly: AssemblyTitle("Attention! Bot")]
 [assembly: AssemblyDescription("Attention to the designated grid square! (E3)")]
 [assembly: AssemblyConfiguration("")]
-[assembly: AssemblyCompany("A Menacing 8-bit Chicken")]
+[assembly: AssemblyCompany("A Menacing 8-bit Chicken™")]
 [assembly: AssemblyProduct("Attention! Bot")]
-[assembly: AssemblyCopyright("Copyright © A Menacing 8-bit Chicken 2017-2018")]
+[assembly: AssemblyCopyright("Copyright © A Menacing 8-bit Chicken™ 2017-2018")]
 [assembly: AssemblyTrademark("War Thunder®")]
 [assembly: AssemblyCulture("")]
 
@@ -34,6 +34,6 @@ using System.Runtime.InteropServices;
 // by using the '*' as shown below:
 // [assembly: AssemblyVersion("1.0.*")]
 [assembly: AssemblyVersion("1.0.0.0")]
-[assembly: AssemblyFileVersion("1.5.6.0")]
+[assembly: AssemblyFileVersion("1.5.6.1")]
 [assembly: NeutralResourcesLanguage("en-US")]
 

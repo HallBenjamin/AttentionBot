@@ -26,7 +26,7 @@ namespace AttentionBot.Modules
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
                 string announceChan = Program.servChanID.ContainsKey(Context.Guild.Id) ? Program.servChanID[Context.Guild.Id].ToString()
-                    : "No bot announcements channel has been assigned.";
+                    : "No announcements channel has been assigned.\n\u200b";
 
                 List<ulong> adminRoles = new List<ulong>();
                 foreach (ulong role in Program.roleID)
@@ -46,7 +46,7 @@ namespace AttentionBot.Modules
                 EmbedFieldBuilder announceEmb = new EmbedFieldBuilder();
                 announceEmb.WithIsInline(false);
                 announceEmb.WithName("Announcements Channel");
-                if (announceChan != "No announcements channel has been assigned.")
+                if (announceChan != "No announcements channel has been assigned.\n\u200b")
                 {
                     announceChan = "Name: " + Context.Guild.GetChannel(Convert.ToUInt64(announceChan)).Name + "\nID: " + announceChan + "\n\u200b";
                 }
@@ -56,7 +56,7 @@ namespace AttentionBot.Modules
                 EmbedFieldBuilder adminEmb = new EmbedFieldBuilder();
                 adminEmb.WithIsInline(false);
                 adminEmb.WithName("Admin Roles");
-                string roles = adminRoles.Count == 0 ? "No admin roles have been assigned." : "";
+                string roles = adminRoles.Count == 0 ? "No admin roles have been assigned.\n\u200b" : "";
                 foreach (ulong role in adminRoles)
                 {
                     roles += "Name: " + Context.Guild.GetRole(role).Name + "\nID: " + role + "\n\u200b\n";

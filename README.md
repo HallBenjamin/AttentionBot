@@ -53,7 +53,9 @@ Admins:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.6.0 (Stable)
+## v1.5.6.1 (Stable)
+- Fixed formatting for the \settings command
+## v1.5.6.0
 - New command: \settings
   - Displays the current bot configuration
 - Fixed using "String" instead of "string"
