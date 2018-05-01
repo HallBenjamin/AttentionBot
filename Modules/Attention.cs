@@ -31,7 +31,7 @@ namespace AttentionBot.Modules
                     }
                 }
 
-                foreach (String lett in Letter)
+                foreach (string lett in Letter)
                 {
                     if (position.Contains(lett) || position.Contains(lett.ToLower()))
                     {
@@ -142,7 +142,7 @@ namespace AttentionBot.Modules
             offlineBots = totalBots - onlineBots;
 
             EmbedBuilder onlineMessage = new EmbedBuilder();
-            onlineMessage.WithColor(23, 90, 150);
+            onlineMessage.WithColor(SecurityInfo.botColor);
             onlineMessage.WithTitle("__User Count__");
             onlineMessage.WithCurrentTimestamp();
 
@@ -192,8 +192,8 @@ namespace AttentionBot.Modules
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.5.5  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
-                helpMessage.WithColor(23, 90, 150);
+                helpMessage.WithDescription("Bot Version 1.5.6.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithColor(SecurityInfo.botColor);
                 helpMessage.WithCurrentTimestamp();
 
                 EmbedFieldBuilder prefixField = new EmbedFieldBuilder();
@@ -231,13 +231,15 @@ namespace AttentionBot.Modules
                 adminField.WithIsInline(false);
                 adminField.WithName("Admins");
                 adminField.WithValue(
-                    "*NOTE: Users with the \"Administrators\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+                    "*NOTE: Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+                    "\\settings\n" +
+                    "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
                     "\\admin [role id]\n" +
                     "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
-                    "\\mentions [0/1]\n" +
-                    "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n" +
                     "\\announce [channel id]\n" +
-                    "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.");
+                    "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n" +
+                    "\\mentions [0/1]\n" +
+                    "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.");
                 helpMessage.AddField(adminField);
 
                 await Context.Channel.SendMessageAsync("", false, helpMessage);

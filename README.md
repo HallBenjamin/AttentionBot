@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.2 and Microsoft.Net Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 16 commands (9 for the public) with over 600 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 17 commands (10 for the public) with over 600 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
@@ -35,17 +35,17 @@ Fun Spam:
 
 Admins:
 
+- \settings
+  - ADMINS/SERVER OWNER: Displays the current configuration of the bot.
+
 - \admin [role id]
-  - SERVER OWNER ONLY! Sets the specified role as an administrative role for the bot's admin commands.
-
-- \noadmin [role id]
-  - SERVER OWNER OLNY: Removes the specified role from the list of administrative roles for the bot.
-
-- \mentions [0/1]
-  - ADMINS AND SERVER OWNERS ONLY! Enables (1) or disables (0) user mentions for the bot.
+  - SERVER OWNER: Sets the specified role as an administrative role for the bot's admin commands.
 
 - \announce [channel id]
-  - ADMINS AND SERVER OWNER ONLY! Sets the Channel with the specified ID as the channel for bot announcements.
+  - ADMINS/SERVER OWNER: Sets the Channel with the specified ID as the channel for bot announcements.
+
+- \mentions [0/1]
+  - ADMINS/SERVER OWNER: Enables (1) or disables (0) user mentions for the bot.
 
 # Release Notes
 ## v1.6.0.0 (Alpha)
@@ -53,7 +53,12 @@ Admins:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.5.5 (Stable)
+## v1.5.6.0 (Stable)
+- New command: \settings
+  - Displays the current bot configuration
+- Fixed using "String" instead of "string"
+- Made the bot color be more easily changed
+## v1.5.5.5
 - Fixed a bug where \announce would not work if your server was not already in the announcement channels database
 ## v1.5.5.4
 - Changed: \help and \changelog no longer require the "3949" parameter; however, it is recommended so other bots don't show their help/changelog messages as well

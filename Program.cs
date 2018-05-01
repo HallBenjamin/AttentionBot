@@ -29,7 +29,7 @@ namespace AttentionBot
         private bool loadedMentions = false;
 
         [DllImport("User32.dll", CharSet = CharSet.Unicode)]
-        public static extern int MessageBox(IntPtr h, string m, string c, int type);
+        private static extern int MessageBox(IntPtr h, string m, string c, int type);
 
         public async Task StartAsync()
         {
@@ -51,8 +51,10 @@ namespace AttentionBot
                 }
             }
 
-            _config = new DiscordSocketConfig();
-            _config.AlwaysDownloadUsers = false;
+            _config = new DiscordSocketConfig
+            {
+                AlwaysDownloadUsers = false
+            };
 
             _client = new DiscordSocketClient(_config);
 
@@ -73,7 +75,7 @@ namespace AttentionBot
                 List<ulong> chanID = new List<ulong>();
                 List<ulong> servID = new List<ulong>();
 
-                String chanString;
+                string chanString;
                 BinaryReader chanReader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < chanReader.BaseStream.Length; i += chanString.Length + 1)
                 {
@@ -82,7 +84,7 @@ namespace AttentionBot
                 }
                 chanReader.Close();
 
-                String servString;
+                string servString;
                 BinaryReader servReader = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < servReader.BaseStream.Length; i += servString.Length + 1)
                 {
@@ -101,7 +103,7 @@ namespace AttentionBot
 
             if (!loadedRoles)
             {
-                String roleString;
+                string roleString;
                 BinaryReader roleReader = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < roleReader.BaseStream.Length; i += roleString.Length + 1)
                 {
@@ -114,7 +116,7 @@ namespace AttentionBot
 
             if (!loadedMentions)
             {
-                String mentionString;
+                string mentionString;
                 BinaryReader mentReader = new BinaryReader(File.Open("mentions.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < mentReader.BaseStream.Length; i += mentionString.Length + 1)
                 {
