@@ -2,6 +2,7 @@
 using Discord.Commands;
 using Discord.WebSocket;
 using System;
+using System.Linq;
 using System.Threading.Tasks;
 
 namespace AttentionBot.Modules
@@ -45,11 +46,10 @@ namespace AttentionBot.Modules
 
             string text = Text[rnd.Next(0, 3)];
 
-            var _myUser = Context.Guild.GetUser(Convert.ToUInt64(_mentionID));
-
-            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null)
+            SocketUser user = Context.Guild.Users.FirstOrDefault(x => x.Id == Convert.ToUInt64(_mentionID));
+            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null && Context.Guild.Users.Contains(user))
             {
-                await Context.Channel.SendMessageAsync(_myUser.Mention + " " + text + " (" + letter + number + ")");
+                await Context.Channel.SendMessageAsync(user.Mention + " " + text + " (" + letter + number + ")");
             }
             else
             {
@@ -60,9 +60,9 @@ namespace AttentionBot.Modules
         [Command("gary")]
         public async Task saveMyFamily(string _mentionID = null)
         {
-            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null)
+            SocketUser user = Context.Guild.Users.FirstOrDefault(x => x.Id == Convert.ToUInt64(_mentionID));
+            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null && Context.Guild.Users.Contains(user))
             {
-                var user = Context.Guild.GetUser(Convert.ToUInt64(_mentionID));
                 await Context.Channel.SendMessageAsync(user.Mention + " We must save my family!");
             }
             else
@@ -74,9 +74,9 @@ namespace AttentionBot.Modules
         [Command("bandits")]
         public async Task banditsComing(string _mentionID = null)
         {
-            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null)
+            SocketUser user = Context.Guild.Users.FirstOrDefault(x => x.Id == Convert.ToUInt64(_mentionID));
+            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null && Context.Guild.Users.Contains(user))
             {
-                var user = Context.Guild.GetUser(Convert.ToUInt64(_mentionID));
                 await Context.Channel.SendMessageAsync(user.Mention + " The bandits are coming!");
             }
             else
@@ -192,7 +192,7 @@ namespace AttentionBot.Modules
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.6.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithDescription("Bot Version 1.5.6.2  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
                 helpMessage.WithColor(SecurityInfo.botColor);
                 helpMessage.WithCurrentTimestamp();
 

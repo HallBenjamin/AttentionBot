@@ -95,7 +95,7 @@ namespace AttentionBot
 
                 for (int i = 0; i < servID.Count; i++)
                 {
-                    servChanID.Add(servID[i], chanID[i]);
+                    servChanID.Put(servID[i], chanID[i]);
                 }
 
                 loadedServChans = true;

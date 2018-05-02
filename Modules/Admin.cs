@@ -1,5 +1,6 @@
 ﻿using Discord;
 using Discord.Commands;
+using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -16,7 +17,8 @@ namespace AttentionBot.Modules
             bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
             foreach (ulong role in Program.roleID)
             {
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(role)); // If already true, ignore
+                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
+                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
                 if (hasRole)
                 {
                     break;
@@ -31,12 +33,12 @@ namespace AttentionBot.Modules
                 List<ulong> adminRoles = new List<ulong>();
                 foreach (ulong role in Program.roleID)
                 {
-                    if (Context.Guild.Roles.FirstOrDefault(x => x.Id == role).Id == role)
+                    SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
+                    if (Context.Guild.Roles.Contains(socketRole))
                     {
                         adminRoles.Add(role);
                     }
                 }
-
                 string mentions = Program.mentionID.Contains(Context.Guild.Id) ? "Enabled" : "Disabled";
 
                 EmbedBuilder servSettings = new EmbedBuilder();
@@ -90,7 +92,7 @@ namespace AttentionBot.Modules
                     }
                     roleWriter.Close();
 
-                    await Context.Channel.SendMessageAsync("Role has been added as an administrative role.");
+                    await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " has been added as an administrative role.");
                 }
                 else
                 {
@@ -103,7 +105,7 @@ namespace AttentionBot.Modules
                     }
                     roleWriter.Close();
 
-                    await Context.Channel.SendMessageAsync("Role is no longer an administrative role.");
+                    await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " is no longer an administrative role.");
                 }
             }
             else
@@ -119,7 +121,8 @@ namespace AttentionBot.Modules
             bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
             foreach (ulong role in Program.roleID)
             {
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(role)); // If already true, ignore
+                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
+                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
                 if (hasRole)
                 {
                     break;
@@ -135,22 +138,28 @@ namespace AttentionBot.Modules
                     if (Program.mentionID.Contains(Context.Guild.Id))
                     {
                         Program.mentionID.Remove(Context.Guild.Id);
+                        _mentionsEnabled = "Disabled";
                     }
-
-                    _mentionsEnabled = "Disabled";
+                    else
+                    {
+                        _mentionsEnabled = "already disabled";
+                    }
                 }
                 else if (_mentions == "1")
                 {
-                    if (!Program.mentionID.Contains(Context.Guild.Id))
+                    if (Program.mentionID.Contains(Context.Guild.Id))
+                    {
+                        _mentionsEnabled = "already enabled";
+                    }
+                    else
                     {
                         Program.mentionID.Add(Context.Guild.Id);
+                        _mentionsEnabled = "Enabled";
                     }
-
-                    _mentionsEnabled = "Enabled";
                 }
                 else
                 {
-                    await Context.Channel.SendMessageAsync("Invalid Parameter. Valid parameters are \"disabled\" and \"enabled\".");
+                    await Context.Channel.SendMessageAsync("Invalid Parameter. Valid parameters are \"0\" and \"1\".");
                     return;
                 }
 
@@ -175,7 +184,8 @@ namespace AttentionBot.Modules
             bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
             foreach(ulong role in Program.roleID)
             {
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(Context.Guild.GetRole(role)); // If already true, ignore
+                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
+                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
                 if (hasRole)
                 {
                     break;
@@ -184,19 +194,26 @@ namespace AttentionBot.Modules
 
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
-                Program.servChanID.Add(Context.Guild.Id, Convert.ToUInt64(_chanID));
-
-                BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                foreach (ulong serv in Program.servChanID.Keys)
+                if (Program.servChanID.ContainsKey(Context.Guild.Id) && Program.servChanID[Context.Guild.Id] == Context.Channel.Id)
                 {
-                    chanWriter.Write(Program.servChanID[serv].ToString());
-                    servWriter.Write(serv.ToString());
+                    await Context.Channel.SendMessageAsync("Channel is already set as the announcements channel.");
                 }
-                chanWriter.Close();
-                servWriter.Close();
+                else
+                {
+                    Program.servChanID.Put(Context.Guild.Id, Convert.ToUInt64(_chanID));
 
-                await Context.Channel.SendMessageAsync("The announcements channel is now the channel with ID " + _chanID + ".");
+                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
+                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
+                    foreach (ulong serv in Program.servChanID.Keys)
+                    {
+                        chanWriter.Write(Program.servChanID[serv].ToString());
+                        servWriter.Write(serv.ToString());
+                    }
+                    chanWriter.Close();
+                    servWriter.Close();
+
+                    await Context.Channel.SendMessageAsync("The announcements channel is now " + Context.Guild.GetChannel(Convert.ToUInt64(_chanID)).Name + " with ID " + _chanID + ".");
+                }
             }
             else
             {
