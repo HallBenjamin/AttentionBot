@@ -12,67 +12,70 @@ namespace AttentionBot.Modules
     public class Admin : ModuleBase<SocketCommandContext>
     {
         [Command("settings")]
-        public async Task getSettings()
+        public async Task getSettings(string _botID = null)
         {
-            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
-            foreach (ulong role in Program.roleID)
+            if(_botID == SecurityInfo.botID || _botID == null)
             {
-                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
-                if (hasRole)
-                {
-                    break;
-                }
-            }
-
-            if (Context.User.Id == Context.Guild.OwnerId || hasRole)
-            {
-                string announceChan = Program.servChanID.ContainsKey(Context.Guild.Id) ? Program.servChanID[Context.Guild.Id].ToString()
-                    : "No announcements channel has been assigned.\n\u200b";
-
-                List<ulong> adminRoles = new List<ulong>();
+                bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
                 foreach (ulong role in Program.roleID)
                 {
                     SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
-                    if (Context.Guild.Roles.Contains(socketRole))
+                    hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
+                    if (hasRole)
                     {
-                        adminRoles.Add(role);
+                        break;
                     }
                 }
-                string mentions = Program.mentionID.Contains(Context.Guild.Id) ? "Enabled" : "Disabled";
 
-                EmbedBuilder servSettings = new EmbedBuilder();
-                servSettings.WithColor(SecurityInfo.botColor);
-                servSettings.WithTitle("__Current Bot Configuration__");
-
-                EmbedFieldBuilder announceEmb = new EmbedFieldBuilder();
-                announceEmb.WithIsInline(false);
-                announceEmb.WithName("Announcements Channel");
-                if (announceChan != "No announcements channel has been assigned.\n\u200b")
+                if (Context.User.Id == Context.Guild.OwnerId || hasRole)
                 {
-                    announceChan = "Name: " + Context.Guild.GetChannel(Convert.ToUInt64(announceChan)).Name + "\nID: " + announceChan + "\n\u200b";
+                    string announceChan = Program.servChanID.ContainsKey(Context.Guild.Id) ? Program.servChanID[Context.Guild.Id].ToString()
+                        : "No announcements channel has been assigned.\n\u200b";
+
+                    List<ulong> adminRoles = new List<ulong>();
+                    foreach (ulong role in Program.roleID)
+                    {
+                        SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
+                        if (Context.Guild.Roles.Contains(socketRole))
+                        {
+                            adminRoles.Add(role);
+                        }
+                    }
+                    string mentions = Program.mentionID.Contains(Context.Guild.Id) ? "Enabled" : "Disabled";
+
+                    EmbedBuilder servSettings = new EmbedBuilder();
+                    servSettings.WithColor(SecurityInfo.botColor);
+                    servSettings.WithTitle("__Current Bot Configuration__");
+
+                    EmbedFieldBuilder announceEmb = new EmbedFieldBuilder();
+                    announceEmb.WithIsInline(false);
+                    announceEmb.WithName("Announcements Channel");
+                    if (announceChan != "No announcements channel has been assigned.\n\u200b")
+                    {
+                        announceChan = "Name: " + Context.Guild.GetChannel(Convert.ToUInt64(announceChan)).Name + "\nID: " + announceChan + "\n\u200b";
+                    }
+                    announceEmb.WithValue(announceChan);
+                    servSettings.AddField(announceEmb);
+
+                    EmbedFieldBuilder adminEmb = new EmbedFieldBuilder();
+                    adminEmb.WithIsInline(false);
+                    adminEmb.WithName("Admin Roles");
+                    string roles = adminRoles.Count == 0 ? "No admin roles have been assigned.\n\u200b" : "";
+                    foreach (ulong role in adminRoles)
+                    {
+                        roles += "Name: " + Context.Guild.GetRole(role).Name + "\nID: " + role + "\n\u200b\n";
+                    }
+                    adminEmb.WithValue(roles);
+                    servSettings.AddField(adminEmb);
+
+                    EmbedFieldBuilder mentionEmb = new EmbedFieldBuilder();
+                    mentionEmb.WithIsInline(false);
+                    mentionEmb.WithName("User Mentions");
+                    mentionEmb.WithValue(mentions);
+                    servSettings.AddField(mentionEmb);
+
+                    await Context.Channel.SendMessageAsync("", false, servSettings);
                 }
-                announceEmb.WithValue(announceChan);
-                servSettings.AddField(announceEmb);
-
-                EmbedFieldBuilder adminEmb = new EmbedFieldBuilder();
-                adminEmb.WithIsInline(false);
-                adminEmb.WithName("Admin Roles");
-                string roles = adminRoles.Count == 0 ? "No admin roles have been assigned.\n\u200b" : "";
-                foreach (ulong role in adminRoles)
-                {
-                    roles += "Name: " + Context.Guild.GetRole(role).Name + "\nID: " + role + "\n\u200b\n";
-                }
-                adminEmb.WithValue(roles);
-                servSettings.AddField(adminEmb);
-
-                EmbedFieldBuilder mentionEmb = new EmbedFieldBuilder();
-                mentionEmb.WithIsInline(false);
-                mentionEmb.WithName("User Mentions");
-                mentionEmb.WithValue(mentions);
-                servSettings.AddField(mentionEmb);
-
-                await Context.Channel.SendMessageAsync("", false, servSettings);
             }
         }
 

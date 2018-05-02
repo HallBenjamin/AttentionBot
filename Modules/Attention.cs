@@ -192,7 +192,7 @@ namespace AttentionBot.Modules
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.6.2  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithDescription("Bot Version 1.5.6.3  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
                 helpMessage.WithColor(SecurityInfo.botColor);
                 helpMessage.WithCurrentTimestamp();
 
@@ -232,7 +232,7 @@ namespace AttentionBot.Modules
                 adminField.WithName("Admins");
                 adminField.WithValue(
                     "*NOTE: Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
-                    "\\settings\n" +
+                    "\\settings [3949 (optional)]\n" +
                     "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
                     "\\admin [role id]\n" +
                     "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +

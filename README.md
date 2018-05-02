@@ -35,7 +35,7 @@ Fun Spam:
 
 Admins:
 
-- \settings
+- \settings [3949 (optional)]
   - ADMINS/SERVER OWNER: Displays the current configuration of the bot.
 
 - \admin [role id]
@@ -53,7 +53,9 @@ Admins:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.6.2 (Stable)
+## v1.5.6.3 (Stable)
+- Added the ability to type "3949" as a parameter for the \settings command to prevent a spam of every bot with a \settings command displaying their settings
+## v1.5.6.2
 - Fixed every bug related to a role/channel/server/etc. being missing from a List, Dictionary, or the bot's lists of server connections and information
 - Fixed a bug where adding an already existing key to a Dictionary would cause an exception
 - Extended the Dictionary class to include a Put(TKey, TValue) function, which Adds(TKey, TValue) if TKey does not exist or modifies this[TKey] = TValue if TKey does exist
