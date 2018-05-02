@@ -6,11 +6,11 @@ using System.Runtime.InteropServices;
 // General Information about an assembly is controlled through the following
 // set of attributes. Change these attribute values to modify the information
 // associated with an assembly.
-[assembly: AssemblyTitle("Attention! Bot")]
+[assembly: AssemblyTitle("Attention! Bot for Discord")]
 [assembly: AssemblyDescription("Attention to the designated grid square! (E3)")]
-[assembly: AssemblyConfiguration("")]
+[assembly: AssemblyConfiguration("Stable")]
 [assembly: AssemblyCompany("A Menacing 8-bit Chicken™")]
-[assembly: AssemblyProduct("Attention! Bot")]
+[assembly: AssemblyProduct("Attention! Bot for Discord")]
 [assembly: AssemblyCopyright("Copyright © A Menacing 8-bit Chicken™ 2017-2018")]
 [assembly: AssemblyTrademark("War Thunder®")]
 [assembly: AssemblyCulture("")]
