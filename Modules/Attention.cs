@@ -143,7 +143,7 @@ namespace AttentionBot.Modules
 
             EmbedBuilder onlineMessage = new EmbedBuilder();
             onlineMessage.WithColor(SecurityInfo.botColor);
-            onlineMessage.WithTitle("__User Count__");
+            onlineMessage.WithTitle("__Member Count__");
             onlineMessage.WithCurrentTimestamp();
 
             EmbedFieldBuilder totalBuilder = new EmbedFieldBuilder();
@@ -192,7 +192,7 @@ namespace AttentionBot.Modules
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.6.3  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithDescription("Bot Version 1.5.6.4  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
                 helpMessage.WithColor(SecurityInfo.botColor);
                 helpMessage.WithCurrentTimestamp();
 

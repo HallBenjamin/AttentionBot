@@ -53,7 +53,9 @@ Admins:
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.6.3 (Stable)
+## v1.5.6.4 (Stable)
+- Changed the \membercount Embed Title to "Member Count"
+## v1.5.6.3
 - Added the ability to type "3949" as a parameter for the \settings command to prevent a spam of every bot with a \settings command displaying their settings
 - Made the embed color slightly darker
 ## v1.5.6.2
