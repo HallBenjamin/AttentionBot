@@ -57,6 +57,7 @@ Admins:
 - Fixed every bug related to a role/channel/server/etc. being missing from a List, Dictionary, or the bot's lists of server connections and information
 - Fixed a bug where adding an already existing key to a Dictionary would cause an exception
 - Extended the Dictionary class to include a Put(TKey, TValue) function, which Adds(TKey, TValue) if TKey does not exist or modifies this[TKey] = TValue if TKey does exist
+- Changed the output of the admin commands and added new outputs if nothing changed because the role/channel/etc. already exists
 ## v1.5.6.1
 - Fixed formatting for the \settings command
 ## v1.5.6.0
