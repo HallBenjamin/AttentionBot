@@ -55,6 +55,7 @@ Admins:
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v1.5.6.3 (Stable)
 - Added the ability to type "3949" as a parameter for the \settings command to prevent a spam of every bot with a \settings command displaying their settings
+- Made the embed color slightly darker
 ## v1.5.6.2
 - Fixed every bug related to a role/channel/server/etc. being missing from a List, Dictionary, or the bot's lists of server connections and information
 - Fixed a bug where adding an already existing key to a Dictionary would cause an exception
