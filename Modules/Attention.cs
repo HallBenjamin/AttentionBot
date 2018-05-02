@@ -95,7 +95,7 @@ namespace AttentionBot.Modules
 
             foreach (SocketGuildUser user in Context.Guild.Users)
             {
-                if(!user.IsBot)
+                if (!user.IsBot)
                 {
                     switch (user.Status)
                     {

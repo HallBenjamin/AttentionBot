@@ -69,7 +69,7 @@ namespace AttentionBot.Modules
                 foreach (ulong ID in Program.roleID.ToList())
                 {
                     SocketRole role = Context.Client.GetGuild(server).Roles.FirstOrDefault(x => x.Id == ID);
-                    if(Context.Client.GetGuild(server).Roles.Contains(role))
+                    if (Context.Client.GetGuild(server).Roles.Contains(role))
                     {
                         roles.Add(role.Id);
                     }
@@ -84,7 +84,7 @@ namespace AttentionBot.Modules
             }
             roleWriter.Close();
 
-            if(reply)
+            if (reply)
             {
                 await Context.Channel.SendMessageAsync("Cleanup complete!");
             }
@@ -135,7 +135,7 @@ namespace AttentionBot.Modules
         {
             await cleanupFiles(false);
 
-            if(_length != null)
+            if (_length != null)
             {
                 _length = " for " + _length + " hours.";
             }

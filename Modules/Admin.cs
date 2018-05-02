@@ -14,7 +14,7 @@ namespace AttentionBot.Modules
         [Command("settings")]
         public async Task getSettings(string _botID = null)
         {
-            if(_botID == SecurityInfo.botID || _botID == null)
+            if (_botID == SecurityInfo.botID || _botID == null)
             {
                 bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
                 foreach (ulong role in Program.roleID)
@@ -185,7 +185,7 @@ namespace AttentionBot.Modules
         public async Task announceChan(string _chanID)
         {
             bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
-            foreach(ulong role in Program.roleID)
+            foreach (ulong role in Program.roleID)
             {
                 SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
                 hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore

@@ -1,8 +1,8 @@
 # Attention! Bot for Discord
-### Written using Discord.Net 1.0.2 and Microsoft.Net Framework 4.7.1
+### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 17 commands (10 for the public) with over 600 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 17 commands (10 for the public) and almost 1,000 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
@@ -21,7 +21,7 @@ Useful:
 - \membercount
   - Lists number of users on the server by status.
 
-Fun Spam:
+Fun Spams:
 
 - \attention [position (optional)] [user ID (optional)]
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter.

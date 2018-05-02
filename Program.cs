@@ -19,11 +19,11 @@ namespace AttentionBot
         private CommandHandler _handler;
 
         public static bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
-        
+
         public static List<ulong> roleID = new List<ulong>();
         public static List<ulong> mentionID = new List<ulong>();
         public static Dictionary<ulong, ulong> servChanID = new Dictionary<ulong, ulong>();
-        
+
         private bool loadedServChans = false;
         private bool loadedRoles = false;
         private bool loadedMentions = false;
@@ -44,7 +44,7 @@ namespace AttentionBot
                 await Task.Delay(1000);
                 isRunning = System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Count() > 1;
 
-                if(isRunning)
+                if (isRunning)
                 {
                     MessageBox((IntPtr) 0, "Program is already running", "Attention! Bot for Discord", 0);
                     return;
@@ -69,7 +69,7 @@ namespace AttentionBot
             {
                 Console.WriteLine("Attention! Bot Online");
             }
-            
+
             if (!loadedServChans)
             {
                 List<ulong> chanID = new List<ulong>();
