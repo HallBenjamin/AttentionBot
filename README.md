@@ -6,11 +6,11 @@
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
-Prefix: \
+#### Prefix: \
 
-Commands:
+#### Commands:
 
-Useful:
+*Useful:*
 
 - \help [3949 (optional)]
   - Lists available commands
@@ -21,7 +21,7 @@ Useful:
 - \membercount
   - Lists number of users on the server by status.
 
-Fun Spams:
+*Fun Spams:*
 
 ***NOTE:** User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.*
 
@@ -46,7 +46,7 @@ Fun Spams:
 - \karf [user ID (optional)]
   - Quote is randomized
 
-Admins:
+*Admins:*
 
 ***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*
 
