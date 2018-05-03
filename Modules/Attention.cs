@@ -118,7 +118,7 @@ namespace AttentionBot.Modules
 
                 "Did you know that over 99% of people are, in fact, idiots? Terrifying, I know.",
 
-                "But the good news is: there's a cure. \\*idiot shoots himself with a shotgun\\*\n" +
+                "But the good news is: there's a cure. \\*Idiot shoots himself with a shotgun\\*\n" +
                 "The better news is, there's a better cure!",
 
                 "You see, I am one of the select few who are completely immune to ignorant bullshit, and it is my dream to spread my wisdom full-time.",
