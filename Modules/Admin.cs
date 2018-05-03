@@ -142,6 +142,13 @@ namespace AttentionBot.Modules
                     {
                         Program.mentionID.Remove(Context.Guild.Id);
                         _mentionsEnabled = "Disabled";
+
+                        BinaryWriter mentWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
+                        foreach (var value in Program.mentionID)
+                        {
+                            mentWriter.Write(value.ToString());
+                        }
+                        mentWriter.Close();
                     }
                     else
                     {
@@ -158,6 +165,13 @@ namespace AttentionBot.Modules
                     {
                         Program.mentionID.Add(Context.Guild.Id);
                         _mentionsEnabled = "Enabled";
+
+                        BinaryWriter mentWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
+                        foreach (var value in Program.mentionID)
+                        {
+                            mentWriter.Write(value.ToString());
+                        }
+                        mentWriter.Close();
                     }
                 }
                 else
@@ -165,13 +179,6 @@ namespace AttentionBot.Modules
                     await Context.Channel.SendMessageAsync("Invalid Parameter. Valid parameters are \"0\" and \"1\".");
                     return;
                 }
-
-                BinaryWriter mentWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
-                foreach (var value in Program.mentionID)
-                {
-                    mentWriter.Write(value.ToString());
-                }
-                mentWriter.Close();
 
                 await Context.Channel.SendMessageAsync("Mentions " + _mentionsEnabled + "!");
             }

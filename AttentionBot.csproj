@@ -27,8 +27,8 @@
     <TargetCulture>en-US</TargetCulture>
     <ProductName>Attention! Bot for Discord</ProductName>
     <PublisherName>A Menacing 8-bit Chicken™</PublisherName>
-    <ApplicationRevision>4</ApplicationRevision>
-    <ApplicationVersion>1.5.6.4</ApplicationVersion>
+    <ApplicationRevision>5</ApplicationRevision>
+    <ApplicationVersion>1.5.6.5</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -279,6 +279,7 @@
     <Compile Include="Modules\Admin.cs" />
     <Compile Include="Modules\Attention.cs" />
     <Compile Include="Modules\Owner.cs" />
+    <Compile Include="Modules\Useful.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityInfo.cs" />
