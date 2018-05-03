@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 18 commands (11 for the public) and almost 1,000 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 19 commands (12 for the public) and almost 1,000 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
@@ -51,16 +51,16 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 ***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*
 
 - \settings [3949 (optional)]
-  - ADMINS/SERVER OWNER: Displays the current configuration of the bot.
+  - **ADMINS/SERVER OWNER:** Displays the current configuration of the bot.
 
 - \admin [role id]
-  - SERVER OWNER: Sets the specified role as an administrative role for the bot's admin commands.
+  - **SERVER OWNER:** Sets the specified role as an administrative role for the bot's admin commands.
 
 - \announce [channel id]
-  - ADMINS/SERVER OWNER: Sets the Channel with the specified ID as the channel for bot announcements.
+  - **ADMINS/SERVER OWNER:** Sets the Channel with the specified ID as the channel for bot announcements.
 
 - \mentions [0/1]
-  - ADMINS/SERVER OWNER: Enables (1) or disables (0) user mentions for the bot.
+  - **ADMINS/SERVER OWNER:** Enables (1) or disables (0) user mentions for the bot.
 
 # Release Notes
 ## v3.0.0.0 (Alpha)
