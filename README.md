@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 17 commands (10 for the public) and almost 1,000 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 18 commands (11 for the public) and almost 1,000 lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
@@ -25,12 +25,20 @@ Fun Spams:
 
 - \attention [position (optional)] [user ID (optional)]
   - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter.
+  - Position randomizes if none is given
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 - \gary [user ID (optional)]
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 - \bandits [user ID (optional)]
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+
+- \sword [user ID (optional)]
+  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+
+- \karf [user ID (optional)]
+  - Quote is randomized
   - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 Admins:
@@ -57,7 +65,11 @@ Admins:
 - Changed \help to only display the commands related to the given parameter
 - Add command to ping the bot for performance analysis
 - This is a dev build pre-development, so features are not yet finalized or ready for testing.
-## v1.5.7.0 (Stable)
+## v1.5.8.0 (Stable)
+- New command: \karf
+  - Various different quotes from the Kirito Is Always Right Foundation
+- Fixed a bug where initializing a new Random() inside of a function too frequently could result in the same number(s) being used in multiple instances of the command
+## v1.5.7.0
 - New command: \sword
   - "There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!"
 ## v1.5.6.6

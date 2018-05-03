@@ -113,7 +113,7 @@ namespace AttentionBot.Modules
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.7.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithDescription("Bot Version 1.5.8.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
                 helpMessage.WithColor(SecurityInfo.botColor);
                 helpMessage.WithCurrentTimestamp();
 
@@ -147,6 +147,8 @@ namespace AttentionBot.Modules
                     "\\bandits [user ID (optional)]\n" +
                     "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
                     "\\sword [user ID (optional)]\n" +
+                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
+                    "\\karf [user ID (optional)]\n" +
                     "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\u200b");
                 helpMessage.AddField(spamField);
 
