@@ -48,12 +48,19 @@ Admins:
   - ADMINS/SERVER OWNER: Enables (1) or disables (0) user mentions for the bot.
 
 # Release Notes
-## v1.6.0.0 (Alpha)
-- Add command to ping the bot for performance analysis
+## v3.0.0.0 (Alpha)
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.5.6.6 (Stable)
+## v1.6.0.0 (Dev)
+- Changed \help to display what options are available as parameters
+- Changed \help to only display the commands related to the given parameter
+- Add command to ping the bot for performance analysis
+- This is a dev build pre-development, so features are not yet finalized or ready for testing.
+## v1.5.7.0 (Stable)
+- New command: \sword
+  - "There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!"
+## v1.5.6.6
 - Changed formatting so all functions start with capital letters
 ## v1.5.6.5
 - Moved the "Useful" commands to their own module to make future development easier

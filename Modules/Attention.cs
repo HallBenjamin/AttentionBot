@@ -82,5 +82,19 @@ namespace AttentionBot.Modules
                 await Context.Channel.SendMessageAsync("The bandits are coming!");
             }
         }
+
+        [Command("sword")]
+        public async Task Sword(string _mentionID = null)
+        {
+            SocketUser user = Context.Guild.Users.FirstOrDefault(x => x.Id == Convert.ToUInt64(_mentionID));
+            if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null && Context.Guild.Users.Contains(user))
+            {
+                await Context.Channel.SendMessageAsync(user.Mention + " There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!");
+            }
+            else
+            {
+                await Context.Channel.SendMessageAsync("There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!");
+            }
+        }
     }
 }

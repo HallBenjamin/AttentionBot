@@ -27,8 +27,8 @@
     <TargetCulture>en-US</TargetCulture>
     <ProductName>Attention! Bot for Discord</ProductName>
     <PublisherName>A Menacing 8-bit Chicken™</PublisherName>
-    <ApplicationRevision>6</ApplicationRevision>
-    <ApplicationVersion>1.5.6.6</ApplicationVersion>
+    <ApplicationRevision>0</ApplicationRevision>
+    <ApplicationVersion>1.5.7.0</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
