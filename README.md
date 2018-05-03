@@ -63,7 +63,7 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
   - **ADMINS/SERVER OWNER:** Enables (1) or disables (0) user mentions for the bot.
 
 # Release Notes
-## v3.0.0.0 (Alpha)
+## v2.0.0.0 (Alpha)
 - Modified ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
