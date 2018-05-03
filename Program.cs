@@ -6,6 +6,7 @@ using System.IO;
 using System.Collections.Generic;
 using System.Linq;
 using System.Runtime.InteropServices;
+using System.Windows.Forms;
 
 namespace AttentionBot
 {
@@ -18,7 +19,7 @@ namespace AttentionBot
         private DiscordSocketClient _client;
         private CommandHandler _handler;
 
-        public static bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
+        public static readonly bool isConsole = Console.OpenStandardInput(1) != Stream.Null;
 
         public static List<ulong> roleID = new List<ulong>();
         public static List<ulong> mentionID = new List<ulong>();
@@ -27,10 +28,7 @@ namespace AttentionBot
         private bool loadedServChans = false;
         private bool loadedRoles = false;
         private bool loadedMentions = false;
-
-        [DllImport("User32.dll", CharSet = CharSet.Unicode)]
-        private static extern int MessageBox(IntPtr h, string m, string c, int type);
-
+        
         public async Task StartAsync()
         {
             if (isConsole)
@@ -46,7 +44,7 @@ namespace AttentionBot
 
                 if (isRunning)
                 {
-                    MessageBox((IntPtr) 0, "Program is already running", "Attention! Bot for Discord", 0);
+                    MessageBox.Show("Program is already running", "Attention! Bot for Discord");
                     return;
                 }
             }
