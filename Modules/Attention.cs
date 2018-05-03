@@ -9,7 +9,7 @@ namespace AttentionBot.Modules
     public class Attention : ModuleBase<SocketCommandContext>
     {
         [Command("attention")]
-        public async Task attention(string position = null, string _mentionID = null)
+        public async Task AttentionTo(string position = null, string _mentionID = null)
         {
             Random rnd = new Random();
 
@@ -56,7 +56,7 @@ namespace AttentionBot.Modules
         }
 
         [Command("gary")]
-        public async Task saveMyFamily(string _mentionID = null)
+        public async Task SaveMyFamily(string _mentionID = null)
         {
             SocketUser user = Context.Guild.Users.FirstOrDefault(x => x.Id == Convert.ToUInt64(_mentionID));
             if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null && Context.Guild.Users.Contains(user))
@@ -70,7 +70,7 @@ namespace AttentionBot.Modules
         }
 
         [Command("bandits")]
-        public async Task banditsComing(string _mentionID = null)
+        public async Task BanditsComing(string _mentionID = null)
         {
             SocketUser user = Context.Guild.Users.FirstOrDefault(x => x.Id == Convert.ToUInt64(_mentionID));
             if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null && Context.Guild.Users.Contains(user))

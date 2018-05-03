@@ -12,7 +12,7 @@ namespace AttentionBot.Modules
     public class Admin : ModuleBase<SocketCommandContext>
     {
         [Command("settings")]
-        public async Task getSettings(string _botID = null)
+        public async Task GetSettings(string _botID = null)
         {
             if (_botID == SecurityInfo.botID || _botID == null)
             {
@@ -80,7 +80,7 @@ namespace AttentionBot.Modules
         }
 
         [Command("admin")]
-        public async Task adminRoles(string _roleID)
+        public async Task AdminRoles(string _roleID)
         {
             if (Context.User.Id == Context.Guild.OwnerId)
             {
@@ -119,7 +119,7 @@ namespace AttentionBot.Modules
         }
 
         [Command("mentions")]
-        public async Task mentionsPermitted(string _mentions)
+        public async Task MentionsPermitted(string _mentions)
         {
             bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
             foreach (ulong role in Program.roleID)
@@ -189,7 +189,7 @@ namespace AttentionBot.Modules
         }
 
         [Command("announce")]
-        public async Task announceChan(string _chanID)
+        public async Task AnnounceChan(string _chanID)
         {
             bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
             foreach (ulong role in Program.roleID)

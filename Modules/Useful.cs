@@ -8,7 +8,7 @@ namespace AttentionBot.Modules
     public class Useful : ModuleBase<SocketCommandContext>
     {
         [Command("membercount")]
-        public async Task memberCount()
+        public async Task MemberCount()
         {
             long total = (long) Context.Guild.MemberCount;
             long totalBots = 0L, onlineBots = 0L, offlineBots = 0L;
@@ -96,7 +96,7 @@ namespace AttentionBot.Modules
         }
 
         [Command("changelog")]
-        public async Task changelog(string _botID = null)
+        public async Task Changelog(string _botID = null)
         {
             if (_botID == SecurityInfo.botID || _botID == null)
             {
@@ -106,14 +106,14 @@ namespace AttentionBot.Modules
         }
 
         [Command("help")]
-        public async Task help(string _botID = null)
+        public async Task Help(string _botID = null)
         {
             if (_botID == SecurityInfo.botID || _botID == null)
             {
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.6.5  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithDescription("Bot Version 1.5.6.6  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
                 helpMessage.WithColor(SecurityInfo.botColor);
                 helpMessage.WithCurrentTimestamp();
 

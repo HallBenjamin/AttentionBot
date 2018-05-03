@@ -13,7 +13,7 @@ namespace AttentionBot.Modules
     {
         [Command("cleanup")]
         [RequireOwner]
-        public async Task cleanupFiles(bool reply = true)
+        public async Task CleanupFiles(bool reply = true)
         {
             // Servers and channels
             List<ulong> guilds = new List<ulong>();
@@ -96,7 +96,7 @@ namespace AttentionBot.Modules
 
         [Command("reload")]
         [RequireOwner]
-        public async Task reload()
+        public async Task Reload()
         {
             await Context.Channel.SendMessageAsync("Reloaded bot!");
 
@@ -107,9 +107,9 @@ namespace AttentionBot.Modules
 
         [Command("online")]
         [RequireOwner]
-        public async Task onlineNotify()
+        public async Task OnlineNotify()
         {
-            await cleanupFiles(false);
+            await CleanupFiles(false);
 
             foreach (ulong serv in Program.servChanID.Keys)
             {
@@ -119,9 +119,9 @@ namespace AttentionBot.Modules
 
         [Command("announcement")]
         [RequireOwner]
-        public async Task announcement(string announceMessage)
+        public async Task Announcement(string announceMessage)
         {
-            await cleanupFiles(false);
+            await CleanupFiles(false);
 
             foreach (ulong serv in Program.servChanID.Keys)
             {
@@ -131,9 +131,9 @@ namespace AttentionBot.Modules
 
         [Command("restart")]
         [RequireOwner]
-        public async Task restartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
+        public async Task RestartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
         {
-            await cleanupFiles(false);
+            await CleanupFiles(false);
 
             if (_length != null)
             {
@@ -171,9 +171,9 @@ namespace AttentionBot.Modules
 
         [Command("exit")]
         [RequireOwner]
-        public async Task exitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
+        public async Task ExitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
         {
-            await cleanupFiles(false);
+            await CleanupFiles(false);
 
             if (_botID == SecurityInfo.botID)
             {
@@ -215,9 +215,9 @@ namespace AttentionBot.Modules
 
         [Command("close")]
         [RequireOwner]
-        public async Task close()
+        public async Task Close()
         {
-            await cleanupFiles(false);
+            await CleanupFiles(false);
 
             await Context.Channel.SendMessageAsync("Bot shutting down...");
             Environment.Exit(0);
