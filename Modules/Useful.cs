@@ -113,7 +113,7 @@ namespace AttentionBot.Modules
                 EmbedBuilder helpMessage = new EmbedBuilder();
 
                 helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.8.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+                helpMessage.WithDescription("Bot Version 1.5.8.1  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
                 helpMessage.WithColor(SecurityInfo.botColor);
                 helpMessage.WithCurrentTimestamp();
 
@@ -129,8 +129,10 @@ namespace AttentionBot.Modules
                 usefulField.WithValue(
                     "\\help [3949 (optional)]\n" +
                     "  - Lists all available commands for the bot.\n\n" +
+
                     "\\changelog [3949 (optional)]\n" +
                     "  - Sends a link to the version history (changelog) of the bot.\n\n" +
+
                     "\\membercount\n" +
                     "  - Lists number of users and bots on the server by status.\n\u200b");
                 helpMessage.AddField(usefulField);
@@ -139,30 +141,45 @@ namespace AttentionBot.Modules
                 spamField.WithIsInline(true);
                 spamField.WithName("Fun Spams");
                 spamField.WithValue(
+                    "***NOTE:** User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.*\n\n" +
+
+                    "**References from:** War Thunder\n\n" +
+
                     "\\attention [position (optional)] [user ID (optional)]\n" +
+                    "  - Message is randomized.\n" +
                     "  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.\n" +
-                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
+                    "  - Position is randomized if none is given.\n\n" +
+
+                    "**References from:** Sword Art Online Abridged\n\n" +
+
                     "\\gary [user ID (optional)]\n" +
-                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
+                    "  - \"We must save my family!\"\n\n" +
+
                     "\\bandits [user ID (optional)]\n" +
-                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
+                    "  - \"The bandits are coming!\"\n\n" +
+
                     "\\sword [user ID (optional)]\n" +
-                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\n" +
+                    "  - \"There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!\"\n\n" +
+
                     "\\karf [user ID (optional)]\n" +
-                    "  - User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.\n\u200b");
+                    "  - Quote is randomized.\n\u200b");
                 helpMessage.AddField(spamField);
 
                 EmbedFieldBuilder adminField = new EmbedFieldBuilder();
                 adminField.WithIsInline(false);
                 adminField.WithName("Admins");
                 adminField.WithValue(
-                    "*NOTE: Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+                    "***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+
                     "\\settings [3949 (optional)]\n" +
                     "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
+
                     "\\admin [role id]\n" +
                     "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
+
                     "\\announce [channel id]\n" +
                     "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n" +
+
                     "\\mentions [0/1]\n" +
                     "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.");
                 helpMessage.AddField(adminField);

@@ -23,25 +23,32 @@ Useful:
 
 Fun Spams:
 
+***NOTE:** User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.*
+
+**References from:** War Thunder
+
 - \attention [position (optional)] [user ID (optional)]
-  - Position is one letter A-J (capitalization does not matter) and/or one number 1-10. Order does not matter.
-  - Position randomizes if none is given
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+  - Message is randomized.
+  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.
+  - Position is randomized if none is given.
+
+**References from:** Sword Art Online Abridged
 
 - \gary [user ID (optional)]
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+  - "We must save my family!"
 
 - \bandits [user ID (optional)]
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+  - "The bandits are coming!"
 
 - \sword [user ID (optional)]
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
+  - "There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!"
 
 - \karf [user ID (optional)]
   - Quote is randomized
-  - User ID only works if \mentions is set to 1 and if a position is given. Set the User ID to the ID of the user you want the bot to mention.
 
 Admins:
+
+***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*
 
 - \settings [3949 (optional)]
   - ADMINS/SERVER OWNER: Displays the current configuration of the bot.
@@ -65,7 +72,9 @@ Admins:
 - Changed \help to only display the commands related to the given parameter
 - Add command to ping the bot for performance analysis
 - This is a dev build pre-development, so features are not yet finalized or ready for testing.
-## v1.5.8.0 (Stable)
+## v1.5.8.1 (Stable)
+- Changed formatting of \help
+## v1.5.8.0
 - New command: \karf
   - Various different quotes from the Kirito Is Always Right Foundation
 - Fixed a bug where initializing a new Random() inside of a function too frequently could result in the same number(s) being used in multiple instances of the command
