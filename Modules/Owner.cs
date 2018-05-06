@@ -219,7 +219,7 @@ namespace AttentionBot.Modules
         {
             await CleanupFiles(false);
 
-            await Context.Channel.SendMessageAsync("Bot shutting down...");
+            await Context.Channel.SendMessageAsync("Attention! Bot shutting down...");
             Environment.Exit(0);
         }
     }

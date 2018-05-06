@@ -134,7 +134,15 @@ namespace AttentionBot.Modules
             SocketUser user = Context.Guild.Users.FirstOrDefault(x => x.Id == Convert.ToUInt64(_mentionID));
             if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null && Context.Guild.Users.Contains(user))
             {
-                await Context.Channel.SendMessageAsync(user.Mention + " " + message);
+                if (message == Messages[2])
+                {
+                    await Context.Channel.SendMessageAsync("Every day, hopeless idiots go out into the world, driving drunk or using the word \"literally\" incorrectly without anyone to explain just how wrong they are.\n" +
+                        "Seriously " + user.Mention + ", you can LITERALLY go die in a barn fire.");
+                }
+                else
+                {
+                    await Context.Channel.SendMessageAsync(user.Mention + " " + message);
+                }
             }
             else
             {

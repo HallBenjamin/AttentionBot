@@ -64,15 +64,18 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 # Release Notes
 ## v2.0.0.0 (Alpha)
-- Modified ability for bot to send announcement when back online to be automated
+- Modify ability for bot to send announcement when back online to be automated
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v1.6.0.0 (Dev)
-- Changed \help to display what options are available as parameters
-- Changed \help to only display the commands related to the given parameter
+- Change \help to display what options are available as parameters
+- Change \help to only display the commands related to the given parameter
 - Add command to ping the bot for performance analysis
 - This is a dev build pre-development, so features are not yet finalized or ready for testing.
-## v1.5.8.1 (Stable)
+## v1.5.8.2 (Stable)
+- Changed a KARF message to mention a user in a specific part of the message
+- Changed the Owner \close message
+## v1.5.8.1
 - Changed formatting of \help
 ## v1.5.8.0
 - New command: \karf

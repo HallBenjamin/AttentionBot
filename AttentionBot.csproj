@@ -27,8 +27,8 @@
     <TargetCulture>en-US</TargetCulture>
     <ProductName>Attention! Bot for Discord</ProductName>
     <PublisherName>A Menacing 8-bit Chicken™</PublisherName>
-    <ApplicationRevision>1</ApplicationRevision>
-    <ApplicationVersion>1.5.8.1</ApplicationVersion>
+    <ApplicationRevision>2</ApplicationRevision>
+    <ApplicationVersion>1.5.8.2</ApplicationVersion>
     <UseApplicationTrust>false</UseApplicationTrust>
     <PublishWizardCompleted>true</PublishWizardCompleted>
     <BootstrapperEnabled>true</BootstrapperEnabled>
@@ -75,7 +75,7 @@
     <DebugType>pdbonly</DebugType>
     <PlatformTarget>x64</PlatformTarget>
     <ErrorReport>prompt</ErrorReport>
-    <CodeAnalysisRuleSet>ExtendedCorrectnessRules.ruleset</CodeAnalysisRuleSet>
+    <CodeAnalysisRuleSet>MinimumRecommendedRules.ruleset</CodeAnalysisRuleSet>
     <DocumentationFile>
     </DocumentationFile>
     <LangVersion>latest</LangVersion>
