@@ -34,15 +34,7 @@ namespace AttentionBot.Modules
                 {
                     Program.servChanID.Remove(servID);
 
-                    BinaryWriter chanWriter = new BinaryWriter(File.Open("channels.txt", FileMode.Truncate));
-                    BinaryWriter servWriter = new BinaryWriter(File.Open("servers.txt", FileMode.Truncate));
-                    foreach (ulong serv in Program.servChanID.Keys)
-                    {
-                        chanWriter.Write(Program.servChanID[serv].ToString());
-                        servWriter.Write(serv.ToString());
-                    }
-                    chanWriter.Close();
-                    servWriter.Close();
+                    await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
                 }
             }
 
@@ -55,12 +47,7 @@ namespace AttentionBot.Modules
                 }
             }
 
-            BinaryWriter mentionWriter = new BinaryWriter(File.Open("mentions.txt", FileMode.Truncate));
-            foreach (var value in Program.mentionID)
-            {
-                mentionWriter.Write(value.ToString());
-            }
-            mentionWriter.Close();
+            await Files.WriteToFile(Program.mentionID, "mentions.txt");
 
             // Roles
             List<ulong> roles = new List<ulong>();
@@ -77,12 +64,7 @@ namespace AttentionBot.Modules
             }
             Program.roleID = roles;
 
-            BinaryWriter roleWriter = new BinaryWriter(File.Open("roles.txt", FileMode.Truncate));
-            foreach (var value in Program.roleID)
-            {
-                roleWriter.Write(value.ToString());
-            }
-            roleWriter.Close();
+            await Files.WriteToFile(Program.roleID, "roles.txt");
 
             if (reply)
             {

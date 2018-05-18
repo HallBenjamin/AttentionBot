@@ -116,9 +116,9 @@ namespace AttentionBot.Modules
             }
 
             List<string> _params = new List<string>();
-            _params.Add(_param);
-            _params.Add(_param2);
-            _params.Add(_param3);
+            _params.Add((_param == null) ? _param : _param.ToLower());
+            _params.Add((_param2 == null) ? _param2 : _param2.ToLower());
+            _params.Add((_param3 == null) ? _param3 : _param3.ToLower());
 
             EmbedBuilder helpMessage = new EmbedBuilder();
 
@@ -168,7 +168,7 @@ namespace AttentionBot.Modules
             spamField.WithIsInline(true);
             spamField.WithName("Fun Spams");
             spamField.WithValue(
-                "***NOTE:** User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention, or you can just mention the user.*\n\n" +
+                "***NOTE:** User only works if \\mentions is set to 1. Set User to the ID or mention of the user you want to mention.*\n\n" +
 
                 "**References from:** War Thunder\n\n" +
 
@@ -180,32 +180,34 @@ namespace AttentionBot.Modules
 
                 "**References from:** Sword Art Online Abridged\n\n" +
 
-                "\\gary [user ID (optional)]\n" +
+                "\\gary [user (optional)]\n" +
                 "  - \"We must save my family!\"\n\n" +
 
-                "\\bandits [user ID (optional)]\n" +
+                "\\bandits [user (optional)]\n" +
                 "  - \"The bandits are coming!\"\n\n" +
 
-                "\\sword [user ID (optional)]\n" +
+                "\\sword [user (optional)]\n" +
                 "  - \"There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!\"\n\n" +
 
-                "\\karf [user ID (optional)]\n" +
+                "\\karf [user (optional)]\n" +
                 "  - Quote is randomized.\n\u200b");
 
             EmbedFieldBuilder adminField = new EmbedFieldBuilder();
             adminField.WithIsInline(false);
-            adminField.WithName("Admins");
+            adminField.WithName("Admin");
             adminField.WithValue(
                 "***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+                "***NOTE 2:** The Role and Channel parameters can either be their respective ID or a mention of the channel/role.*\n\n" +
 
                 "\\settings [3949 (optional)]\n" +
                 "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
 
-                "\\admin [role id]\n" +
+                "\\admin [role]\n" +
                 "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
 
-                "\\announce [channel id]\n" +
-                "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n" +
+                "\\announce [channel]\n" +
+                "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n" +
+                "  - To disable announcements, type in \"-\" as the channel id.\n\n" +
 
                 "\\mentions [0/1]\n" +
                 "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.");

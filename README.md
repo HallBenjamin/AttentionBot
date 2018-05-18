@@ -39,7 +39,7 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 *Fun Spams:*
 
-***NOTE:** User ID only works if \mentions is set to 1. Set the User ID to the ID of the user you want to mention, or you can just mention the user.*
+***NOTE:** User only works if \mentions is set to 1. Set User to the ID or mention of the user you want to mention.*
 
 **References from:** War Thunder
 
@@ -67,6 +67,8 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 ***NOTE:** Users with the "Administrator" power are considered Server Owners for these commands. "Admins" are the role(s) the Server Owners have designated as "Admin" roles.*
 
+***NOTE 2:** The Role and Channel parameters can either be their respective ID or a mention of the channel/role.*
+
 - \settings [3949 (optional)]
   - **ADMINS/SERVER OWNER:** Displays the current configuration of the bot.
 
@@ -87,11 +89,13 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v2.0.0.0 (Beta)
 - Changed command: \help
-  - Message shows available parameters to see specific categories. On servers, only one category may show at a time.
-  - Parameter "3949" DMs you the full help message unless additional parameters are also used. "3949" must be the first parameter if it is used.
+  - Message shows available parameters to see specific categories. On servers, only one category may show at a time
+  - Parameter "3949" DMs you the full help message unless additional parameters are also used. "3949" must be the first parameter if it is used
 - Changed all spam commands to allow users to mention a user for the parameter instead of using the user ID
 - Changed command: \attention
   - Order of parameters does not matter
+- Changed all Admin commands to allow users to mention a role/channel for the parameters instead of using the IDs
+- Created Files.cs to control writing to a file
 - This is a beta build. It is likely unstable, and new features may be added before the Stable release.
 ## v1.5.8.2 (Stable)
 - Changed a KARF message to mention a user in a specific part of the message
