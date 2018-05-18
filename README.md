@@ -12,7 +12,7 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 *\help Parameters*
 
-***NOTE:** If you choose to supply the 3949 parameter, it must be first. If you do not supply it, only one parameter may be given.
+***NOTE:** If you choose to supply the 3949 parameter, it must be first. If you do not supply it, only one parameter may be given.*
 
 - 3949
   - DMs you all available help commands for the bot.
