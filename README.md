@@ -10,10 +10,26 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 #### Commands:
 
+*\help Parameters*
+
+***NOTE:** If you choose to supply the 3949 parameter, it must be first. If you do not supply it, only one parameter may be given.
+
+- 3949
+  - DMs you all available help commands for the bot.
+
+- useful
+  - Lists all available useful commands for the bot.
+
+- spam
+  - Lists all available spam commands for the bot.
+
+- admin
+  - Lists all available admin commands for the bot.
+
 *Useful:*
 
-- \help [3949 (optional)]
-  - Lists available commands
+- \help [parameter(s) (optional)]
+  - Lists available commands for the bot.
 
 - \changelog [3949 (optional)]
   - Sends a link to the version history (changelog) of the bot.
@@ -23,7 +39,7 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 *Fun Spams:*
 
-***NOTE:** User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.*
+***NOTE:** User ID only works if \mentions is set to 1. Set the User ID to the ID of the user you want to mention, or you can just mention the user.*
 
 **References from:** War Thunder
 
@@ -31,6 +47,7 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
   - Message is randomized.
   - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.
   - Position is randomized if none is given.
+  - Order of parameters does not matter.
 
 **References from:** Sword Art Online Abridged
 
@@ -48,7 +65,7 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 *Admins:*
 
-***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*
+***NOTE:** Users with the "Administrator" power are considered Server Owners for these commands. "Admins" are the role(s) the Server Owners have designated as "Admin" roles.*
 
 - \settings [3949 (optional)]
   - **ADMINS/SERVER OWNER:** Displays the current configuration of the bot.
@@ -63,15 +80,19 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
   - **ADMINS/SERVER OWNER:** Enables (1) or disables (0) user mentions for the bot.
 
 # Release Notes
-## v2.0.0.0 (Alpha)
-- Modify ability for bot to send announcement when back online to be automated
-- Add voice commands
-- This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v1.6.0.0 (Dev)
-- Change \help to display what options are available as parameters
-- Change \help to only display the commands related to the given parameter
+## v3.0.0.0 (Alpha)
 - Add command to ping the bot for performance analysis
-- This is a dev build pre-development, so features are not yet finalized or ready for testing.
+- Add voice commands
+- Modify ability for bot to send announcement when back online to be automated
+- This is an alpha build. Features in this build are unofficial and may not be released in the final version.
+## v2.0.0.0 (Beta)
+- Changed command: \help
+  - Message shows available parameters to see specific categories. On servers, only one category may show at a time.
+  - Parameter "3949" DMs you the full help message unless additional parameters are also used. "3949" must be the first parameter if it is used.
+- Changed all spam commands to allow users to mention a user for the parameter instead of using the user ID
+- Changed command: \attention
+  - Order of parameters does not matter
+- This is a beta build. It is likely unstable, and new features may be added before the Stable release.
 ## v1.5.8.2 (Stable)
 - Changed a KARF message to mention a user in a specific part of the message
 - Changed the Owner \close message

@@ -1,6 +1,7 @@
 ﻿using Discord;
 using Discord.Commands;
 using Discord.WebSocket;
+using System.Collections.Generic;
 using System.Threading.Tasks;
 
 namespace AttentionBot.Modules
@@ -106,85 +107,162 @@ namespace AttentionBot.Modules
         }
 
         [Command("help")]
-        public async Task Help(string _botID = null)
+        public async Task Help(string _botID = null, string _param = null, string _param2 = null, string _param3 = null)
         {
-            if (_botID == SecurityInfo.botID || _botID == null)
+            if (_botID != null && _botID != SecurityInfo.botID)
             {
-                EmbedBuilder helpMessage = new EmbedBuilder();
+                _param3 = _botID;
+                _botID = null;
+            }
 
-                helpMessage.WithTitle("Attention! Bot for Discord");
-                helpMessage.WithDescription("Bot Version 1.5.8.2  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
-                helpMessage.WithColor(SecurityInfo.botColor);
-                helpMessage.WithCurrentTimestamp();
+            List<string> _params = new List<string>();
+            _params.Add(_param);
+            _params.Add(_param2);
+            _params.Add(_param3);
 
-                EmbedFieldBuilder prefixField = new EmbedFieldBuilder();
-                prefixField.WithIsInline(false);
-                prefixField.WithName("Prefix");
-                prefixField.WithValue(CommandHandler.prefix.ToString() + "\n\u200b");
-                helpMessage.AddField(prefixField);
+            EmbedBuilder helpMessage = new EmbedBuilder();
 
-                EmbedFieldBuilder usefulField = new EmbedFieldBuilder();
-                usefulField.WithIsInline(true);
-                usefulField.WithName("Useful");
-                usefulField.WithValue(
-                    "\\help [3949 (optional)]\n" +
-                    "  - Lists all available commands for the bot.\n\n" +
+            helpMessage.WithTitle("Attention! Bot for Discord");
+            helpMessage.WithDescription("Bot Version 2.0.0.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+            helpMessage.WithColor(SecurityInfo.botColor);
+            helpMessage.WithCurrentTimestamp();
 
-                    "\\changelog [3949 (optional)]\n" +
-                    "  - Sends a link to the version history (changelog) of the bot.\n\n" +
+            EmbedFieldBuilder prefixField = new EmbedFieldBuilder();
+            prefixField.WithIsInline(false);
+            prefixField.WithName("Prefix");
+            prefixField.WithValue(CommandHandler.prefix.ToString() + "\n\u200b");
+            helpMessage.AddField(prefixField);
 
-                    "\\membercount\n" +
-                    "  - Lists number of users and bots on the server by status.\n\u200b");
-                helpMessage.AddField(usefulField);
+            EmbedFieldBuilder helpField = new EmbedFieldBuilder();
+            helpField.WithIsInline(true);
+            helpField.WithName("\\help Parameters");
+            helpField.WithValue(
+                "***NOTE:** If you choose to supply the 3949 parameter, it must be first. If you do not supply it, only one parameter may be given.*\n\n" +
 
-                EmbedFieldBuilder spamField = new EmbedFieldBuilder();
-                spamField.WithIsInline(true);
-                spamField.WithName("Fun Spams");
-                spamField.WithValue(
-                    "***NOTE:** User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention.*\n\n" +
+                "3949\n" +
+                "  - DMs you all available help commands for the bot.\n\n" +
 
-                    "**References from:** War Thunder\n\n" +
+                "useful\n" +
+                "  - Lists all available useful commands for the bot.\n\n" +
 
-                    "\\attention [position (optional)] [user ID (optional)]\n" +
-                    "  - Message is randomized.\n" +
-                    "  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.\n" +
-                    "  - Position is randomized if none is given.\n\n" +
+                "spam\n" +
+                "  - Lists all available spam commands for the bot.\n\n" +
 
-                    "**References from:** Sword Art Online Abridged\n\n" +
+                "admins\n" +
+                "  - Lists all available admin commands for the bot.\n\u200b");
 
-                    "\\gary [user ID (optional)]\n" +
-                    "  - \"We must save my family!\"\n\n" +
+            EmbedFieldBuilder usefulField = new EmbedFieldBuilder();
+            usefulField.WithIsInline(true);
+            usefulField.WithName("Useful");
+            usefulField.WithValue(
+                "\\help [parameter(s) (optional)]\n" +
+                "  - Lists available commands for the bot.\n\n" +
 
-                    "\\bandits [user ID (optional)]\n" +
-                    "  - \"The bandits are coming!\"\n\n" +
+                "\\changelog [3949 (optional)]\n" +
+                "  - Sends a link to the version history (changelog) of the bot.\n\n" +
 
-                    "\\sword [user ID (optional)]\n" +
-                    "  - \"There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!\"\n\n" +
+                "\\membercount\n" +
+                "  - Lists number of users and bots on the server by status.\n\u200b");
 
-                    "\\karf [user ID (optional)]\n" +
-                    "  - Quote is randomized.\n\u200b");
-                helpMessage.AddField(spamField);
+            EmbedFieldBuilder spamField = new EmbedFieldBuilder();
+            spamField.WithIsInline(true);
+            spamField.WithName("Fun Spams");
+            spamField.WithValue(
+                "***NOTE:** User ID only works if \\mentions is set to 1. Set the User ID to the ID of the user you want to mention, or you can just mention the user.*\n\n" +
 
-                EmbedFieldBuilder adminField = new EmbedFieldBuilder();
-                adminField.WithIsInline(false);
-                adminField.WithName("Admins");
-                adminField.WithValue(
-                    "***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+                "**References from:** War Thunder\n\n" +
 
-                    "\\settings [3949 (optional)]\n" +
-                    "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
+                "\\attention [position (optional)] [user ID/mention (optional)]\n" +
+                "  - Message is randomized.\n" +
+                "  - Position can contain one letter A-J and/or one number 1-10. Order and capitalization do not matter.\n" +
+                "  - Position is randomized if none is given.\n" +
+                "  - Order of parameters does not matter.\n\n" +
 
-                    "\\admin [role id]\n" +
-                    "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
+                "**References from:** Sword Art Online Abridged\n\n" +
 
-                    "\\announce [channel id]\n" +
-                    "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n" +
+                "\\gary [user ID (optional)]\n" +
+                "  - \"We must save my family!\"\n\n" +
 
-                    "\\mentions [0/1]\n" +
-                    "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.");
-                helpMessage.AddField(adminField);
+                "\\bandits [user ID (optional)]\n" +
+                "  - \"The bandits are coming!\"\n\n" +
+
+                "\\sword [user ID (optional)]\n" +
+                "  - \"There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!\"\n\n" +
+
+                "\\karf [user ID (optional)]\n" +
+                "  - Quote is randomized.\n\u200b");
+
+            EmbedFieldBuilder adminField = new EmbedFieldBuilder();
+            adminField.WithIsInline(false);
+            adminField.WithName("Admins");
+            adminField.WithValue(
+                "***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
+
+                "\\settings [3949 (optional)]\n" +
+                "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
+
+                "\\admin [role id]\n" +
+                "  - **SERVER OWNERS:** Sets/removes the specified role as an administrative role for the bot's admin commands.\n\n" +
+
+                "\\announce [channel id]\n" +
+                "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n\n" +
+
+                "\\mentions [0/1]\n" +
+                "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.");
+
+            List<string> parameters = new List<string>();
+            parameters.Add("useful");
+            parameters.Add("spam");
+            parameters.Add("admin");
+
+            bool fieldExists = false;
+            foreach(string param in parameters)
+            {
+                fieldExists = _params.Contains(param);
+
+                if(fieldExists)
+                {
+                    break;
+                }
+            }
+            if(!fieldExists)
+            {
+                helpMessage.AddField(helpField);
+            }
+
+            if (_botID == null)
+            {
+                if (_params.Contains("useful"))
+                {
+                    helpMessage.AddField(usefulField);
+                }
+                else if (_params.Contains("spam"))
+                {
+                    helpMessage.AddField(spamField);
+                }
+                else if (_params.Contains("admin"))
+                {
+                    helpMessage.AddField(adminField);
+                }
 
                 await Context.Channel.SendMessageAsync("", false, helpMessage);
+            }
+            else if (_botID == SecurityInfo.botID)
+            {
+                if (_params.Contains("useful"))
+                {
+                    helpMessage.AddField(usefulField);
+                }
+                if (_params.Contains("spam"))
+                {
+                    helpMessage.AddField(spamField);
+                }
+                if (_params.Contains("admin"))
+                {
+                    helpMessage.AddField(adminField);
+                }
+
+                await Context.User.SendMessageAsync("", false, helpMessage);
             }
         }
     }
