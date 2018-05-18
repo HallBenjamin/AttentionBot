@@ -51,16 +51,16 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 **References from:** Sword Art Online Abridged
 
-- \gary [user ID (optional)]
+- \gary [user (optional)]
   - "We must save my family!"
 
-- \bandits [user ID (optional)]
+- \bandits [user (optional)]
   - "The bandits are coming!"
 
-- \sword [user ID (optional)]
+- \sword [user (optional)]
   - "There's a person attached to this sword, you know! I WILL NOT BE OBJECTIFIED!"
 
-- \karf [user ID (optional)]
+- \karf [user (optional)]
   - Quote is randomized
 
 *Admins:*
@@ -72,10 +72,10 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 - \settings [3949 (optional)]
   - **ADMINS/SERVER OWNER:** Displays the current configuration of the bot.
 
-- \admin [role id]
+- \admin [role]
   - **SERVER OWNER:** Sets the specified role as an administrative role for the bot's admin commands.
 
-- \announce [channel id]
+- \announce [channel]
   - **ADMINS/SERVER OWNER:** Sets the Channel with the specified ID as the channel for bot announcements.
 
 - \mentions [0/1]
