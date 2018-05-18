@@ -96,7 +96,6 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 - Changed all Admin commands to allow users to mention a role/channel for the parameters instead of using the IDs
 - Created Files.cs to control reading and writing to/from the files
 - Optimized Admin.cs hasRole boolean stuff (moved to its own function)
-- This is a beta build. It is likely unstable, and new features may be added before the Stable release.
 ## v1.5.8.2
 - Changed a KARF message to mention a user in a specific part of the message
 - Changed the Owner \close message
