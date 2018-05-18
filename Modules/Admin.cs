@@ -11,21 +11,31 @@ namespace AttentionBot.Modules
 {
     public class Admin : ModuleBase<SocketCommandContext>
     {
+        public async Task<bool> HasRole()
+        {
+            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(GuildPermission.Administrator); // Is admin?
+            foreach (ulong role in Program.roleID)
+            {
+                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
+                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
+                if (hasRole)
+                {
+                    break;
+                }
+            }
+
+            return await Task.Run(() =>
+            {
+                return hasRole;
+            });
+        }
+
         [Command("settings")]
         public async Task GetSettings(string _botID = null)
         {
             if (_botID == SecurityInfo.botID || _botID == null)
             {
-                bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
-                foreach (ulong role in Program.roleID)
-                {
-                    SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
-                    hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
-                    if (hasRole)
-                    {
-                        break;
-                    }
-                }
+                bool hasRole = await HasRole();
 
                 if (Context.User.Id == Context.Guild.OwnerId || hasRole)
                 {
@@ -87,7 +97,6 @@ namespace AttentionBot.Modules
                 if (!Program.roleID.Contains(Convert.ToUInt64(_roleID)))
                 {
                     Program.roleID.Add(Convert.ToUInt64(_roleID));
-
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
                     await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " has been added as an administrative role.");
@@ -95,7 +104,6 @@ namespace AttentionBot.Modules
                 else
                 {
                     Program.roleID.Remove(Convert.ToUInt64(_roleID));
-
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
                     await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " is no longer an administrative role.");
@@ -115,7 +123,6 @@ namespace AttentionBot.Modules
                 if (!Program.roleID.Contains(_role.Id))
                 {
                     Program.roleID.Add(_role.Id);
-
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
                     await Context.Channel.SendMessageAsync("\"" + _role.Name + "\" role with ID " + _role.Id + " has been added as an administrative role.");
@@ -123,7 +130,6 @@ namespace AttentionBot.Modules
                 else
                 {
                     Program.roleID.Remove(_role.Id);
-
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
                     await Context.Channel.SendMessageAsync("\"" + _role.Name + "\" role with ID " + _role.Id + " is no longer an administrative role.");
@@ -138,16 +144,7 @@ namespace AttentionBot.Modules
         [Command("mentions")]
         public async Task MentionsPermitted(string _mentions)
         {
-            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
-            foreach (ulong role in Program.roleID)
-            {
-                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
-                if (hasRole)
-                {
-                    break;
-                }
-            }
+            bool hasRole = await HasRole();
 
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
@@ -198,16 +195,7 @@ namespace AttentionBot.Modules
         [Command("announce")]
         public async Task AnnounceChan(string _chanID) // Channel ID given
         {
-            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
-            foreach (ulong role in Program.roleID)
-            {
-                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
-                if (hasRole)
-                {
-                    break;
-                }
-            }
+            bool hasRole = await HasRole();
 
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
@@ -216,7 +204,6 @@ namespace AttentionBot.Modules
                     if (Program.servChanID.Keys.Contains(Context.Guild.Id))
                     {
                         Program.servChanID.Remove(Context.Guild.Id);
-
                         await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
                         await Context.Channel.SendMessageAsync("Announcements channel disabled!");
@@ -233,7 +220,6 @@ namespace AttentionBot.Modules
                 else
                 {
                     Program.servChanID.Put(Context.Guild.Id, Convert.ToUInt64(_chanID));
-
                     await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
                     await Context.Channel.SendMessageAsync("The announcements channel is now " + (Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention + " with ID " + _chanID + ".");
@@ -248,16 +234,7 @@ namespace AttentionBot.Modules
         [Command("announce")]
         public async Task AnnounceChan(SocketTextChannel _channel) // Channel mention given
         {
-            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(Discord.GuildPermission.Administrator); // Is admin?
-            foreach (ulong role in Program.roleID)
-            {
-                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
-                if (hasRole)
-                {
-                    break;
-                }
-            }
+            bool hasRole = await HasRole();
 
             if (Context.User.Id == Context.Guild.OwnerId || hasRole)
             {
@@ -268,7 +245,6 @@ namespace AttentionBot.Modules
                 else
                 {
                     Program.servChanID.Put(Context.Guild.Id, Convert.ToUInt64(_channel.Id));
-
                     await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
                     await Context.Channel.SendMessageAsync("The announcements channel is now " + _channel.Mention + " with ID " + _channel.Id + ".");

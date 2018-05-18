@@ -78,7 +78,7 @@ namespace AttentionBot.Modules
                 _mentionID = null;
             }
 
-            string message = await Task.Run(() => AttentionMessage(position));
+            string message = await AttentionMessage(position);
             
             if (Program.mentionID.Contains(Context.Guild.Id) && _mentionID != null)
             {
@@ -93,7 +93,7 @@ namespace AttentionBot.Modules
         [Command("attention")]
         public async Task AttentionTo(string position, SocketUser _mention) // User mention used with position
         {
-            string message = await Task.Run(() => AttentionMessage(position));
+            string message = await AttentionMessage(position);
 
             if (Program.mentionID.Contains(Context.Guild.Id) && _mention != null)
             {
@@ -108,7 +108,7 @@ namespace AttentionBot.Modules
         [Command("attention")]
         public async Task AttentionTo(SocketUser _mention, string position = null) // User mention used first (position optional)
         {
-            string message = await Task.Run(() => AttentionMessage(position));
+            string message = await AttentionMessage(position);
 
             if (Program.mentionID.Contains(Context.Guild.Id) && _mention != null)
             {

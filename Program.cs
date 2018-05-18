@@ -24,10 +24,6 @@ namespace AttentionBot
         public static List<ulong> roleID = new List<ulong>();
         public static List<ulong> mentionID = new List<ulong>();
         public static Dictionary<ulong, ulong> servChanID = new Dictionary<ulong, ulong>();
-
-        private bool loadedServChans = false;
-        private bool loadedRoles = false;
-        private bool loadedMentions = false;
         
         public async Task StartAsync()
         {
@@ -68,62 +64,9 @@ namespace AttentionBot
                 Console.WriteLine("Attention! Bot Online");
             }
 
-            if (!loadedServChans)
-            {
-                List<ulong> chanID = new List<ulong>();
-                List<ulong> servID = new List<ulong>();
-
-                string chanString;
-                BinaryReader chanReader = new BinaryReader(File.Open("channels.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < chanReader.BaseStream.Length; i += chanString.Length + 1)
-                {
-                    chanString = chanReader.ReadString();
-                    chanID.Add(Convert.ToUInt64(chanString));
-                }
-                chanReader.Close();
-
-                string servString;
-                BinaryReader servReader = new BinaryReader(File.Open("servers.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < servReader.BaseStream.Length; i += servString.Length + 1)
-                {
-                    servString = servReader.ReadString();
-                    servID.Add(Convert.ToUInt64(servString));
-                }
-                servReader.Close();
-
-                for (int i = 0; i < servID.Count; i++)
-                {
-                    servChanID.Put(servID[i], chanID[i]);
-                }
-
-                loadedServChans = true;
-            }
-
-            if (!loadedRoles)
-            {
-                string roleString;
-                BinaryReader roleReader = new BinaryReader(File.Open("roles.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < roleReader.BaseStream.Length; i += roleString.Length + 1)
-                {
-                    roleString = roleReader.ReadString();
-                    roleID.Add(Convert.ToUInt64(roleString));
-                }
-                roleReader.Close();
-                loadedRoles = true;
-            }
-
-            if (!loadedMentions)
-            {
-                string mentionString;
-                BinaryReader mentReader = new BinaryReader(File.Open("mentions.txt", FileMode.OpenOrCreate));
-                for (int i = 0; i < mentReader.BaseStream.Length; i += mentionString.Length + 1)
-                {
-                    mentionString = mentReader.ReadString();
-                    mentionID.Add(Convert.ToUInt64(mentionString));
-                }
-                mentReader.Close();
-                loadedMentions = true;
-            }
+            servChanID = await Files.FileToDict("servers.txt", "channels.txt");
+            roleID = await Files.FileToList("roles.txt");
+            mentionID = await Files.FileToList("mentions.txt");
 
             if (isConsole)
             {
