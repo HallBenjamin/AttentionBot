@@ -55,7 +55,7 @@ namespace AttentionBot
             await _client.LoginAsync(TokenType.Bot, SecurityInfo.token);
             await _client.StartAsync();
 
-            await _client.SetGameAsync("Attention! \\help 3949");
+            await _client.SetGameAsync("Attention! \\help " + SecurityInfo.botID);
 
             _handler = new CommandHandler(_client);
 

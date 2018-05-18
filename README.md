@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 19 commands (12 for the public) and almost 1,000 lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 19 commands (12 for the public) and well over a thousand lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
@@ -83,11 +83,10 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 
 # Release Notes
 ## v3.0.0.0 (Alpha)
-- Add command to ping the bot for performance analysis
+- Add command to ping the bot
 - Add voice commands
-- Modify ability for bot to send announcement when back online to be automated
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.0.0.0 (Beta)
+## v2.0.0.0 (Stable)
 - Changed command: \help
   - Message shows available parameters to see specific categories. On servers, only one category may show at a time
   - Parameter "3949" DMs you the full help message unless additional parameters are also used. "3949" must be the first parameter if it is used
@@ -98,7 +97,7 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 - Created Files.cs to control reading and writing to/from the files
 - Optimized Admin.cs hasRole boolean stuff (moved to its own function)
 - This is a beta build. It is likely unstable, and new features may be added before the Stable release.
-## v1.5.8.2 (Stable)
+## v1.5.8.2
 - Changed a KARF message to mention a user in a specific part of the message
 - Changed the Owner \close message
 ## v1.5.8.1

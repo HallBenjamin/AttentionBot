@@ -137,9 +137,9 @@ namespace AttentionBot.Modules
             helpField.WithIsInline(true);
             helpField.WithName("\\help Parameters");
             helpField.WithValue(
-                "***NOTE:** If you choose to supply the 3949 parameter, it must be first. If you do not supply it, only one parameter may be given.*\n\n" +
+                "***NOTE:** If you choose to supply the " + SecurityInfo.botID + " parameter, it must be first. If you do not supply it, only one parameter may be given.*\n\n" +
 
-                "3949\n" +
+                SecurityInfo.botID + "\n" +
                 "  - DMs you all available help commands for the bot.\n\n" +
 
                 "useful\n" +
@@ -158,7 +158,7 @@ namespace AttentionBot.Modules
                 "\\help [parameter(s) (optional)]\n" +
                 "  - Lists available commands for the bot.\n\n" +
 
-                "\\changelog [3949 (optional)]\n" +
+                "\\changelog [" + SecurityInfo.botID + " (optional)]\n" +
                 "  - Sends a link to the version history (changelog) of the bot.\n\n" +
 
                 "\\membercount\n" +
@@ -199,7 +199,7 @@ namespace AttentionBot.Modules
                 "***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
                 "***NOTE 2:** The Role and Channel parameters can either be their respective ID or a mention of the channel/role.*\n\n" +
 
-                "\\settings [3949 (optional)]\n" +
+                "\\settings [" + SecurityInfo.botID + " (optional)]\n" +
                 "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
 
                 "\\admin [role]\n" +
