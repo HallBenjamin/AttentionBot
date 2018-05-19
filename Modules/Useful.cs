@@ -148,7 +148,7 @@ namespace AttentionBot.Modules
                 "spam\n" +
                 "  - Lists all available spam commands for the bot.\n\n" +
 
-                "admins\n" +
+                "admin\n" +
                 "  - Lists all available admin commands for the bot.\n\u200b");
 
             EmbedFieldBuilder usefulField = new EmbedFieldBuilder();
