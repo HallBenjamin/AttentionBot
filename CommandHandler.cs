@@ -1,5 +1,7 @@
 ﻿using Discord.Commands;
 using Discord.WebSocket;
+using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -20,6 +22,65 @@ namespace AttentionBot
             _service.AddModulesAsync(Assembly.GetEntryAssembly());
 
             _client.MessageReceived += HandleCommandAsync;
+            _client.JoinedGuild += SendWelcomeMessage;
+            _client.LeftGuild += CleanDatabase;
+        }
+
+        private async Task CleanDatabase(SocketGuild g)
+        {
+            if (Program.servChanID.ContainsKey(g.Id))
+            {
+                Program.servChanID.Remove(g.Id);
+            }
+
+            if (Program.mentionID.Contains(g.Id))
+            {
+                Program.mentionID.Remove(g.Id);
+            }
+
+            List<ulong> roles = new List<ulong>();
+            foreach (SocketGuild server in _client.Guilds)
+            {
+                foreach (ulong ID in Program.roleID.ToList())
+                {
+                    SocketRole role = server.Roles.FirstOrDefault(x => x.Id == ID);
+                    if (server.Roles.Contains(role))
+                    {
+                        roles.Add(role.Id);
+                    }
+                }
+            }
+            Program.roleID = roles;
+
+            await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
+            await Files.WriteToFile(Program.mentionID, "mentions.txt");
+            await Files.WriteToFile(Program.roleID, "roles.txt");
+        }
+
+        private async Task SendWelcomeMessage(SocketGuild g)
+        {
+            SocketTextChannel spam = g.TextChannels.FirstOrDefault(x => x.Name == "spam" || x.Name.Contains("bot")) as SocketTextChannel;
+            SocketTextChannel test = g.TextChannels.FirstOrDefault(x => x.Name.Contains("test")) as SocketTextChannel;
+            SocketTextChannel general = g.TextChannels.FirstOrDefault(x => x.Name == "general") as SocketTextChannel;
+
+            SocketTextChannel channel = spam;
+            if (!g.TextChannels.Contains(channel) || g.GetTextChannel(channel.Id).Users.Count != g.Users.Count)
+            {
+                channel = test;
+            }
+            if (!g.TextChannels.Contains(channel) || g.GetTextChannel(channel.Id).Users.Count != g.Users.Count)
+            {
+                channel = general;
+            }
+
+            int i = 0;
+            while (!g.TextChannels.Contains(channel) || g.GetTextChannel(channel.Id).Users.Count != g.Users.Count)
+            {
+                channel = g.TextChannels.FirstOrDefault(x => x.Position == i && x.Users.Count == g.Users.Count) as SocketTextChannel;
+                i++;
+            }
+
+            await channel.SendMessageAsync("Hello! I am Attention! Bot.\nTo see a list of my commands, type \"\\help 3949\" (without quotes).");
         }
 
         private async Task HandleCommandAsync(SocketMessage s)

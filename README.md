@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 19 commands (12 for the public) and well over a thousand lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 18 commands (12 for the public) and well over a thousand lines of code.
 
 Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
 
@@ -86,7 +86,13 @@ Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=3
 - Add command to ping the bot
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.0.0.0 (Stable)
+## v2.0.1.0 (Stable)
+- This update is almost purely under-the-hood improvements
+  - Bot now sends a message (to spam, otherwise any channel with "test" in the name, otherwise general/whatever it can find) when it joins a new server (tells users the help command)
+  - Bot now removes instances of a server from its database upon being kicked instead of waiting for the owner to give a command
+  - Optimized CleanupFiles() in Owner.cs
+  - Removed obsolete owner command: \online
+## v2.0.0.0
 - Changed command: \help
   - Message shows available parameters to see specific categories. On servers, only one category may show at a time
   - Parameter "3949" DMs you the full help message unless additional parameters are also used. "3949" must be the first parameter if it is used

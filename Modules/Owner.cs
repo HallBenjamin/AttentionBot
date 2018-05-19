@@ -18,11 +18,11 @@ namespace AttentionBot.Modules
             // Servers and channels
             List<ulong> guilds = new List<ulong>();
             List<ulong> channels = new List<ulong>();
-            foreach (SocketGuild guild in Context.Client.Guilds)
+            foreach (SocketGuild guild in Context.Client.Guilds.ToList())
             {
                 guilds.Add(guild.Id);
 
-                foreach (SocketGuildChannel channel in Context.Client.GetGuild(guild.Id).Channels)
+                foreach (SocketTextChannel channel in Context.Client.GetGuild(guild.Id).Channels.ToList())
                 {
                     channels.Add(channel.Id);
                 }
@@ -51,12 +51,12 @@ namespace AttentionBot.Modules
 
             // Roles
             List<ulong> roles = new List<ulong>();
-            foreach (ulong server in guilds)
+            foreach (SocketGuild server in Context.Client.Guilds.ToList())
             {
                 foreach (ulong ID in Program.roleID.ToList())
                 {
-                    SocketRole role = Context.Client.GetGuild(server).Roles.FirstOrDefault(x => x.Id == ID);
-                    if (Context.Client.GetGuild(server).Roles.Contains(role))
+                    SocketRole role = server.Roles.FirstOrDefault(x => x.Id == ID);
+                    if (server.Roles.Contains(role))
                     {
                         roles.Add(role.Id);
                     }
@@ -85,18 +85,6 @@ namespace AttentionBot.Modules
             System.Diagnostics.Process.Start("AttentionBot.exe");
 
             Environment.Exit(0);
-        }
-
-        [Command("online")]
-        [RequireOwner]
-        public async Task OnlineNotify()
-        {
-            await CleanupFiles(false);
-
-            foreach (ulong serv in Program.servChanID.Keys)
-            {
-                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot is now online.");
-            }
         }
 
         [Command("announcement")]

@@ -123,7 +123,7 @@ namespace AttentionBot.Modules
             EmbedBuilder helpMessage = new EmbedBuilder();
 
             helpMessage.WithTitle("Attention! Bot for Discord");
-            helpMessage.WithDescription("Bot Version 2.0.0.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+            helpMessage.WithDescription("Bot Version 2.0.1.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
             helpMessage.WithColor(SecurityInfo.botColor);
             helpMessage.WithCurrentTimestamp();
 
