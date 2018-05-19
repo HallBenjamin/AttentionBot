@@ -4,7 +4,7 @@
 
 ##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 18 commands (12 for the public) and well over a thousand lines of code.
 
-Add this bot to your server! https://discordapp.com/oauth2/authorize?client_id=346064990152818690&scope=bot&permissions=220160
+Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_id=346064990152818690&permissions=3230720&scope=bot
 
 #### Prefix: \
 
