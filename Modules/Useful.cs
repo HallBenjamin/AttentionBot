@@ -101,7 +101,8 @@ namespace AttentionBot.Modules
         {
             if (_botID == SecurityInfo.botID || _botID == null)
             {
-                await Context.Channel.SendMessageAsync("Changelog can be found at:\n" +
+                await Context.Channel.SendMessageAsync("**Attention! v" + SecurityInfo.botVersion + "**\n" +
+                    "Changelog can be found at:\n" +
                     "https://github.com/josedolf-staller/AttentionBot#release-notes");
             }
         }
@@ -123,7 +124,7 @@ namespace AttentionBot.Modules
             EmbedBuilder helpMessage = new EmbedBuilder();
 
             helpMessage.WithTitle("Attention! Bot for Discord");
-            helpMessage.WithDescription("Bot Version 2.0.1.0  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+            helpMessage.WithDescription("Bot Version " + SecurityInfo.botVersion + "  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
             helpMessage.WithColor(SecurityInfo.botColor);
             helpMessage.WithCurrentTimestamp();
 

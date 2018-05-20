@@ -86,7 +86,10 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - Add command to ping the bot
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.0.1.0 (Stable)
+## v2.0.1.1 (Stable)
+- Moved the bot version to SecurityInfo.cs
+- Changed changelog message to show the current bot version
+## v2.0.1.0
 - This update is almost purely under-the-hood improvements
   - Bot now sends a message (to spam, otherwise any channel with "test" in the name, otherwise general/whatever it can find) when it joins a new server (tells users the help command)
   - Bot now removes instances of a server from its database upon being kicked instead of waiting for the owner to give a command
