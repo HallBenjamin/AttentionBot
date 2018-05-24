@@ -101,59 +101,35 @@ namespace AttentionBot.Modules
 
         [Command("restart")]
         [RequireOwner]
-        public async Task RestartWarning(string _time = "2", string _botID = "all", string _length = null, string _reason = null)
+        public async Task RestartWarning(string _time = "5", string _reason = null, string _length = null)
         {
             await CleanupFiles(false);
 
-            if (_length != null)
+            if (_reason != null)
             {
-                _length = " for " + _length + " hours.";
-            }
-            else
-            {
-                _length = ".";
-            }
-            if (_botID == SecurityInfo.botID)
-            {
-                foreach (ulong serv in Program.servChanID.Keys)
-                {
-                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot will go offline for an update in " + _time + " minutes.");
-                }
-            }
-            else if (_botID == "all")
-            {
+                _reason = " due to " + _reason;
+
                 if (_length != null)
                 {
                     _length = " for " + _length + " hours";
-
-                    if (_reason != null)
-                    {
-                        _reason = " due to " + _reason;
-                    }
                 }
+            }
 
-                foreach (ulong serv in Program.servChanID.Keys)
-                {
-                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes" + _length + _reason + ".");
-                }
+            foreach (ulong serv in Program.servChanID.Keys)
+            {
+                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes" + _length + _reason + ".");
             }
         }
 
         [Command("exit")]
         [RequireOwner]
-        public async Task ExitAttentionBot(string _botID = "all", string _length = null, string _reason = null)
+        public async Task ExitAttentionBot(string _reason = null, string _length = null)
         {
             await CleanupFiles(false);
+            if (_reason != null)
+            {
+                _reason = " due to " + _reason;
 
-            if (_botID == SecurityInfo.botID)
-            {
-                foreach (ulong serv in Program.servChanID.Keys)
-                {
-                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot is now offline.");
-                }
-            }
-            else if (_botID == "all")
-            {
                 if (_length == null)
                 {
                     _length = "restarting";
@@ -161,23 +137,18 @@ namespace AttentionBot.Modules
                 else
                 {
                     _length = "offline for " + _length + " hours";
-
-                    if (_reason != null)
-                    {
-                        _reason = " due to " + _reason;
-                    }
-
                 }
+            }
 
-                foreach (ulong serv in Program.servChanID.Keys)
-                {
-                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server is now " + _length + _reason + ".");
-                }
-
+            foreach (ulong serv in Program.servChanID.Keys)
+            {
+                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server is now " + _length + _reason + ".");
             }
 
             if (Program.isConsole)
+            {
                 Console.WriteLine("Attention! Bot Offline");
+            }
 
             Thread.Sleep(1000);
             Environment.Exit(0);
