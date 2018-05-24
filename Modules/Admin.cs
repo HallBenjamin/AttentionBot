@@ -94,24 +94,30 @@ namespace AttentionBot.Modules
         {
             if (Context.User.Id == Context.Guild.OwnerId)
             {
-                if (!Program.roleID.Contains(Convert.ToUInt64(_roleID)))
+                bool alreadyExists = Program.roleID.Contains(Convert.ToUInt64(_roleID));
+
+                if (!alreadyExists && Context.Guild.Roles.Contains(Context.Guild.Roles.FirstOrDefault(x => x.Id == Convert.ToUInt64(_roleID))))
                 {
                     Program.roleID.Add(Convert.ToUInt64(_roleID));
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
                     await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " has been added as an administrative role.");
                 }
-                else
+                else if (alreadyExists)
                 {
                     Program.roleID.Remove(Convert.ToUInt64(_roleID));
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
                     await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " is no longer an administrative role.");
                 }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Error: Invalid Role ID. Please input a valid ID for a role on the server.");
+                }
             }
             else
             {
-                await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("Error: You are not the Server Owner and cannot use this command.");
             }
         }
 
@@ -137,7 +143,7 @@ namespace AttentionBot.Modules
             }
             else
             {
-                await Context.Channel.SendMessageAsync("You are not the owner of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("Error: You are not the Server Owner and cannot use this command.");
             }
         }
 
@@ -188,7 +194,7 @@ namespace AttentionBot.Modules
             }
             else
             {
-                await Context.Channel.SendMessageAsync("You are not the owner or admin of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("Error: You are not the Server Owner or an admin and cannot use this command.");
             }
         }
 
@@ -217,17 +223,21 @@ namespace AttentionBot.Modules
                 {
                     await Context.Channel.SendMessageAsync("Channel is already set as the announcements channel.");
                 }
-                else
+                else if (Context.Guild.TextChannels.Contains(Context.Guild.TextChannels.FirstOrDefault(x => x.Id == Convert.ToUInt64(_chanID))))
                 {
                     Program.servChanID.Put(Context.Guild.Id, Convert.ToUInt64(_chanID));
                     await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
                     await Context.Channel.SendMessageAsync("The announcements channel is now " + (Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention + " with ID " + _chanID + ".");
                 }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Error: Invalid channel ID given. Please give a valid ID of a text channel on the server.");
+                }
             }
             else
             {
-                await Context.Channel.SendMessageAsync("You are not the owner or admin of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("Error: You are not the Server Owner or an admin and cannot use this command.");
             }
         }
 
@@ -252,7 +262,7 @@ namespace AttentionBot.Modules
             }
             else
             {
-                await Context.Channel.SendMessageAsync("You are not the owner or admin of the server and cannot use this command.");
+                await Context.Channel.SendMessageAsync("Error: You are not the Server Owner or an admin and cannot use this command.");
             }
         }
     }

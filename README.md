@@ -86,7 +86,12 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - Add command to ping the bot
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.0.1.1 (Stable)
+## v2.0.1.2 (Stable)
+- Changed error message if the user tries to use an admin command without being an admin
+- Made Admin commands validate that the given ID was valid
+- Fixed a bug where the code attempted to add SocketChannel to a List<> of SocketTextChannel
+- Fixed a performance issue related to writing to a file in a loop instead of after the loop
+## v2.0.1.1
 - Moved the bot version to SecurityInfo.cs
 - Changed changelog message to show the current bot version
 ## v2.0.1.0

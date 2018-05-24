@@ -22,7 +22,7 @@ namespace AttentionBot.Modules
             {
                 guilds.Add(guild.Id);
 
-                foreach (SocketTextChannel channel in Context.Client.GetGuild(guild.Id).Channels.ToList())
+                foreach (SocketTextChannel channel in Context.Client.GetGuild(guild.Id).TextChannels.ToList())
                 {
                     channels.Add(channel.Id);
                 }
@@ -33,10 +33,10 @@ namespace AttentionBot.Modules
                 if (!guilds.Contains(servID) || !channels.Contains(Program.servChanID[servID]))
                 {
                     Program.servChanID.Remove(servID);
-
-                    await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
                 }
             }
+
+            await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
             // Mentions
             foreach (ulong serv in Program.mentionID.ToList())
