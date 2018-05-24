@@ -86,7 +86,7 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - Add command to ping the bot
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.0.1.3 (Stable)
+## v2.0.1.3 (Stable) (LTS)
 - Removed unused parameters and messages in the restart/exit Owner commands
 - Fixed the server restart messages
 ## v2.0.1.2
