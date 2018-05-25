@@ -2,7 +2,6 @@
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
-using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -93,9 +92,18 @@ namespace AttentionBot.Modules
         {
             await CleanupFiles(false);
 
-            foreach (ulong serv in Program.servChanID.Keys)
+            foreach (ulong serv in Program.servChanID.Keys.ToList())
             {
-                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! " + announceMessage);
+                SocketGuild guild = Context.Client.GetGuild(serv);
+                SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
+
+                bool hasPerm = guild.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
+                    && guild.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
+
+                if (hasPerm)
+                {
+                    await channel.SendMessageAsync("Attention! " + announceMessage);
+                }
             }
         }
 
@@ -118,9 +126,18 @@ namespace AttentionBot.Modules
                 restart = "shut down";
             }
 
-            foreach (ulong serv in Program.servChanID.Keys)
+            foreach (ulong serv in Program.servChanID.Keys.ToList())
             {
-                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will " + restart + " in " + _time + " minutes" + _length + _reason + ".");
+                SocketGuild guild = Context.Client.GetGuild(serv);
+                SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
+
+                bool hasPerm = guild.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
+                    && guild.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
+
+                if (hasPerm)
+                {
+                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will " + restart + " in " + _time + " minutes" + _length + _reason + ".");
+                }
             }
         }
 
@@ -143,7 +160,7 @@ namespace AttentionBot.Modules
                 _length = "offline for " + _length + " hours";
             }
 
-            foreach (ulong serv in Program.servChanID.Keys)
+            foreach (ulong serv in Program.servChanID.Keys.ToList())
             {
                 await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server is now " + _length + _reason + ".");
             }

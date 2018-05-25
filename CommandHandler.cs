@@ -64,19 +64,50 @@ namespace AttentionBot
             SocketTextChannel general = g.TextChannels.FirstOrDefault(x => x.Name == "general") as SocketTextChannel;
 
             SocketTextChannel channel = spam;
-            if (!g.TextChannels.Contains(channel) || g.GetTextChannel(channel.Id).Users.Count != g.Users.Count)
+
+            bool hasPerm = false;
+
+            if (g.TextChannels.Contains(channel))
+            {
+                hasPerm = g.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
+                       && g.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
+
+                if (!hasPerm)
+                {
+                    channel = test;
+                }
+            }
+            else
             {
                 channel = test;
             }
-            if (!g.TextChannels.Contains(channel) || g.GetTextChannel(channel.Id).Users.Count != g.Users.Count)
+
+            if (g.TextChannels.Contains(channel))
+            {
+                hasPerm = g.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
+                    && g.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
+
+                if (!hasPerm)
+                {
+                    channel = general;
+                }
+            }
+            else
             {
                 channel = general;
             }
 
             int i = 0;
-            while (!g.TextChannels.Contains(channel) || g.GetTextChannel(channel.Id).Users.Count != g.Users.Count)
+            while (!hasPerm)
             {
-                channel = g.TextChannels.FirstOrDefault(x => x.Position == i && x.Users.Count == g.Users.Count) as SocketTextChannel;
+                channel = g.TextChannels.FirstOrDefault(x => x.Position == i) as SocketTextChannel;
+
+                if (g.TextChannels.Contains(channel))
+                {
+                    hasPerm = g.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
+                        && g.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
+                }
+
                 i++;
             }
 
