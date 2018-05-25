@@ -85,16 +85,16 @@ namespace AttentionBot
 
         private async Task HandleCommandAsync(SocketMessage s)
         {
-            var msg = s as SocketUserMessage;
+            SocketUserMessage msg = s as SocketUserMessage;
             if (msg == null)
             {
                 return;
             }
 
-            var context = new SocketCommandContext(_client, msg);
+            SocketCommandContext context = new SocketCommandContext(_client, msg);
 
             int argPos = 0;
-            if (msg.HasCharPrefix(prefix, ref argPos))
+            if (msg.HasCharPrefix(prefix, ref argPos) && !context.User.IsBot)
             {
                 var result = await _service.ExecuteAsync(context, argPos);
 
