@@ -105,6 +105,8 @@ namespace AttentionBot.Modules
         {
             await CleanupFiles(false);
 
+            string restart = "restart";
+
             if (_reason != null)
             {
                 _reason = " due to " + _reason;
@@ -112,12 +114,13 @@ namespace AttentionBot.Modules
                 if (_length != null)
                 {
                     _length = " for " + _length + " hours";
+                    restart = "shut down";
                 }
             }
 
             foreach (ulong serv in Program.servChanID.Keys)
             {
-                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will shut down in " + _time + " minutes" + _length + _reason + ".");
+                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will " + restart + " in " + _time + " minutes" + _length + _reason + ".");
             }
         }
 

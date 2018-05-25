@@ -88,6 +88,7 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v2.0.1.4 (Stable)
 - Fixed an issue where the bot would reply to other bots
+- Fixed an issue where the server restart message always said the bot's server would shut down and not restart
 ## v2.0.1.3 LTS
 - Removed unused parameters and messages in the restart/exit Owner commands
 - Fixed the server restart messages
