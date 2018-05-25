@@ -110,12 +110,12 @@ namespace AttentionBot.Modules
             if (_reason != null)
             {
                 _reason = " due to " + _reason;
-
-                if (_length != null)
-                {
-                    _length = " for " + _length + " hours";
-                    restart = "shut down";
-                }
+            }
+			
+			if (_length != null)
+            {
+                _length = " for " + _length + " hours";
+                restart = "shut down";
             }
 
             foreach (ulong serv in Program.servChanID.Keys)
@@ -132,15 +132,15 @@ namespace AttentionBot.Modules
             if (_reason != null)
             {
                 _reason = " due to " + _reason;
+            }
 
-                if (_length == null)
-                {
-                    _length = "restarting";
-                }
-                else
-                {
-                    _length = "offline for " + _length + " hours";
-                }
+            if (_length == null)
+            {
+                _length = "restarting";
+            }
+            else
+            {
+                _length = "offline for " + _length + " hours";
             }
 
             foreach (ulong serv in Program.servChanID.Keys)
