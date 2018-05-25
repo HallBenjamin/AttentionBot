@@ -89,6 +89,8 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 ## v2.0.1.5 (Stable)
 - Fixed an issue where the bot would attempt to send announcements to the designated announcements channel, even if it didn't have the "Send Messages" permission
 - Fixed the algorithm the bot uses when trying to find a channel to send a join message to when it first joins a server
+- Created PermissionChecker.cs to check if the bot has needed permissions
+- Added the Bot Client ID to SecurityInfo.cs
 ## v2.0.1.4 LTS
 - Fixed an issue where the bot would reply to other bots
 - Fixed an issue where the server restart message always said the bot's server would shut down and not restart

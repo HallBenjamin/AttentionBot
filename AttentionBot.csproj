@@ -282,6 +282,7 @@
     <Compile Include="Modules\Attention.cs" />
     <Compile Include="Modules\Owner.cs" />
     <Compile Include="Modules\Useful.cs" />
+    <Compile Include="PermissionChecker.cs" />
     <Compile Include="Program.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
     <Compile Include="SecurityInfo.cs" />

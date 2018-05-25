@@ -97,10 +97,7 @@ namespace AttentionBot.Modules
                 SocketGuild guild = Context.Client.GetGuild(serv);
                 SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
 
-                bool hasPerm = guild.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
-                    && guild.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
-
-                if (hasPerm)
+                if (await PermissionChecker.HasSend(guild, channel))
                 {
                     await channel.SendMessageAsync("Attention! " + announceMessage);
                 }
@@ -131,10 +128,7 @@ namespace AttentionBot.Modules
                 SocketGuild guild = Context.Client.GetGuild(serv);
                 SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
 
-                bool hasPerm = guild.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
-                    && guild.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
-
-                if (hasPerm)
+                if (await PermissionChecker.HasSend(guild, channel))
                 {
                     await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will " + restart + " in " + _time + " minutes" + _length + _reason + ".");
                 }
@@ -162,7 +156,13 @@ namespace AttentionBot.Modules
 
             foreach (ulong serv in Program.servChanID.Keys.ToList())
             {
-                await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server is now " + _length + _reason + ".");
+                SocketGuild guild = Context.Client.GetGuild(serv);
+                SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
+
+                if (await PermissionChecker.HasSend(guild, channel))
+                {
+                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server is now " + _length + _reason + ".");
+                }
             }
 
             if (Program.isConsole)

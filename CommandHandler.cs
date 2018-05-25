@@ -64,15 +64,10 @@ namespace AttentionBot
             SocketTextChannel general = g.TextChannels.FirstOrDefault(x => x.Name == "general") as SocketTextChannel;
 
             SocketTextChannel channel = spam;
-
-            bool hasPerm = false;
-
+            
             if (g.TextChannels.Contains(channel))
             {
-                hasPerm = g.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
-                       && g.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
-
-                if (!hasPerm)
+                if (!(await PermissionChecker.HasSend(g, channel)))
                 {
                     channel = test;
                 }
@@ -84,10 +79,7 @@ namespace AttentionBot
 
             if (g.TextChannels.Contains(channel))
             {
-                hasPerm = g.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
-                    && g.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
-
-                if (!hasPerm)
+                if (!(await PermissionChecker.HasSend(g, channel)))
                 {
                     channel = general;
                 }
@@ -98,14 +90,15 @@ namespace AttentionBot
             }
 
             int i = 0;
+            bool hasPerm = await PermissionChecker.HasSend(g, channel);
+
             while (!hasPerm)
             {
                 channel = g.TextChannels.FirstOrDefault(x => x.Position == i) as SocketTextChannel;
 
                 if (g.TextChannels.Contains(channel))
                 {
-                    hasPerm = g.GetUser(346064990152818690).GetPermissions(channel).ReadMessages
-                        && g.GetUser(346064990152818690).GetPermissions(channel).SendMessages;
+                    hasPerm = await PermissionChecker.HasSend(g, channel);
                 }
 
                 i++;
