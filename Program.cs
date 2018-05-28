@@ -58,11 +58,6 @@ namespace AttentionBot
 
             _handler = new CommandHandler(_client);
 
-            if (isConsole)
-            {
-                Console.WriteLine("Attention! Bot Online");
-            }
-
             servChanID = await Files.FileToDict("servers.txt", "channels.txt");
             roleID = await Files.FileToList("roles.txt");
             mentionID = await Files.FileToList("mentions.txt");

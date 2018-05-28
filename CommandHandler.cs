@@ -1,5 +1,6 @@
 ﻿using Discord.Commands;
 using Discord.WebSocket;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Reflection;
@@ -24,6 +25,24 @@ namespace AttentionBot
             _client.MessageReceived += HandleCommandAsync;
             _client.JoinedGuild += SendWelcomeMessage;
             _client.LeftGuild += CleanDatabase;
+            _client.Disconnected += SendDisconnectError;
+            _client.Connected += SendConnectMessage;
+        }
+
+        private async Task SendDisconnectError(Exception e)
+        {
+            if (Program.isConsole)
+            {
+                await Console.Out.WriteLineAsync(e.Message);
+            }
+        }
+
+        private async Task SendConnectMessage()
+        {
+            if (Program.isConsole)
+            {
+                await Console.Out.WriteLineAsync("Attention! Bot Online");
+            }
         }
 
         private async Task CleanDatabase(SocketGuild g)
