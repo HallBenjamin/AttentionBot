@@ -98,7 +98,7 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
   - Displays the current InterServer Chat configuration for the bot
 
 - \interserver-chat [channel]
-  - **SERVER OWNERS:** Sets the specified channel as the channel for an InterServer Chat.
+  - Sets the specified channel as the channel for an InterServer Chat.
   - To disable InterServer Chat, type in "-" as the channel.
 
 - \display-user-guild [0/1]
