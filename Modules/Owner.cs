@@ -48,6 +48,28 @@ namespace AttentionBot.Modules
 
             await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
 
+            // InterServer Show Guild
+            foreach (ulong servID in Program.showUserServer.ToList())
+            {
+                if (!guilds.Contains(servID))
+                {
+                    Program.showUserServer.Remove(servID);
+                }
+            }
+
+            await Files.WriteToFile(Program.showUserServer, "show-guild.txt");
+
+            // InterServer Broadcast Guild
+            foreach (ulong servID in Program.broadcastServerName.ToList())
+            {
+                if (!guilds.Contains(servID))
+                {
+                    Program.broadcastServerName.Remove(servID);
+                }
+            }
+
+            await Files.WriteToFile(Program.broadcastServerName, "broadcast-guild.txt");
+
             // Mentions
             foreach (ulong serv in Program.mentionID.ToList())
             {

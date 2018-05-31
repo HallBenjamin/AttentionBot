@@ -58,6 +58,16 @@ namespace AttentionBot
                 Program.servChanID.Remove(g.Id);
             }
 
+            if (Program.showUserServer.Contains(g.Id))
+            {
+                Program.showUserServer.Remove(g.Id);
+            }
+
+            if (Program.broadcastServerName.Contains(g.Id))
+            {
+                Program.broadcastServerName.Remove(g.Id);
+            }
+
             if (Program.mentionID.Contains(g.Id))
             {
                 Program.mentionID.Remove(g.Id);
@@ -80,6 +90,9 @@ namespace AttentionBot
             await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
             await Files.WriteToFile(Program.mentionID, "mentions.txt");
             await Files.WriteToFile(Program.roleID, "roles.txt");
+            await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
+            await Files.WriteToFile(Program.showUserServer, "show-guild.txt");
+            await Files.WriteToFile(Program.broadcastServerName, "broadcast-guild.txt");
         }
 
         private async Task SendWelcomeMessage(SocketGuild g)
@@ -163,11 +176,30 @@ namespace AttentionBot
                     embed.WithAuthor(msg.Author);
                     embed.WithDescription(msg.Content);
 
+                    EmbedBuilder embedGuild = new EmbedBuilder();
+                    embedGuild.WithAuthor(msg.Author);
+                    embedGuild.WithDescription(msg.Content);
+                    if (Program.broadcastServerName.Contains(context.Guild.Id))
+                    {
+                        EmbedFooterBuilder footer = new EmbedFooterBuilder();
+                        footer.WithIconUrl(context.Guild.IconUrl);
+                        footer.WithText(context.Guild.Name);
+
+                        embedGuild.WithFooter(footer);
+                    }
+
                     foreach (ulong serverID in Program.interServerChats.Keys.ToList())
                     {
                         if (serverID != context.Guild.Id)
                         {
-                            await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embed);
+                            if (Program.showUserServer.Contains(serverID))
+                            {
+                                await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embedGuild);
+                            }
+                            else
+                            {
+                                await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embed);
+                            }
                         }
                     }
                 }

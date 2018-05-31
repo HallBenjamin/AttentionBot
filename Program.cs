@@ -24,6 +24,8 @@ namespace AttentionBot
         public static List<ulong> mentionID = new List<ulong>();
         public static Dictionary<ulong, ulong> servChanID = new Dictionary<ulong, ulong>();
         public static Dictionary<ulong, ulong> interServerChats = new Dictionary<ulong, ulong>();
+        public static List<ulong> showUserServer = new List<ulong>();
+        public static List<ulong> broadcastServerName = new List<ulong>();
 
         public async Task StartAsync()
         {
@@ -63,6 +65,8 @@ namespace AttentionBot
             roleID = await Files.FileToList("roles.txt");
             mentionID = await Files.FileToList("mentions.txt");
             interServerChats = await Files.FileToDict("interservers.txt", "interchannels.txt");
+            showUserServer = await Files.FileToList("show-guild.txt");
+            broadcastServerName = await Files.FileToList("broadcast-guild.txt");
 
             if (isConsole)
             {

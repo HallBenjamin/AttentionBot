@@ -26,6 +26,9 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - admin
   - Lists all available admin commands for the bot.
 
+- interserver
+  - Lists all available InterServer Chat commands for the bot.
+
 *Useful:*
 
 - \help [parameter(s) (optional)]
@@ -85,15 +88,39 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - \mentions [0/1]
   - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.
 
+*InterServer Chat:*
+
+***NOTE:** All of these commands require the user to either be an Admin or a Server Owner.*
+
+- \interserver-settings [3949 (optional)]
+  - Displays the current InterServer Chat configuration for the bot
+
 - \interserver-chat [channel]
   - **SERVER OWNERS:** Sets the specified channel as the channel for an InterServer Chat.
   - To disable InterServer Chat, type in "-" as the channel.
+
+- \display-user-guild [0/1]
+  - Enables (1) or disables (0) whether or not the bot shows what server the message was sent from.
+
+- \broadcast-guild-name
+  - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \display-user-server set to 1.
 
 # Release Notes
 ## v3.0.0.0 (Alpha)
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.1.0.0 (Stable)
+## v2.2.0.0 (Stable)
+- New Admin Command: \interserver-settings
+  - Displays the current configuration of the InterServer Chat
+- New Admin Command: \display-user-guild [0/1]
+  - Enables or disables whether or not the bot shows what server the message was sent from
+- New Admin Command: \broadcast-guild-name [0/1]
+  - Enables or disables whether or not other servers can see your server's name if they have \display-user-guild set to 1
+- Moved all InterServer Chat commands to their own module
+- Moved all InterServer \help information to its own category
+- New \help category: interserver
+  - Lists all available InterServer Chat commands for the bot
+## v2.1.0.0
 - New Command: \ping
   - Returns the bot's latency
 - New Admin Command: \interserver-chat [channel]

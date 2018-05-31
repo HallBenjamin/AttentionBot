@@ -114,11 +114,11 @@ namespace AttentionBot.Modules
         }
 
         [Command("help")]
-        public async Task Help(string _botID = null, string _param = null, string _param2 = null, string _param3 = null)
+        public async Task Help(string _botID = null, string _param = null, string _param2 = null, string _param3 = null, string _param4 = null)
         {
             if (_botID != null && _botID != SecurityInfo.botID)
             {
-                _param3 = _botID;
+                _param4 = _botID;
                 _botID = null;
             }
 
@@ -126,6 +126,7 @@ namespace AttentionBot.Modules
             _params.Add((_param == null) ? _param : _param.ToLower());
             _params.Add((_param2 == null) ? _param2 : _param2.ToLower());
             _params.Add((_param3 == null) ? _param3 : _param3.ToLower());
+            _params.Add((_param4 == null) ? _param4 : _param4.ToLower());
 
             EmbedBuilder helpMessage = new EmbedBuilder();
 
@@ -156,7 +157,10 @@ namespace AttentionBot.Modules
                 "  - Lists all available spam commands for the bot.\n\n" +
 
                 "admin\n" +
-                "  - Lists all available admin commands for the bot.\n\u200b");
+                "  - Lists all available admin commands for the bot.\n\n" +
+
+                "interserver\n" +
+                "  - Lists all available InterServer Chat commands for the bot.\n\u200b");
 
             EmbedFieldBuilder usefulField = new EmbedFieldBuilder();
             usefulField.WithIsInline(true);
@@ -220,16 +224,32 @@ namespace AttentionBot.Modules
                 "  - To disable announcements, type in \"-\" as the channel.\n\n" +
 
                 "\\mentions [0/1]\n" +
-                "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n" +
+                "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\u200b");
+
+            EmbedFieldBuilder interServerField = new EmbedFieldBuilder();
+            interServerField.WithIsInline(false);
+            interServerField.WithName("InterServer Chat");
+            interServerField.WithValue(
+                "***NOTE:** All of these commands require the user to either be an Admin or a Server Owner.*\n\n" +
+
+                "\\interserver-settings [" + SecurityInfo.botID + " (optional)]\n" +
+                "  - Displays the current InterServer Chat configuration for the bot.\n\n" +
 
                 "\\interserver-chat [channel]\n" +
                 "  - **SERVER OWNERS:** Sets the specified channel as the channel for an InterServer Chat.\n" +
-                "  - To disable InterServer Chat, type in \"-\" as the channel.");
+                "  - To disable InterServer Chat, type in \"-\" as the channel.\n\n" +
+
+                "\\display-user-guild [0/1]\n" +
+                "  - Enables (1) or disables (0) whether or not the bot shows what server the message was sent from.\n\n" +
+
+                "\\broadcast-guild-name [0/1]\n" +
+                "  - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \\display-user-server set to 1.\n\u200b");
 
             List<string> parameters = new List<string>();
             parameters.Add("useful");
             parameters.Add("spam");
             parameters.Add("admin");
+            parameters.Add("interserver");
 
             bool fieldExists = false;
             foreach (string param in parameters)
@@ -260,6 +280,10 @@ namespace AttentionBot.Modules
                 {
                     helpMessage.AddField(adminField);
                 }
+                else if (_params.Contains("interserver"))
+                {
+                    helpMessage.AddField(interServerField);
+                }
 
                 await Context.Channel.SendMessageAsync("", false, helpMessage);
             }
@@ -276,6 +300,10 @@ namespace AttentionBot.Modules
                 if (_params.Contains("admin"))
                 {
                     helpMessage.AddField(adminField);
+                }
+                if (_params.Contains("interserver"))
+                {
+                    helpMessage.AddField(interServerField);
                 }
 
                 await Context.User.SendMessageAsync("", false, helpMessage);
