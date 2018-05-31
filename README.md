@@ -92,6 +92,8 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 
 ***NOTE:** All of these commands require the user to either be an Admin or a Server Owner.*
 
+***NOTE 2:** The channel parameter can either be its ID or a mention of the channel.*
+
 - \interserver-settings [3949 (optional)]
   - Displays the current InterServer Chat configuration for the bot
 
@@ -102,7 +104,7 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - \display-user-guild [0/1]
   - Enables (1) or disables (0) whether or not the bot shows what server the message was sent from.
 
-- \broadcast-guild-name
+- \broadcast-guild-name [0/1]
   - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \display-user-server set to 1.
 
 # Release Notes
