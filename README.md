@@ -31,6 +31,9 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - \help [parameter(s) (optional)]
   - Lists available commands for the bot.
 
+- \ping
+  - Returns the latency of the bot.
+
 - \changelog [3949 (optional)]
   - Sends a link to the version history (changelog) of the bot.
   
@@ -70,23 +73,33 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 ***NOTE 2:** The Role and Channel parameters can either be their respective ID or a mention of the channel/role.*
 
 - \settings [3949 (optional)]
-  - **ADMINS/SERVER OWNER:** Displays the current configuration of the bot.
+  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.
 
 - \admin [role]
-  - **SERVER OWNER:** Sets the specified role as an administrative role for the bot's admin commands.
+  - **SERVER OWNERS:** Sets the specified role as an administrative role for the bot's admin commands.
 
 - \announce [channel]
-  - **ADMINS/SERVER OWNER:** Sets the Channel with the specified ID as the channel for bot announcements.
+  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.
+  - To disable announcements, type in "-" as the channel.
 
 - \mentions [0/1]
-  - **ADMINS/SERVER OWNER:** Enables (1) or disables (0) user mentions for the bot.
+  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.
+
+- \interserver-chat [channel]
+  - **SERVER OWNERS:** Sets the specified channel as the channel for an InterServer Chat.
+  - To disable InterServer Chat, type in "-" as the channel.
 
 # Release Notes
 ## v3.0.0.0 (Alpha)
-- Add command to ping the bot
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.0.1.6 LTS (Stable)
+## v2.1.0.0 (Stable)
+- New Command: \ping
+  - Returns the bot's latency
+- New Admin Command: \interserver-chat [channel]
+  - Use the designated channel for InterServer Chat, technology that allows communication between different servers running the bot
+- Updated libraries
+## v2.0.1.6 LTS
 - Added console prints when the bot disconnects/connects to the Discord WebSocket
 ## v2.0.1.5 LTS
 - Fixed an issue where the bot would attempt to send announcements to the designated announcements channel, even if it didn't have the "Send Messages" permission

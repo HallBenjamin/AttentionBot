@@ -1,4 +1,5 @@
-﻿using Discord.Commands;
+﻿using Discord;
+using Discord.Commands;
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
@@ -48,6 +49,11 @@ namespace AttentionBot
         private async Task CleanDatabase(SocketGuild g)
         {
             if (Program.servChanID.ContainsKey(g.Id))
+            {
+                Program.servChanID.Remove(g.Id);
+            }
+
+            if (Program.interServerChats.ContainsKey(g.Id))
             {
                 Program.servChanID.Remove(g.Id);
             }
@@ -137,13 +143,33 @@ namespace AttentionBot
             SocketCommandContext context = new SocketCommandContext(_client, msg);
 
             int argPos = 0;
-            if (msg.HasCharPrefix(prefix, ref argPos) && !context.User.IsBot)
+            if (!context.User.IsBot)
             {
-                var result = await _service.ExecuteAsync(context, argPos);
-
-                if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
+                // Commands
+                if (msg.HasCharPrefix(prefix, ref argPos))
                 {
-                    await context.Channel.SendMessageAsync("Error: " + result.ErrorReason);
+                    var result = await _service.ExecuteAsync(context, argPos);
+
+                    if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
+                    {
+                        await context.Channel.SendMessageAsync("Error: " + result.ErrorReason);
+                    }
+                }
+
+                // InterServer Chat
+                else if (Program.interServerChats.ContainsKey(context.Guild.Id) && Program.interServerChats[context.Guild.Id] == context.Channel.Id)
+                {
+                    EmbedBuilder embed = new EmbedBuilder();
+                    embed.WithAuthor(msg.Author);
+                    embed.WithDescription(msg.Content);
+
+                    foreach (ulong serverID in Program.interServerChats.Keys.ToList())
+                    {
+                        if (serverID != context.Guild.Id)
+                        {
+                            await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embed);
+                        }
+                    }
                 }
             }
         }

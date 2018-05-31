@@ -37,6 +37,17 @@ namespace AttentionBot.Modules
 
             await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
+            // InterServer Chats
+            foreach (ulong servID in Program.interServerChats.Keys.ToList())
+            {
+                if (!guilds.Contains(servID) || !channels.Contains(Program.interServerChats[servID]))
+                {
+                    Program.interServerChats.Remove(servID);
+                }
+            }
+
+            await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
+
             // Mentions
             foreach (ulong serv in Program.mentionID.ToList())
             {

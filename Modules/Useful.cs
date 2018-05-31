@@ -8,6 +8,12 @@ namespace AttentionBot.Modules
 {
     public class Useful : ModuleBase<SocketCommandContext>
     {
+        [Command("ping")]
+        public async Task PingPong()
+        {
+            await Context.Channel.SendMessageAsync("Pong!\nBot Latency is " + Context.Client.Latency + "ms");
+        }
+
         [Command("membercount")]
         public async Task MemberCount()
         {
@@ -159,6 +165,9 @@ namespace AttentionBot.Modules
                 "\\help [parameter(s) (optional)]\n" +
                 "  - Lists available commands for the bot.\n\n" +
 
+                "\\ping\n" +
+                "  - Returns the latency of the bot.\n\n" +
+
                 "\\changelog [" + SecurityInfo.botID + " (optional)]\n" +
                 "  - Sends a link to the version history (changelog) of the bot.\n\n" +
 
@@ -208,10 +217,14 @@ namespace AttentionBot.Modules
 
                 "\\announce [channel]\n" +
                 "  - **ADMINS/SERVER OWNERS:** Sets the specified channel as the channel for bot announcements.\n" +
-                "  - To disable announcements, type in \"-\" as the channel id.\n\n" +
+                "  - To disable announcements, type in \"-\" as the channel.\n\n" +
 
                 "\\mentions [0/1]\n" +
-                "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.");
+                "  - **ADMINS/SERVER OWNERS:** Enables (1) or disables (0) user mentions for the bot.\n\n" +
+
+                "\\interserver-chat [channel]\n" +
+                "  - **SERVER OWNERS:** Sets the specified channel as the channel for an InterServer Chat.\n" +
+                "  - To disable InterServer Chat, type in \"-\" as the channel.");
 
             List<string> parameters = new List<string>();
             parameters.Add("useful");
@@ -219,16 +232,16 @@ namespace AttentionBot.Modules
             parameters.Add("admin");
 
             bool fieldExists = false;
-            foreach(string param in parameters)
+            foreach (string param in parameters)
             {
                 fieldExists = _params.Contains(param);
 
-                if(fieldExists)
+                if (fieldExists)
                 {
                     break;
                 }
             }
-            if(!fieldExists)
+            if (!fieldExists)
             {
                 helpMessage.AddField(helpField);
             }
