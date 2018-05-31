@@ -90,7 +90,7 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 
 *InterServer Chat:*
 
-***NOTE:** All of these commands require the user to either be an Admin or a Server Owner.*
+***NOTE:** All of these commands require the user to be a Server Owner or a user with the "Administrator" permission.*
 
 ***NOTE 2:** The channel parameter can either be its ID or a mention of the channel.*
 

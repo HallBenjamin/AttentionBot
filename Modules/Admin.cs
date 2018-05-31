@@ -29,6 +29,16 @@ namespace AttentionBot.Modules
             });
         }
 
+        public async Task<bool> HasAdmin()
+        {
+            bool hasAdmin = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(GuildPermission.Administrator);
+
+            return await Task.Run(() =>
+            {
+                return hasAdmin;
+            });
+        }
+
         [Command("settings")]
         public async Task GetSettings(string _botID = null)
         {
@@ -91,7 +101,9 @@ namespace AttentionBot.Modules
         [Command("admin")]
         public async Task AdminRoles(string _roleID) // Role ID given
         {
-            if (Context.User.Id == Context.Guild.OwnerId)
+            bool hasAdmin = await HasAdmin();
+
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
             {
                 bool alreadyExists = Program.roleID.Contains(Convert.ToUInt64(_roleID));
 
@@ -123,7 +135,9 @@ namespace AttentionBot.Modules
         [Command("admin")]
         public async Task AdminRoles(SocketRole _role) // Role mention given
         {
-            if (Context.User.Id == Context.Guild.OwnerId)
+            bool hasAdmin = await HasAdmin();
+
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
             {
                 if (!Program.roleID.Contains(_role.Id))
                 {

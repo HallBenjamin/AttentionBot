@@ -11,22 +11,13 @@ namespace AttentionBot.Modules
 {
     public class InterServer : ModuleBase<SocketCommandContext>
     {
-        public async Task<bool> HasRole()
+        public async Task<bool> HasAdmin()
         {
-            bool hasRole = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(GuildPermission.Administrator); // Is admin?
-            foreach (ulong role in Program.roleID)
-            {
-                SocketRole socketRole = Context.Guild.Roles.FirstOrDefault(x => x.Id == role);
-                hasRole = hasRole ? hasRole : Context.Guild.GetUser(Context.User.Id).Roles.Contains(socketRole); // If already true, ignore
-                if (hasRole)
-                {
-                    break;
-                }
-            }
+            bool hasAdmin = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(GuildPermission.Administrator); // Is admin?
 
             return await Task.Run(() =>
             {
-                return hasRole;
+                return hasAdmin;
             });
         }
 
@@ -35,9 +26,9 @@ namespace AttentionBot.Modules
         {
             if (_botID == SecurityInfo.botID || _botID == null)
             {
-                bool hasRole = await HasRole();
+                bool hasAdmin = await HasAdmin();
 
-                if (Context.User.Id == Context.Guild.OwnerId || hasRole)
+                if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
                 {
                     string interServerChan = Program.interServerChats.ContainsKey(Context.Guild.Id) ? Program.interServerChats[Context.Guild.Id].ToString()
                         : "No InterServer Chat channel has been assigned.\n\u200b";
@@ -80,9 +71,9 @@ namespace AttentionBot.Modules
         [Command("interserver-chat")]
         public async Task SetInterServerChat(string _chanID) // Channel ID given
         {
-            bool hasRole = await HasRole();
+            bool hasAdmin = await HasAdmin();
 
-            if (Context.User.Id == Context.Guild.OwnerId || hasRole)
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
             {
                 if (_chanID == "-")
                 {
@@ -123,9 +114,9 @@ namespace AttentionBot.Modules
         [Command("interserver-chat")]
         public async Task SetInterServerChat(SocketTextChannel _channel) // Channel mention given
         {
-            bool hasRole = await HasRole();
+            bool hasAdmin = await HasAdmin();
 
-            if (Context.User.Id == Context.Guild.OwnerId || hasRole)
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
             {
                 if (Program.interServerChats.ContainsKey(Context.Guild.Id) && Program.interServerChats[Context.Guild.Id] == _channel.Id)
                 {
@@ -148,9 +139,9 @@ namespace AttentionBot.Modules
         [Command("display-user-guild")]
         public async Task DisplayUserGuild(string _showGuild)
         {
-            bool hasRole = await HasRole();
+            bool hasAdmin = await HasAdmin();
 
-            if (Context.User.Id == Context.Guild.OwnerId || hasRole)
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
             {
                 string _showGuildEnabled;
 
@@ -195,9 +186,9 @@ namespace AttentionBot.Modules
         [Command("broadcast-guild-name")]
         public async Task BroadcastGuildName(string _broadcast)
         {
-            bool hasRole = await HasRole();
+            bool hasAdmin = await HasAdmin();
 
-            if (Context.User.Id == Context.Guild.OwnerId || hasRole)
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
             {
                 string _broadcastEnabled;
 
