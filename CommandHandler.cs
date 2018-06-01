@@ -201,7 +201,7 @@ namespace AttentionBot
                     embedGuild.WithDescription(msg.Content);
                     foreach (Attachment a in msg.Attachments)
                     {
-                        if (a.Url.EndsWith(".png") || a.Url.EndsWith(".jpg"))
+                        if (a.Url.EndsWith(".png") || a.Url.EndsWith(".jpg") || a.Url.EndsWith(".jpeg") || a.Url.EndsWith(".gif"))
                         {
                             embed.WithImageUrl(a.Url);
                         }
