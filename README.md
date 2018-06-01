@@ -2,7 +2,7 @@
 ### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
-##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 18 commands (12 for the public) and well over a thousand lines of code.
+##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 23 commands (17 for the public) and well over 1,000 lines of code.
 
 Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_id=346064990152818690&permissions=3230720&scope=bot
 
@@ -111,7 +111,9 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 ## v3.0.0.0 (Alpha)
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.2.0.0 (Stable)
+## v2.2.1.0 (Stable)
+- Added ability to send files and images through the InterServer Chat
+## v2.2.0.0
 - New Admin Command: \interserver-settings
   - Displays the current configuration of the InterServer Chat
 - New Admin Command: \display-user-guild [0/1]

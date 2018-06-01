@@ -4,6 +4,7 @@ using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
+using System.Net;
 using System.Reflection;
 using System.Threading.Tasks;
 
@@ -172,13 +173,39 @@ namespace AttentionBot
                 // InterServer Chat
                 else if (Program.interServerChats.ContainsKey(context.Guild.Id) && Program.interServerChats[context.Guild.Id] == context.Channel.Id)
                 {
+                    string fileName = "";
+
                     EmbedBuilder embed = new EmbedBuilder();
                     embed.WithAuthor(msg.Author);
                     embed.WithDescription(msg.Content);
+                    foreach (Attachment a in msg.Attachments)
+                    {
+                        if (a.Url.EndsWith(".png") || a.Url.EndsWith(".jpg"))
+                        {
+                            embed.WithImageUrl(a.Url);
+                        }
+                        else
+                        {
+                            WebClient wc = new WebClient();
+                            Uri uri = new Uri(a.Url);
+
+                            string[] extension = a.Url.Split('.', '/');
+                            fileName = extension[extension.Length - 2] + "-(1)." + extension[extension.Length - 1];
+
+                            await wc.DownloadFileTaskAsync(uri, fileName);
+                        }
+                    }
 
                     EmbedBuilder embedGuild = new EmbedBuilder();
                     embedGuild.WithAuthor(msg.Author);
                     embedGuild.WithDescription(msg.Content);
+                    foreach (Attachment a in msg.Attachments)
+                    {
+                        if (a.Url.EndsWith(".png") || a.Url.EndsWith(".jpg"))
+                        {
+                            embed.WithImageUrl(a.Url);
+                        }
+                    }
                     if (Program.broadcastServerName.Contains(context.Guild.Id))
                     {
                         EmbedFooterBuilder footer = new EmbedFooterBuilder();
@@ -195,12 +222,25 @@ namespace AttentionBot
                             if (Program.showUserServer.Contains(serverID))
                             {
                                 await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embedGuild);
+                                if (fileName != "")
+                                {
+                                    await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendFileAsync(fileName, "");
+                                }
                             }
                             else
                             {
                                 await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embed);
+                                if (fileName != "")
+                                {
+                                    await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendFileAsync(fileName, "");
+                                }
                             }
                         }
+                    }
+
+                    if (fileName != "")
+                    {
+                        await Task.Run(() => System.IO.File.Delete(fileName));
                     }
                 }
             }
