@@ -148,7 +148,7 @@ namespace AttentionBot.Modules
                 "***NOTE:** If you choose to supply the " + SecurityInfo.botID + " parameter, it must be first. If you do not supply it, only one parameter may be given.*\n\n" +
 
                 SecurityInfo.botID + "\n" +
-                "  - DMs you all available help commands for the bot.\n\n" +
+                "  - DMs you all available help commands for the bot or the bot commands for any other given parameters.\n\n" +
 
                 "useful\n" +
                 "  - Lists all available useful commands for the bot.\n\n" +
@@ -237,7 +237,7 @@ namespace AttentionBot.Modules
                 "  - Displays the current InterServer Chat configuration for the bot.\n\n" +
 
                 "\\interserver-chat [channel]\n" +
-                "  - **SERVER OWNERS:** Sets the specified channel as the channel for an InterServer Chat.\n" +
+                "  - Sets the specified channel as the channel for an InterServer Chat.\n" +
                 "  - To disable InterServer Chat, type in \"-\" as the channel.\n\n" +
 
                 "\\display-user-guild [0/1]\n" +
@@ -264,7 +264,17 @@ namespace AttentionBot.Modules
             }
             if (!fieldExists)
             {
-                helpMessage.AddField(helpField);
+                if (_botID != SecurityInfo.botID)
+                {
+                    helpMessage.AddField(helpField);
+                }
+                else
+                {
+                    helpMessage.AddField(usefulField);
+                    helpMessage.AddField(spamField);
+                    helpMessage.AddField(adminField);
+                    helpMessage.AddField(interServerField);
+                }
             }
 
             if (_botID == null)

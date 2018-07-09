@@ -1,4 +1,4 @@
-# Attention! Bot for Discord
+﻿# Attention! Bot for Discord
 ### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
 
@@ -15,7 +15,7 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 ***NOTE:** If you choose to supply the 3949 parameter, it must be first. If you do not supply it, only one parameter may be given.*
 
 - 3949
-  - DMs you all available help commands for the bot.
+  - DMs you all available help commands for the bot or the bot commands for any other given parameters.
 
 - useful
   - Lists all available useful commands for the bot.
@@ -111,7 +111,15 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 ## v3.0.0.0 (Alpha)
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.2.1.0 (Stable)
+## v2.2.1.2 (Stable)
+- Fixed the help parameters message for the bot ID not mentioning that other parameters work with the bot ID parameter
+- Fixed the interserver-chat help message saying SERVER OWNERS despite the note already mentioning that requirement
+- Fixed a problem where \\help 3949 would not send all available commands for the bot but would just send the help parameters
+## v2.2.1.1
+- Changed PermissionChecker.HasSend to be synchronous since it only uses synchronous functions
+- Changed Announcements and InterServer Chat to send messages asynchronously to the chats to reduce delay
+- Fixed a problem where the file/image wouldn't be deleted from the bot's server after sending them to all InterServer Chats
+## v2.2.1.0
 - Added ability to send files and images through the InterServer Chat
 ## v2.2.0.0
 - New Admin Command: \interserver-settings

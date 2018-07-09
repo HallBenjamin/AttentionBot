@@ -106,7 +106,7 @@ namespace AttentionBot
             
             if (g.TextChannels.Contains(channel))
             {
-                if (!(await PermissionChecker.HasSend(g, channel)))
+                if (!PermissionChecker.HasSend(g, channel))
                 {
                     channel = test;
                 }
@@ -118,7 +118,7 @@ namespace AttentionBot
 
             if (g.TextChannels.Contains(channel))
             {
-                if (!(await PermissionChecker.HasSend(g, channel)))
+                if (!PermissionChecker.HasSend(g, channel))
                 {
                     channel = general;
                 }
@@ -129,7 +129,7 @@ namespace AttentionBot
             }
 
             int i = 0;
-            bool hasPerm = await PermissionChecker.HasSend(g, channel);
+            bool hasPerm = PermissionChecker.HasSend(g, channel);
 
             while (!hasPerm)
             {
@@ -137,7 +137,7 @@ namespace AttentionBot
 
                 if (g.TextChannels.Contains(channel))
                 {
-                    hasPerm = await PermissionChecker.HasSend(g, channel);
+                    hasPerm = PermissionChecker.HasSend(g, channel);
                 }
 
                 i++;
@@ -215,33 +215,48 @@ namespace AttentionBot
                         embedGuild.WithFooter(footer);
                     }
 
+                    List<Task> sendMessage = new List<Task>();
+                    List<Task> sendFile = new List<Task>();
+
                     foreach (ulong serverID in Program.interServerChats.Keys.ToList())
                     {
-                        if (serverID != context.Guild.Id)
+                        SocketGuild guild = context.Client.GetGuild(serverID);
+
+                        if (guild != null)
                         {
-                            if (Program.showUserServer.Contains(serverID))
+                            SocketTextChannel chan = guild.GetTextChannel(Program.interServerChats[serverID]);
+
+                            if (serverID != context.Guild.Id && chan != null && PermissionChecker.HasSend(guild, chan))
                             {
-                                await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embedGuild);
-                                if (fileName != "")
+                                if (Program.showUserServer.Contains(serverID))
                                 {
-                                    await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendFileAsync(fileName, "");
+                                    sendMessage.Add(chan.SendMessageAsync("", false, embedGuild));
+
+                                    if (fileName != "")
+                                    {
+                                        sendFile.Add(chan.SendFileAsync(fileName, ""));
+                                    }
                                 }
-                            }
-                            else
-                            {
-                                await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendMessageAsync("", false, embed);
-                                if (fileName != "")
+                                else
                                 {
-                                    await (context.Client.GetGuild(serverID).GetChannel(Program.interServerChats[serverID]) as SocketTextChannel).SendFileAsync(fileName, "");
+                                    sendMessage.Add(chan.SendMessageAsync("", false, embed));
+
+                                    if (fileName != "")
+                                    {
+                                        sendFile.Add(chan.SendFileAsync(fileName, ""));
+                                    }
                                 }
                             }
                         }
                     }
 
-                    if (fileName != "")
+                    await Task.WhenAll(sendMessage.ToArray()).ContinueWith(t => Task.WhenAll(sendFile.ToArray()).ContinueWith(r => Task.Run(() =>
                     {
-                        await Task.Run(() => System.IO.File.Delete(fileName));
-                    }
+                        if (fileName != "")
+                        {
+                            System.IO.File.Delete(fileName);
+                        }
+                    })));
                 }
             }
         }

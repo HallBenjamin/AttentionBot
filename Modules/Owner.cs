@@ -125,16 +125,20 @@ namespace AttentionBot.Modules
         {
             await CleanupFiles(false);
 
+            List<Task> sendMessage = new List<Task>();
+
             foreach (ulong serv in Program.servChanID.Keys.ToList())
             {
                 SocketGuild guild = Context.Client.GetGuild(serv);
                 SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
 
-                if (await PermissionChecker.HasSend(guild, channel))
+                if (PermissionChecker.HasSend(guild, channel))
                 {
-                    await channel.SendMessageAsync("Attention! " + announceMessage);
+                    sendMessage.Add(channel.SendMessageAsync("Attention! " + announceMessage));
                 }
             }
+
+            await Task.WhenAll(sendMessage.ToArray());
         }
 
         [Command("restart")]
@@ -156,16 +160,20 @@ namespace AttentionBot.Modules
                 restart = "shut down";
             }
 
+            List<Task> sendMessage = new List<Task>();
+
             foreach (ulong serv in Program.servChanID.Keys.ToList())
             {
                 SocketGuild guild = Context.Client.GetGuild(serv);
                 SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
 
-                if (await PermissionChecker.HasSend(guild, channel))
+                if (PermissionChecker.HasSend(guild, channel))
                 {
-                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server will " + restart + " in " + _time + " minutes" + _length + _reason + ".");
+                    sendMessage.Add(channel.SendMessageAsync("Attention! Bot's server will " + restart + " in " + _time + " minutes" + _length + _reason + "."));
                 }
             }
+
+            await Task.WhenAll(sendMessage.ToArray());
         }
 
         [Command("exit")]
@@ -187,16 +195,20 @@ namespace AttentionBot.Modules
                 _length = "offline for " + _length + " hours";
             }
 
+            List<Task> sendMessage = new List<Task>();
+
             foreach (ulong serv in Program.servChanID.Keys.ToList())
             {
                 SocketGuild guild = Context.Client.GetGuild(serv);
                 SocketTextChannel channel = guild.GetTextChannel(Program.servChanID[serv]);
 
-                if (await PermissionChecker.HasSend(guild, channel))
+                if (PermissionChecker.HasSend(guild, channel))
                 {
-                    await Context.Client.GetGuild(serv).GetTextChannel(Program.servChanID[serv]).SendMessageAsync("Attention! Bot's server is now " + _length + _reason + ".");
+                    sendMessage.Add(channel.SendMessageAsync("Attention! Bot's server is now " + _length + _reason + "."));
                 }
             }
+
+            await Task.WhenAll(sendMessage.ToArray());
 
             if (Program.isConsole)
             {
