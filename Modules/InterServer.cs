@@ -53,23 +53,23 @@ namespace AttentionBot.Modules
                     interServChanEmb.WithValue(interServerChan);
                     interServSettings.AddField(interServChanEmb);
 
-                    EmbedFieldBuilder showUserServEmb = new EmbedFieldBuilder();
-                    showUserServEmb.WithIsInline(false);
-                    showUserServEmb.WithName("Show User's Guild");
-                    showUserServEmb.WithValue(showUserServer + "\n\u200b");
-                    interServSettings.AddField(showUserServEmb);
-                    
-                    EmbedFieldBuilder broadcastServNameEmb = new EmbedFieldBuilder();
-                    broadcastServNameEmb.WithIsInline(false);
-                    broadcastServNameEmb.WithName("Broadcast Guild Name");
-                    broadcastServNameEmb.WithValue(broadcastServerName);
-                    interServSettings.AddField(broadcastServNameEmb);
-
                     EmbedFieldBuilder wlEnabledEmb = new EmbedFieldBuilder();
                     wlEnabledEmb.WithIsInline(false);
                     wlEnabledEmb.WithName("Whitelist");
-                    wlEnabledEmb.WithValue(wlEnabled);
+                    wlEnabledEmb.WithValue(wlEnabled + "\n\u200b");
                     interServSettings.AddField(wlEnabledEmb);
+
+                    EmbedFieldBuilder showUserServEmb = new EmbedFieldBuilder();
+                    showUserServEmb.WithIsInline(true);
+                    showUserServEmb.WithName("Show User's Guild");
+                    showUserServEmb.WithValue(showUserServer);
+                    interServSettings.AddField(showUserServEmb);
+                    
+                    EmbedFieldBuilder broadcastServNameEmb = new EmbedFieldBuilder();
+                    broadcastServNameEmb.WithIsInline(true);
+                    broadcastServNameEmb.WithName("Broadcast Guild Name");
+                    broadcastServNameEmb.WithValue(broadcastServerName);
+                    interServSettings.AddField(broadcastServNameEmb);
 
                     if (_botID == SecurityInfo.botID)
                     {
