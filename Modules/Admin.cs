@@ -93,7 +93,14 @@ namespace AttentionBot.Modules
                     mentionEmb.WithValue(mentions);
                     servSettings.AddField(mentionEmb);
 
-                    await Context.Channel.SendMessageAsync("", false, servSettings);
+                    if (_botID == SecurityInfo.botID)
+                    {
+                        await Context.User.SendMessageAsync("", false, servSettings);
+                    }
+                    else
+                    {
+                        await Context.Channel.SendMessageAsync("", false, servSettings);
+                    }
                 }
             }
         }

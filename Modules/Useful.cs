@@ -244,7 +244,20 @@ namespace AttentionBot.Modules
                 "  - Enables (1) or disables (0) whether or not the bot shows what server the message was sent from.\n\n" +
 
                 "\\broadcast-guild-name [0/1]\n" +
-                "  - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \\display-user-server set to 1.\n\u200b");
+                "  - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \\display-user-server set to 1.");
+
+            EmbedFieldBuilder interServerWBLField = new EmbedFieldBuilder();
+            interServerWBLField.WithIsInline(false);
+            interServerWBLField.WithName("\u200b");
+            interServerWBLField.WithValue(
+                "\\enable-whitelist [0/1]\n" +
+                "  - Enables (1) or disables (0) whether or not whitelist-only mode is on. Whitelist-only mode only allows your messages to reach whitelisted servers and messages from whitelisted servers to reach you.\n\n" +
+
+                "\\whitelist [Server ID]\n" +
+                "  - Adds the given server to the whitelist. Overrides the blacklist.\n\n" +
+
+                "\\blacklist [Server ID]\n" +
+                "  - Adds the given server to the blacklist.\n\u200b");
 
             List<string> parameters = new List<string>();
             parameters.Add("useful");
@@ -274,6 +287,7 @@ namespace AttentionBot.Modules
                     helpMessage.AddField(spamField);
                     helpMessage.AddField(adminField);
                     helpMessage.AddField(interServerField);
+                    helpMessage.AddField(interServerWBLField);
                 }
             }
 
@@ -294,6 +308,7 @@ namespace AttentionBot.Modules
                 else if (_params.Contains("interserver"))
                 {
                     helpMessage.AddField(interServerField);
+                    helpMessage.AddField(interServerWBLField);
                 }
 
                 await Context.Channel.SendMessageAsync("", false, helpMessage);
@@ -315,6 +330,7 @@ namespace AttentionBot.Modules
                 if (_params.Contains("interserver"))
                 {
                     helpMessage.AddField(interServerField);
+                    helpMessage.AddField(interServerWBLField);
                 }
 
                 await Context.User.SendMessageAsync("", false, helpMessage);

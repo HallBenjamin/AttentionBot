@@ -37,6 +37,8 @@ namespace AttentionBot.Modules
 
                     string broadcastServerName = Program.broadcastServerName.Contains(Context.Guild.Id) ? "Enabled" : "Disabled";
 
+                    string wlEnabled = Program.wlEnable.Contains(Context.Guild.Id) ? "Enabled" : "Disabled";
+
                     EmbedBuilder interServSettings = new EmbedBuilder();
                     interServSettings.WithColor(SecurityInfo.botColor);
                     interServSettings.WithTitle("__Current InterServer Chat Configuration__");
@@ -63,7 +65,20 @@ namespace AttentionBot.Modules
                     broadcastServNameEmb.WithValue(broadcastServerName);
                     interServSettings.AddField(broadcastServNameEmb);
 
-                    await Context.Channel.SendMessageAsync("", false, interServSettings);
+                    EmbedFieldBuilder wlEnabledEmb = new EmbedFieldBuilder();
+                    wlEnabledEmb.WithIsInline(false);
+                    wlEnabledEmb.WithName("Whitelist");
+                    wlEnabledEmb.WithValue(wlEnabled);
+                    interServSettings.AddField(wlEnabledEmb);
+
+                    if (_botID == SecurityInfo.botID)
+                    {
+                        await Context.User.SendMessageAsync("", false, interServSettings);
+                    }
+                    else
+                    {
+                        await Context.Channel.SendMessageAsync("", false, interServSettings);
+                    }
                 }
             }
         }
@@ -227,6 +242,135 @@ namespace AttentionBot.Modules
                 }
 
                 await Context.Channel.SendMessageAsync("Server name " + _broadcastEnabled + "!");
+            }
+        }
+
+        [Command("enable-whitelist")]
+        public async Task enableWhitelistOnly(string enable)
+        {
+            bool hasAdmin = await HasAdmin();
+
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
+            {
+                string _enable;
+
+                if (enable == "0")
+                {
+                    if (Program.wlEnable.Contains(Context.Guild.Id))
+                    {
+                        Program.wlEnable.Remove(Context.Guild.Id);
+                        _enable = "Disabled";
+
+                        await Files.WriteToFile(Program.wlEnable, "wlenabled.txt");
+                    }
+                    else
+                    {
+                        _enable = "already disabled";
+                    }
+                }
+                else if (enable == "1")
+                {
+                    if (Program.wlEnable.Contains(Context.Guild.Id))
+                    {
+                        _enable = "already enabled";
+                    }
+                    else
+                    {
+                        Program.wlEnable.Add(Context.Guild.Id);
+                        _enable = "Enabled";
+
+                        await Files.WriteToFile(Program.wlEnable, "wlenabled.txt");
+                    }
+                }
+                else
+                {
+                    await Context.Channel.SendMessageAsync("Invalid Parameter. Valid parameters are \"0\" and \"1\".");
+                    return;
+                }
+
+                await Context.Channel.SendMessageAsync("InterServer Chat Whitelist " + _enable + "!");
+            }
+        }
+
+        [Command("whitelist")]
+        public async Task Whitelist(string serverID)
+        {
+            bool hasAdmin = await HasAdmin();
+
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
+            {
+                ulong id = Convert.ToUInt64(serverID);
+
+                string action = "added to";
+
+                if (Program.ischatWhitelist.ContainsKey(Context.Guild.Id))
+                {
+                    List<ulong> wlIDs = Program.ischatWhitelist[Context.Guild.Id];
+
+                    if (wlIDs.Contains(id))
+                    {
+                        wlIDs.Remove(id);
+                        action = "removed from";
+                    }
+                    else
+                    {
+                        wlIDs.Add(id);
+                    }
+
+                    Program.ischatWhitelist[Context.Guild.Id] = wlIDs;
+                }
+                else
+                {
+                    List<ulong> wl = new List<ulong>();
+                    wl.Add(id);
+
+                    Program.ischatWhitelist.Add(Context.Guild.Id, wl);
+                }
+
+                await Files.WriteDictListToFile(Program.ischatWhitelist, "wlserver.txt", "wl-");
+
+                await Context.Channel.SendMessageAsync("Server " + action + " the whitelist!");
+            }
+        }
+
+        [Command("blacklist")]
+        public async Task Blacklist(string serverID)
+        {
+            bool hasAdmin = await HasAdmin();
+            
+            string action = "added to";
+
+            if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
+            {
+                ulong id = Convert.ToUInt64(serverID);
+
+                if (Program.ischatBlacklist.ContainsKey(Context.Guild.Id))
+                {
+                    List<ulong> blIDs = Program.ischatBlacklist[Context.Guild.Id];
+
+                    if (blIDs.Contains(id))
+                    {
+                        blIDs.Remove(id);
+                        action = "removed from";
+                    }
+                    else
+                    {
+                        blIDs.Add(id);
+                    }
+
+                    Program.ischatBlacklist[Context.Guild.Id] = blIDs;
+                }
+                else
+                {
+                    List<ulong> bl = new List<ulong>();
+                    bl.Add(id);
+
+                    Program.ischatBlacklist.Add(Context.Guild.Id, bl);
+                }
+
+                await Files.WriteDictListToFile(Program.ischatBlacklist, "blserver.txt", "bl-");
+
+                await Context.Channel.SendMessageAsync("Server " + action + " the blacklist!");
             }
         }
     }

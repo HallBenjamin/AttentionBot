@@ -2,6 +2,7 @@
 using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
+using System.IO;
 using System.Linq;
 using System.Threading;
 using System.Threading.Tasks;
@@ -98,6 +99,42 @@ namespace AttentionBot.Modules
 
             await Files.WriteToFile(Program.roleID, "roles.txt");
 
+            // WL Enable
+            foreach (ulong serv in Program.wlEnable)
+            {
+                if (!guilds.Contains(serv))
+                {
+                    Program.wlEnable.Remove(serv);
+                }
+            }
+
+            await Files.WriteToFile(Program.wlEnable, "wlenabled.txt");
+
+            // Whitelist
+            foreach (ulong serv in Program.ischatWhitelist.Keys)
+            {
+                if (Program.ischatWhitelist[serv].Count() == 0 || !guilds.Contains(serv))
+                {
+                    Program.ischatWhitelist.Remove(serv);
+                    File.Delete("wl-" + serv + ".txt");
+                }
+            }
+
+            await Files.WriteToFile(Program.ischatWhitelist.Keys.ToList(), "wlserver.txt");
+
+            // Blacklist
+            foreach (ulong serv in Program.ischatBlacklist.Keys)
+            {
+                if (Program.ischatBlacklist[serv].Count() == 0 || !guilds.Contains(serv))
+                {
+                    Program.ischatBlacklist.Remove(serv);
+                    File.Delete("bl-" + serv + ".txt");
+                }
+            }
+
+            await Files.WriteToFile(Program.ischatBlacklist.Keys.ToList(), "blserver.txt");
+
+            // End
             if (reply)
             {
                 await Context.Channel.SendMessageAsync("Cleanup complete!");

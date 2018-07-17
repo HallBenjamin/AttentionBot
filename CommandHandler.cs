@@ -210,7 +210,7 @@ namespace AttentionBot
                     {
                         EmbedFooterBuilder footer = new EmbedFooterBuilder();
                         footer.WithIconUrl(context.Guild.IconUrl);
-                        footer.WithText(context.Guild.Name);
+                        footer.WithText(context.Guild.Name + " [" + context.Guild.Id + "]");
 
                         embedGuild.WithFooter(footer);
                     }
@@ -228,22 +228,75 @@ namespace AttentionBot
 
                             if (serverID != context.Guild.Id && chan != null && PermissionChecker.HasSend(guild, chan))
                             {
-                                if (Program.showUserServer.Contains(serverID))
-                                {
-                                    sendMessage.Add(chan.SendMessageAsync("", false, embedGuild));
+                                bool sendMsg = true;
 
-                                    if (fileName != "")
+                                bool wlEnabled = Program.wlEnable.Contains(context.Guild.Id);
+
+                                // Host server-side
+                                if (wlEnabled && Program.ischatWhitelist.ContainsKey(context.Guild.Id))
+                                {
+                                    if (!Program.ischatWhitelist[context.Guild.Id].Contains(serverID))
                                     {
-                                        sendFile.Add(chan.SendFileAsync(fileName, ""));
+                                        sendMsg = false;
                                     }
                                 }
-                                else
+                                else if (wlEnabled)
                                 {
-                                    sendMessage.Add(chan.SendMessageAsync("", false, embed));
-
-                                    if (fileName != "")
+                                    sendMsg = false;
+                                }
+                                else if (Program.ischatBlacklist.ContainsKey(context.Guild.Id))
+                                {
+                                    if (Program.ischatBlacklist[context.Guild.Id].Contains(serverID))
                                     {
-                                        sendFile.Add(chan.SendFileAsync(fileName, ""));
+                                        sendMsg = false;
+                                    }
+                                }
+
+                                // Receiving server-side
+                                if (sendMsg)
+                                {
+                                    wlEnabled = Program.wlEnable.Contains(serverID);
+
+                                    if (wlEnabled && Program.ischatWhitelist.ContainsKey(serverID))
+                                    {
+                                        if (!Program.ischatWhitelist[serverID].Contains(context.Guild.Id))
+                                        {
+                                            sendMsg = false;
+                                        }
+                                    }
+                                    else if (wlEnabled)
+                                    {
+                                        sendMsg = false;
+                                    }
+                                    else if (Program.ischatBlacklist.ContainsKey(serverID))
+                                    {
+                                        if (Program.ischatBlacklist[serverID].Contains(context.Guild.Id))
+                                        {
+                                            sendMsg = false;
+                                        }
+                                    }
+                                }
+
+                                if (sendMsg)
+                                {
+
+                                    if (Program.showUserServer.Contains(serverID))
+                                    {
+                                        sendMessage.Add(chan.SendMessageAsync("", false, embedGuild));
+
+                                        if (fileName != "")
+                                        {
+                                            sendFile.Add(chan.SendFileAsync(fileName, ""));
+                                        }
+                                    }
+                                    else
+                                    {
+                                        sendMessage.Add(chan.SendMessageAsync("", false, embed));
+
+                                        if (fileName != "")
+                                        {
+                                            sendFile.Add(chan.SendFileAsync(fileName, ""));
+                                        }
                                     }
                                 }
                             }

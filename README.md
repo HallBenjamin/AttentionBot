@@ -106,12 +106,29 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 
 - \broadcast-guild-name [0/1]
   - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \display-user-server set to 1.
+​
+-\enable-whitelist [0/1]
+  - Enables (1) or disables (0) whether or not whitelist-only mode is on. Whitelist-only mode only allows your messages to reach whitelisted servers and messages from whitelisted servers to reach you.
+
+- \whitelist [Server ID]
+  - Adds the given server to the whitelist. Overrides the blacklist.
+
+- \blacklist [Server ID]
+  - Adds the given server to the blacklist.
+​
 
 # Release Notes
 ## v3.0.0.0 (Alpha)
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.2.1.2 (Stable)
+## v2.2.2.0 (Stable)
+- Added a server blacklist and whitelist for the InterServer Chat
+- Added "Whitelist" to \interserver-settings
+- Added the Server ID next to the name in the InterServer Chat
+- Added File read/write functions to manage variably-sized 2-D key-value databases (aka Dictionary<ulong, List<ulong>>)
+- Changed \settings and \interserver-settings so the 3949 parameter sends a DM (like \help)
+- Fixed a potential bug where the bot would send an Error: File not found if a file was deleted or not yet created
+## v2.2.1.2
 - Fixed the help parameters message for the bot ID not mentioning that other parameters work with the bot ID parameter
 - Fixed the interserver-chat help message saying SERVER OWNERS despite the note already mentioning that requirement
 - Fixed a problem where \\help 3949 would not send all available commands for the bot but would just send the help parameters
