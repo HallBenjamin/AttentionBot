@@ -123,7 +123,9 @@ Want to report bugs or give suggestions on what should be added next? Join the s
 ## v3.0.0.0 (Alpha)
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.2.2.0 (Stable)
+## v2.2.2.1 (Stable)
+- Fixed a problem where some lists were being modified within a foreach loop of themselves
+## v2.2.2.0
 - Added a server blacklist and whitelist for the InterServer Chat
 - Added "Whitelist" to \interserver-settings
 - Added the Server ID next to the name in the InterServer Chat

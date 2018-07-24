@@ -100,7 +100,7 @@ namespace AttentionBot.Modules
             await Files.WriteToFile(Program.roleID, "roles.txt");
 
             // WL Enable
-            foreach (ulong serv in Program.wlEnable)
+            foreach (ulong serv in Program.wlEnable.ToList())
             {
                 if (!guilds.Contains(serv))
                 {
@@ -111,7 +111,7 @@ namespace AttentionBot.Modules
             await Files.WriteToFile(Program.wlEnable, "wlenabled.txt");
 
             // Whitelist
-            foreach (ulong serv in Program.ischatWhitelist.Keys)
+            foreach (ulong serv in Program.ischatWhitelist.Keys.ToList())
             {
                 if (Program.ischatWhitelist[serv].Count() == 0 || !guilds.Contains(serv))
                 {
@@ -123,7 +123,7 @@ namespace AttentionBot.Modules
             await Files.WriteToFile(Program.ischatWhitelist.Keys.ToList(), "wlserver.txt");
 
             // Blacklist
-            foreach (ulong serv in Program.ischatBlacklist.Keys)
+            foreach (ulong serv in Program.ischatBlacklist.Keys.ToList())
             {
                 if (Program.ischatBlacklist[serv].Count() == 0 || !guilds.Contains(serv))
                 {
