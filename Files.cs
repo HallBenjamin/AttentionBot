@@ -11,7 +11,7 @@ namespace AttentionBot
         {
             await Task.Run(() =>
             {
-                BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Truncate));
+                BinaryWriter writer = new BinaryWriter(File.Open(fileName, FileMode.Create));
                 foreach (ulong value in list)
                 {
                     writer.Write(value.ToString());
@@ -24,8 +24,8 @@ namespace AttentionBot
         {
             await Task.Run(() =>
             {
-                BinaryWriter keyWriter = new BinaryWriter(File.Open(keyFile, FileMode.Truncate));
-                BinaryWriter valueWriter = new BinaryWriter(File.Open(valueFile, FileMode.Truncate));
+                BinaryWriter keyWriter = new BinaryWriter(File.Open(keyFile, FileMode.Create));
+                BinaryWriter valueWriter = new BinaryWriter(File.Open(valueFile, FileMode.Create));
                 foreach (ulong value in dict.Keys)
                 {
                     keyWriter.Write(value.ToString());
