@@ -115,6 +115,8 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 - Fixed the help parameters message for the bot ID not mentioning that other parameters work with the bot ID parameter
 - Fixed the interserver-chat help message saying SERVER OWNERS despite the note already mentioning that requirement
 - Fixed a problem where \\help 3949 would not send all available commands for the bot but would just send the help parameters
+- **v2.2.1.2a LTS**
+  - Fixed a potential bug where the bot would send an Error: File not found if a file was deleted or not yet created
 ## v2.2.1.1
 - Changed PermissionChecker.HasSend to be synchronous since it only uses synchronous functions
 - Changed Announcements and InterServer Chat to send messages asynchronously to the chats to reduce delay
