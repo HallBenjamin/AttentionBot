@@ -134,7 +134,7 @@ Want to report bugs or give suggestions on what should be added next? Join the s
 - Added File read/write functions to manage variably-sized 2-D key-value databases (aka Dictionary<ulong, List<ulong>>)
 - Changed \settings and \interserver-settings so the 3949 parameter sends a DM (like \help)
 - Fixed a potential bug where the bot would send an Error: File not found if a file was deleted or not yet created
-## v2.2.1.2
+## v2.2.1.2 LTS
 - Fixed the help parameters message for the bot ID not mentioning that other parameters work with the bot ID parameter
 - Fixed the interserver-chat help message saying SERVER OWNERS despite the note already mentioning that requirement
 - Fixed a problem where \\help 3949 would not send all available commands for the bot but would just send the help parameters
