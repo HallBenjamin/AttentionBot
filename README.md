@@ -111,7 +111,7 @@ Add this bot to your server! https://discordapp.com/api/oauth2/authorize?client_
 ## v3.0.0.0 (Alpha)
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
-## v2.2.1.2 (Stable)
+## v2.2.1.2 LTS (Stable)
 - Fixed the help parameters message for the bot ID not mentioning that other parameters work with the bot ID parameter
 - Fixed the interserver-chat help message saying SERVER OWNERS despite the note already mentioning that requirement
 - Fixed a problem where \\help 3949 would not send all available commands for the bot but would just send the help parameters
