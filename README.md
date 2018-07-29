@@ -1,6 +1,8 @@
-﻿# Attention! Bot for Discord
+# Attention! Bot for Discord
 ### Written using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
+
+[*Release Notes*](#release-notes)
 
 ##### Note: This bot is constantly evolving. With 2 commands and just under 100 lines of code when first created, it now has 26 commands (20 for the public) and nearly 2,000 lines of code.
 
@@ -108,7 +110,7 @@ Want to report bugs or give suggestions on what should be added next? Join the s
 
 - \broadcast-guild-name [0/1]
   - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \display-user-server set to 1.
-​
+
 -\enable-whitelist [0/1]
   - Enables (1) or disables (0) whether or not whitelist-only mode is on. Whitelist-only mode only allows your messages to reach whitelisted servers and messages from whitelisted servers to reach you.
 
@@ -117,7 +119,7 @@ Want to report bugs or give suggestions on what should be added next? Join the s
 
 - \blacklist [Server ID]
   - Adds the given server to the blacklist.
-​
+
 
 # Release Notes
 ## v3.0.0.0 (Alpha)
