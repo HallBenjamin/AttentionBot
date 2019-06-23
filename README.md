@@ -111,7 +111,7 @@ Want to report bugs or give suggestions on what should be added next? Join the s
 - \broadcast-guild-name [0/1]
   - Enables (1) or disables (0) whether or not other servers can see your server's name if they have \display-user-server set to 1.
 
--\enable-whitelist [0/1]
+- \enable-whitelist [0/1]
   - Enables (1) or disables (0) whether or not whitelist-only mode is on. Whitelist-only mode only allows your messages to reach whitelisted servers and messages from whitelisted servers to reach you.
 
 - \whitelist [Server ID]
