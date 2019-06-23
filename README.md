@@ -126,12 +126,12 @@ Want to report bugs or give suggestions on what should be added next? Join the s
 - Add voice commands
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v2.2.2.1 (Stable)
-- Fixed a problem where some lists were being modified within a foreach loop of themselves
+- Fixed a bug where some lists were being modified within a foreach loop of themselves
 ## v2.2.2.0
 - Added a server blacklist and whitelist for the InterServer Chat
 - Added "Whitelist" to \interserver-settings
 - Added the Server ID next to the name in the InterServer Chat
-- Added File read/write functions to manage variably-sized 2-D key-value databases (aka Dictionary<ulong, List<ulong>>)
+- Added File read/write functions to manage variably-sized 2-D key-value databases (aka Dictionary<ulong, List\<ulong>>)
 - Changed \settings and \interserver-settings so the 3949 parameter sends a DM (like \help)
 - Fixed a potential bug where the bot would send an Error: File not found if a file was deleted or not yet created
 ## v2.2.1.2 LTS
