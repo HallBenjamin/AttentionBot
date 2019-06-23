@@ -116,7 +116,7 @@ namespace AttentionBot.Modules
                 if (Program.ischatWhitelist[serv].Count() == 0 || !guilds.Contains(serv))
                 {
                     Program.ischatWhitelist.Remove(serv);
-                    File.Delete("wl-" + serv + ".txt");
+                    File.Delete($"wl-{serv}.txt");
                 }
             }
 
@@ -128,7 +128,7 @@ namespace AttentionBot.Modules
                 if (Program.ischatBlacklist[serv].Count() == 0 || !guilds.Contains(serv))
                 {
                     Program.ischatBlacklist.Remove(serv);
-                    File.Delete("bl-" + serv + ".txt");
+                    File.Delete($"bl-{serv}.txt");
                 }
             }
 
@@ -171,7 +171,7 @@ namespace AttentionBot.Modules
 
                 if (PermissionChecker.HasSend(guild, channel))
                 {
-                    sendMessage.Add(channel.SendMessageAsync("Attention! " + announceMessage));
+                    sendMessage.Add(channel.SendMessageAsync($"Attention! {announceMessage}"));
                 }
             }
 
@@ -188,12 +188,12 @@ namespace AttentionBot.Modules
 
             if (_reason != null)
             {
-                _reason = " due to " + _reason;
+                _reason = $" due to {_reason}";
             }
-			
-			if (_length != null)
+
+            if (_length != null)
             {
-                _length = " for " + _length + " hours";
+                _length = $" for {_length} hours";
                 restart = "shut down";
             }
 
@@ -206,7 +206,7 @@ namespace AttentionBot.Modules
 
                 if (PermissionChecker.HasSend(guild, channel))
                 {
-                    sendMessage.Add(channel.SendMessageAsync("Attention! Bot's server will " + restart + " in " + _time + " minutes" + _length + _reason + "."));
+                    sendMessage.Add(channel.SendMessageAsync($"Attention! Bot's server will {restart} in {_time} minutes{_length}{_reason}."));
                 }
             }
 
@@ -220,7 +220,7 @@ namespace AttentionBot.Modules
             await CleanupFiles(false);
             if (_reason != null)
             {
-                _reason = " due to " + _reason;
+                _reason = $" due to {_reason}";
             }
 
             if (_length == null)
@@ -229,7 +229,7 @@ namespace AttentionBot.Modules
             }
             else
             {
-                _length = "offline for " + _length + " hours";
+                _length = $"offline for {_length} hours";
             }
 
             List<Task> sendMessage = new List<Task>();
@@ -241,7 +241,7 @@ namespace AttentionBot.Modules
 
                 if (PermissionChecker.HasSend(guild, channel))
                 {
-                    sendMessage.Add(channel.SendMessageAsync("Attention! Bot's server is now " + _length + _reason + "."));
+                    sendMessage.Add(channel.SendMessageAsync($"Attention! Bot's server is now {_length}{_reason}."));
                 }
             }
 

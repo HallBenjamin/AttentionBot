@@ -43,7 +43,7 @@ namespace AttentionBot
                 BinaryWriter keyWriter = new BinaryWriter(File.Open(keyFile, FileMode.Truncate));
                 foreach (ulong value in dict.Keys)
                 {
-                    BinaryWriter valueWriter = new BinaryWriter(File.Open(valuePrefix + value.ToString() + ".txt", FileMode.Create));
+                    BinaryWriter valueWriter = new BinaryWriter(File.Open($"{valuePrefix}{value.ToString()}.txt", FileMode.Create));
 
                     keyWriter.Write(value.ToString());
                     foreach (ulong str in dict[value])
@@ -78,7 +78,7 @@ namespace AttentionBot
             {
                 List<ulong> values = new List<ulong>();
 
-                BinaryReader valueReader = new BinaryReader(File.Open(valuePrefix + key.ToString() + ".txt", FileMode.OpenOrCreate));
+                BinaryReader valueReader = new BinaryReader(File.Open($"{valuePrefix}{key.ToString()}.txt", FileMode.OpenOrCreate));
                 for (int i = 0; i < valueReader.BaseStream.Length; i += valueItem.Length + 1)
                 {
                     valueItem = valueReader.ReadString();

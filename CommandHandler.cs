@@ -14,21 +14,31 @@ namespace AttentionBot
     {
         public const char prefix = '\\';
 
-        private DiscordSocketClient _client;
-        private CommandService _service;
+        private readonly DiscordSocketClient _client;
+        private readonly CommandService _service;
+        private readonly IServiceProvider _services;
 
-        public CommandHandler(DiscordSocketClient client)
+        public CommandHandler(DiscordSocketClient client, IServiceProvider services)
         {
             _client = client;
+            _services = services;
 
             _service = new CommandService();
-            _service.AddModulesAsync(Assembly.GetEntryAssembly());
+            _service.AddModulesAsync(Assembly.GetEntryAssembly(), services);
 
+            _client.Connected += SendConnectMessage;
+            _client.Disconnected += SendDisconnectError;
             _client.MessageReceived += HandleCommandAsync;
             _client.JoinedGuild += SendWelcomeMessage;
             _client.LeftGuild += CleanDatabase;
-            _client.Disconnected += SendDisconnectError;
-            _client.Connected += SendConnectMessage;
+        }
+
+        private async Task SendConnectMessage()
+        {
+            if (Program.isConsole)
+            {
+                await Console.Out.WriteLineAsync($"{SecurityInfo.botName} Online");
+            }
         }
 
         private async Task SendDisconnectError(Exception e)
@@ -39,117 +49,9 @@ namespace AttentionBot
             }
         }
 
-        private async Task SendConnectMessage()
-        {
-            if (Program.isConsole)
-            {
-                await Console.Out.WriteLineAsync("Attention! Bot Online");
-            }
-        }
-
-        private async Task CleanDatabase(SocketGuild g)
-        {
-            if (Program.servChanID.ContainsKey(g.Id))
-            {
-                Program.servChanID.Remove(g.Id);
-            }
-
-            if (Program.interServerChats.ContainsKey(g.Id))
-            {
-                Program.servChanID.Remove(g.Id);
-            }
-
-            if (Program.showUserServer.Contains(g.Id))
-            {
-                Program.showUserServer.Remove(g.Id);
-            }
-
-            if (Program.broadcastServerName.Contains(g.Id))
-            {
-                Program.broadcastServerName.Remove(g.Id);
-            }
-
-            if (Program.mentionID.Contains(g.Id))
-            {
-                Program.mentionID.Remove(g.Id);
-            }
-
-            List<ulong> roles = new List<ulong>();
-            foreach (SocketGuild server in _client.Guilds)
-            {
-                foreach (ulong ID in Program.roleID.ToList())
-                {
-                    SocketRole role = server.Roles.FirstOrDefault(x => x.Id == ID);
-                    if (server.Roles.Contains(role))
-                    {
-                        roles.Add(role.Id);
-                    }
-                }
-            }
-            Program.roleID = roles;
-
-            await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
-            await Files.WriteToFile(Program.mentionID, "mentions.txt");
-            await Files.WriteToFile(Program.roleID, "roles.txt");
-            await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
-            await Files.WriteToFile(Program.showUserServer, "show-guild.txt");
-            await Files.WriteToFile(Program.broadcastServerName, "broadcast-guild.txt");
-        }
-
-        private async Task SendWelcomeMessage(SocketGuild g)
-        {
-            SocketTextChannel spam = g.TextChannels.FirstOrDefault(x => x.Name == "spam" || x.Name.Contains("bot")) as SocketTextChannel;
-            SocketTextChannel test = g.TextChannels.FirstOrDefault(x => x.Name.Contains("test")) as SocketTextChannel;
-            SocketTextChannel general = g.TextChannels.FirstOrDefault(x => x.Name == "general") as SocketTextChannel;
-
-            SocketTextChannel channel = spam;
-            
-            if (g.TextChannels.Contains(channel))
-            {
-                if (!PermissionChecker.HasSend(g, channel))
-                {
-                    channel = test;
-                }
-            }
-            else
-            {
-                channel = test;
-            }
-
-            if (g.TextChannels.Contains(channel))
-            {
-                if (!PermissionChecker.HasSend(g, channel))
-                {
-                    channel = general;
-                }
-            }
-            else
-            {
-                channel = general;
-            }
-
-            int i = 0;
-            bool hasPerm = PermissionChecker.HasSend(g, channel);
-
-            while (!hasPerm)
-            {
-                channel = g.TextChannels.FirstOrDefault(x => x.Position == i) as SocketTextChannel;
-
-                if (g.TextChannels.Contains(channel))
-                {
-                    hasPerm = PermissionChecker.HasSend(g, channel);
-                }
-
-                i++;
-            }
-
-            await channel.SendMessageAsync("Hello! I am Attention! Bot.\nTo see a list of my commands, type \"\\help 3949\" (without quotes).");
-        }
-
         private async Task HandleCommandAsync(SocketMessage s)
         {
-            SocketUserMessage msg = s as SocketUserMessage;
-            if (msg == null)
+            if (!(s is SocketUserMessage msg))
             {
                 return;
             }
@@ -162,11 +64,11 @@ namespace AttentionBot
                 // Commands
                 if (msg.HasCharPrefix(prefix, ref argPos))
                 {
-                    var result = await _service.ExecuteAsync(context, argPos);
+                    var result = await _service.ExecuteAsync(context, argPos, _services);
 
                     if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
                     {
-                        await context.Channel.SendMessageAsync("Error: " + result.ErrorReason);
+                        await context.Channel.SendMessageAsync($"Error: {result.ErrorReason}");
                     }
                 }
 
@@ -190,7 +92,7 @@ namespace AttentionBot
                             Uri uri = new Uri(a.Url);
 
                             string[] extension = a.Url.Split('.', '/');
-                            fileName = extension[extension.Length - 2] + "-(1)." + extension[extension.Length - 1];
+                            fileName = $"{extension[extension.Length - 2]}-(1).{extension[extension.Length - 1]}";
 
                             await wc.DownloadFileTaskAsync(uri, fileName);
                         }
@@ -210,7 +112,7 @@ namespace AttentionBot
                     {
                         EmbedFooterBuilder footer = new EmbedFooterBuilder();
                         footer.WithIconUrl(context.Guild.IconUrl);
-                        footer.WithText(context.Guild.Name + " [" + context.Guild.Id + "]");
+                        footer.WithText($"{context.Guild.Name } [{context.Guild.Id}]");
 
                         embedGuild.WithFooter(footer);
                     }
@@ -282,7 +184,7 @@ namespace AttentionBot
 
                                     if (Program.showUserServer.Contains(serverID))
                                     {
-                                        sendMessage.Add(chan.SendMessageAsync("", false, embedGuild));
+                                        sendMessage.Add(chan.SendMessageAsync("", false, embedGuild.Build()));
 
                                         if (fileName != "")
                                         {
@@ -291,7 +193,7 @@ namespace AttentionBot
                                     }
                                     else
                                     {
-                                        sendMessage.Add(chan.SendMessageAsync("", false, embed));
+                                        sendMessage.Add(chan.SendMessageAsync("", false, embed.Build()));
 
                                         if (fileName != "")
                                         {
@@ -312,6 +214,106 @@ namespace AttentionBot
                     })));
                 }
             }
+        }
+
+        private async Task SendWelcomeMessage(SocketGuild g)
+        {
+            SocketTextChannel spam = g.TextChannels.FirstOrDefault(x => x.Name == "spam" || x.Name.Contains("bot")) as SocketTextChannel;
+            SocketTextChannel test = g.TextChannels.FirstOrDefault(x => x.Name.Contains("test")) as SocketTextChannel;
+            SocketTextChannel general = g.TextChannels.FirstOrDefault(x => x.Name == "general") as SocketTextChannel;
+
+            SocketTextChannel channel = spam;
+
+            if (g.TextChannels.Contains(channel))
+            {
+                if (!PermissionChecker.HasSend(g, channel))
+                {
+                    channel = test;
+                }
+            }
+            else
+            {
+                channel = test;
+            }
+
+            if (g.TextChannels.Contains(channel))
+            {
+                if (!PermissionChecker.HasSend(g, channel))
+                {
+                    channel = general;
+                }
+            }
+            else
+            {
+                channel = general;
+            }
+
+            int i = 0;
+            bool hasPerm = PermissionChecker.HasSend(g, channel);
+
+            while (!hasPerm)
+            {
+                channel = g.TextChannels.FirstOrDefault(x => x.Position == i) as SocketTextChannel;
+
+                if (g.TextChannels.Contains(channel))
+                {
+                    hasPerm = PermissionChecker.HasSend(g, channel);
+                }
+
+                i++;
+            }
+
+            await channel.SendMessageAsync("Hello! I am Attention! Bot.\n" +
+                "To see a list of my commands, type \"\\help 3949\" (without quotes).");
+        }
+
+        private async Task CleanDatabase(SocketGuild g)
+        {
+            if (Program.servChanID.ContainsKey(g.Id))
+            {
+                Program.servChanID.Remove(g.Id);
+            }
+
+            if (Program.interServerChats.ContainsKey(g.Id))
+            {
+                Program.servChanID.Remove(g.Id);
+            }
+
+            if (Program.showUserServer.Contains(g.Id))
+            {
+                Program.showUserServer.Remove(g.Id);
+            }
+
+            if (Program.broadcastServerName.Contains(g.Id))
+            {
+                Program.broadcastServerName.Remove(g.Id);
+            }
+
+            if (Program.mentionID.Contains(g.Id))
+            {
+                Program.mentionID.Remove(g.Id);
+            }
+
+            List<ulong> roles = new List<ulong>();
+            foreach (SocketGuild server in _client.Guilds)
+            {
+                foreach (ulong ID in Program.roleID.ToList())
+                {
+                    SocketRole role = server.Roles.FirstOrDefault(x => x.Id == ID);
+                    if (server.Roles.Contains(role))
+                    {
+                        roles.Add(role.Id);
+                    }
+                }
+            }
+            Program.roleID = roles;
+
+            await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
+            await Files.WriteToFile(Program.mentionID, "mentions.txt");
+            await Files.WriteToFile(Program.roleID, "roles.txt");
+            await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
+            await Files.WriteToFile(Program.showUserServer, "show-guild.txt");
+            await Files.WriteToFile(Program.broadcastServerName, "broadcast-guild.txt");
         }
     }
 }

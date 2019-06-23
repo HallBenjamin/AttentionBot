@@ -4,7 +4,6 @@ using Discord.WebSocket;
 using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Threading.Tasks;
 
 namespace AttentionBot.Modules
@@ -48,7 +47,8 @@ namespace AttentionBot.Modules
                     interServChanEmb.WithName("InterServer Chat Channel");
                     if (interServerChan != "No InterServer Chat channel has been assigned.\n\u200b")
                     {
-                        interServerChan = "Name: " + Context.Guild.GetChannel(Convert.ToUInt64(interServerChan)).Name + "\nID: " + interServerChan + "\n\u200b";
+                        interServerChan = $"Name: {Context.Guild.GetChannel(Convert.ToUInt64(interServerChan)).Name}\n" +
+                            $"ID: {interServerChan}\n\u200b";
                     }
                     interServChanEmb.WithValue(interServerChan);
                     interServSettings.AddField(interServChanEmb);
@@ -64,7 +64,7 @@ namespace AttentionBot.Modules
                     showUserServEmb.WithName("Show User's Guild");
                     showUserServEmb.WithValue(showUserServer);
                     interServSettings.AddField(showUserServEmb);
-                    
+
                     EmbedFieldBuilder broadcastServNameEmb = new EmbedFieldBuilder();
                     broadcastServNameEmb.WithIsInline(true);
                     broadcastServNameEmb.WithName("Broadcast Guild Name");
@@ -73,11 +73,11 @@ namespace AttentionBot.Modules
 
                     if (_botID == SecurityInfo.botID)
                     {
-                        await Context.User.SendMessageAsync("", false, interServSettings);
+                        await Context.User.SendMessageAsync("", false, interServSettings.Build());
                     }
                     else
                     {
-                        await Context.Channel.SendMessageAsync("", false, interServSettings);
+                        await Context.Channel.SendMessageAsync("", false, interServSettings.Build());
                     }
                 }
             }
@@ -113,7 +113,7 @@ namespace AttentionBot.Modules
                     Program.interServerChats.Put(Context.Guild.Id, Convert.ToUInt64(_chanID));
                     await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
 
-                    await Context.Channel.SendMessageAsync("The InterServer Chat is now " + (Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention + " with ID " + _chanID + ".");
+                    await Context.Channel.SendMessageAsync($"The InterServer Chat is now {(Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention} with ID {_chanID}.");
                 }
                 else
                 {
@@ -142,7 +142,7 @@ namespace AttentionBot.Modules
                     Program.interServerChats.Put(Context.Guild.Id, Convert.ToUInt64(_channel.Id));
                     await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
 
-                    await Context.Channel.SendMessageAsync("The InterServer Chat is now " + _channel.Mention + " with ID " + _channel.Id + ".");
+                    await Context.Channel.SendMessageAsync($"The InterServer Chat is now {_channel.Mention} with ID {_channel.Id}.");
                 }
             }
             else
@@ -194,7 +194,7 @@ namespace AttentionBot.Modules
                     return;
                 }
 
-                await Context.Channel.SendMessageAsync("User guilds " + _showGuildEnabled + "!");
+                await Context.Channel.SendMessageAsync($"User guilds {_showGuildEnabled}!");
             }
         }
 
@@ -241,12 +241,12 @@ namespace AttentionBot.Modules
                     return;
                 }
 
-                await Context.Channel.SendMessageAsync("Server name " + _broadcastEnabled + "!");
+                await Context.Channel.SendMessageAsync($"Server name {_broadcastEnabled}!");
             }
         }
 
         [Command("enable-whitelist")]
-        public async Task enableWhitelistOnly(string enable)
+        public async Task EnableWhitelistOnly(string enable)
         {
             bool hasAdmin = await HasAdmin();
 
@@ -288,7 +288,7 @@ namespace AttentionBot.Modules
                     return;
                 }
 
-                await Context.Channel.SendMessageAsync("InterServer Chat Whitelist " + _enable + "!");
+                await Context.Channel.SendMessageAsync($"InterServer Chat Whitelist {_enable}!");
             }
         }
 
@@ -321,15 +321,17 @@ namespace AttentionBot.Modules
                 }
                 else
                 {
-                    List<ulong> wl = new List<ulong>();
-                    wl.Add(id);
+                    List<ulong> wl = new List<ulong>
+                    {
+                        id
+                    };
 
                     Program.ischatWhitelist.Add(Context.Guild.Id, wl);
                 }
 
                 await Files.WriteDictListToFile(Program.ischatWhitelist, "wlserver.txt", "wl-");
 
-                await Context.Channel.SendMessageAsync("Server " + action + " the whitelist!");
+                await Context.Channel.SendMessageAsync($"Server {action} the whitelist!");
             }
         }
 
@@ -337,7 +339,7 @@ namespace AttentionBot.Modules
         public async Task Blacklist(string serverID)
         {
             bool hasAdmin = await HasAdmin();
-            
+
             string action = "added to";
 
             if (Context.User.Id == Context.Guild.OwnerId || hasAdmin)
@@ -362,15 +364,17 @@ namespace AttentionBot.Modules
                 }
                 else
                 {
-                    List<ulong> bl = new List<ulong>();
-                    bl.Add(id);
+                    List<ulong> bl = new List<ulong>
+                    {
+                        id
+                    };
 
                     Program.ischatBlacklist.Add(Context.Guild.Id, bl);
                 }
 
                 await Files.WriteDictListToFile(Program.ischatBlacklist, "blserver.txt", "bl-");
 
-                await Context.Channel.SendMessageAsync("Server " + action + " the blacklist!");
+                await Context.Channel.SendMessageAsync($"Server {action} the blacklist!");
             }
         }
     }

@@ -1,10 +1,12 @@
-﻿using System;
-using Discord;
+﻿using Discord;
 using Discord.WebSocket;
-using System.Threading.Tasks;
-using System.IO;
+using Microsoft.Extensions.DependencyInjection;
+using System;
 using System.Collections.Generic;
+using System.Diagnostics;
+using System.IO;
 using System.Linq;
+using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace AttentionBot
@@ -34,18 +36,18 @@ namespace AttentionBot
         {
             if (isConsole)
             {
-                Console.Title = "Attention! Bot for Discord";
+                Console.Title = SecurityInfo.botName;
             }
 
-            bool isRunning = System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Count() > 1;
+            bool isRunning = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Count() > 1;
             if (isRunning)
             {
                 await Task.Delay(1000);
-                isRunning = System.Diagnostics.Process.GetProcessesByName(System.Diagnostics.Process.GetCurrentProcess().ProcessName).Count() > 1;
+                isRunning = Process.GetProcessesByName(Process.GetCurrentProcess().ProcessName).Count() > 1;
 
                 if (isRunning)
                 {
-                    MessageBox.Show("Program is already running", "Attention! Bot for Discord");
+                    MessageBox.Show("Program is already running", SecurityInfo.botName);
                     return;
                 }
             }
@@ -60,9 +62,11 @@ namespace AttentionBot
             await _client.LoginAsync(TokenType.Bot, SecurityInfo.token);
             await _client.StartAsync();
 
-            await _client.SetGameAsync("Attention! \\help " + SecurityInfo.botID);
+            await _client.SetGameAsync($"Attention! \\help {SecurityInfo.botID}");
 
-            _handler = new CommandHandler(_client);
+            IServiceProvider _services = new ServiceCollection().BuildServiceProvider();
+
+            _handler = new CommandHandler(_client, _services);
 
             servChanID = await Files.FileToDict("servers.txt", "channels.txt");
             roleID = await Files.FileToList("roles.txt");
@@ -76,7 +80,7 @@ namespace AttentionBot
 
             if (isConsole)
             {
-                Console.WriteLine("Attention! Bot has finished Loading");
+                Console.WriteLine($"{SecurityInfo.botName} has finished loading");
             }
 
             await Task.Delay(-1);

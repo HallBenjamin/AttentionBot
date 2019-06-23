@@ -71,7 +71,8 @@ namespace AttentionBot.Modules
                     announceEmb.WithName("Announcements Channel");
                     if (announceChan != "No announcements channel has been assigned.\n\u200b")
                     {
-                        announceChan = "Name: " + Context.Guild.GetChannel(Convert.ToUInt64(announceChan)).Name + "\nID: " + announceChan + "\n\u200b";
+                        announceChan = $"Name: {Context.Guild.GetChannel(Convert.ToUInt64(announceChan)).Name}\n" +
+                            $"ID: {announceChan}\n\u200b";
                     }
                     announceEmb.WithValue(announceChan);
                     servSettings.AddField(announceEmb);
@@ -82,7 +83,8 @@ namespace AttentionBot.Modules
                     string roles = adminRoles.Count == 0 ? "No admin roles have been assigned.\n\u200b" : "";
                     foreach (ulong role in adminRoles)
                     {
-                        roles += "Name: " + Context.Guild.GetRole(role).Name + "\nID: " + role + "\n\u200b\n";
+                        roles += $"Name: {Context.Guild.GetRole(role).Name}\n" +
+                            $"ID: {role}\n\u200b\n";
                     }
                     adminEmb.WithValue(roles);
                     servSettings.AddField(adminEmb);
@@ -95,11 +97,11 @@ namespace AttentionBot.Modules
 
                     if (_botID == SecurityInfo.botID)
                     {
-                        await Context.User.SendMessageAsync("", false, servSettings);
+                        await Context.User.SendMessageAsync("", false, servSettings.Build());
                     }
                     else
                     {
-                        await Context.Channel.SendMessageAsync("", false, servSettings);
+                        await Context.Channel.SendMessageAsync("", false, servSettings.Build());
                     }
                 }
             }
@@ -119,14 +121,14 @@ namespace AttentionBot.Modules
                     Program.roleID.Add(Convert.ToUInt64(_roleID));
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
-                    await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " has been added as an administrative role.");
+                    await Context.Channel.SendMessageAsync($"\"{Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name}\" role with ID {_roleID} has been added as an administrative role.");
                 }
                 else if (alreadyExists)
                 {
                     Program.roleID.Remove(Convert.ToUInt64(_roleID));
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
-                    await Context.Channel.SendMessageAsync("\"" + Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name + "\" role with ID " + _roleID + " is no longer an administrative role.");
+                    await Context.Channel.SendMessageAsync($"\"{Context.Guild.GetRole(Convert.ToUInt64(_roleID)).Name}\" role with ID {_roleID} is no longer an administrative role.");
                 }
                 else
                 {
@@ -151,14 +153,14 @@ namespace AttentionBot.Modules
                     Program.roleID.Add(_role.Id);
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
-                    await Context.Channel.SendMessageAsync("\"" + _role.Name + "\" role with ID " + _role.Id + " has been added as an administrative role.");
+                    await Context.Channel.SendMessageAsync($"\"{_role.Name}\" role with ID {_role.Id} has been added as an administrative role.");
                 }
                 else
                 {
                     Program.roleID.Remove(_role.Id);
                     await Files.WriteToFile(Program.roleID, "roles.txt");
 
-                    await Context.Channel.SendMessageAsync("\"" + _role.Name + "\" role with ID " + _role.Id + " is no longer an administrative role.");
+                    await Context.Channel.SendMessageAsync($"\"{_role.Name}\" role with ID {_role.Id} is no longer an administrative role.");
                 }
             }
             else
@@ -210,7 +212,7 @@ namespace AttentionBot.Modules
                     return;
                 }
 
-                await Context.Channel.SendMessageAsync("Mentions " + _mentionsEnabled + "!");
+                await Context.Channel.SendMessageAsync($"Mentions {_mentionsEnabled}!");
             }
             else
             {
@@ -248,7 +250,7 @@ namespace AttentionBot.Modules
                     Program.servChanID.Put(Context.Guild.Id, Convert.ToUInt64(_chanID));
                     await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
-                    await Context.Channel.SendMessageAsync("The announcements channel is now " + (Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention + " with ID " + _chanID + ".");
+                    await Context.Channel.SendMessageAsync($"The announcements channel is now {(Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention} with ID {_chanID}.");
                 }
                 else
                 {
@@ -277,7 +279,7 @@ namespace AttentionBot.Modules
                     Program.servChanID.Put(Context.Guild.Id, Convert.ToUInt64(_channel.Id));
                     await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
-                    await Context.Channel.SendMessageAsync("The announcements channel is now " + _channel.Mention + " with ID " + _channel.Id + ".");
+                    await Context.Channel.SendMessageAsync($"The announcements channel is now {_channel.Mention} with ID {_channel.Id}.");
                 }
             }
             else

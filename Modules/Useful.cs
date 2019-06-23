@@ -9,15 +9,13 @@ namespace AttentionBot.Modules
     public class Useful : ModuleBase<SocketCommandContext>
     {
         [Command("ping")]
-        public async Task PingPong()
-        {
-            await Context.Channel.SendMessageAsync("Pong!\nBot Latency is " + Context.Client.Latency + "ms");
-        }
+        public async Task PingPong() => await Context.Channel.SendMessageAsync($"Pong!\n" +
+            $"Bot Latency is {Context.Client.Latency}ms");
 
         [Command("membercount")]
         public async Task MemberCount()
         {
-            long total = (long) Context.Guild.MemberCount;
+            long total = (long)Context.Guild.MemberCount;
             long totalBots = 0L, onlineBots = 0L, offlineBots = 0L;
             long totalUsers = total, onlineUsers = 0L, awayUsers = 0L, doNotDisturbUsers = 0L, invisibleUsers = 0L, offlineUsers = 0L;
 
@@ -82,24 +80,24 @@ namespace AttentionBot.Modules
 
             EmbedFieldBuilder userBuilder = new EmbedFieldBuilder();
             userBuilder.WithIsInline(true);
-            userBuilder.WithName("\nUsers: " + totalUsers);
+            userBuilder.WithName($"\nUsers: {totalUsers}");
             userBuilder.WithValue(
-                "\nOnline: " + onlineUsers +
-                "\nAway: " + awayUsers +
-                "\nDo Not Disturb: " + doNotDisturbUsers +
-                "\nInvisible: " + invisibleUsers +
-                "\nOffline: " + offlineUsers + "\n");
+                $"\nOnline: {onlineUsers}" +
+                $"\nAway: {awayUsers}" +
+                $"\nDo Not Disturb: {doNotDisturbUsers}" +
+                $"\nInvisible: {invisibleUsers}" +
+                $"\nOffline: {offlineUsers}\n");
             onlineMessage.AddField(userBuilder);
 
             EmbedFieldBuilder botBuilder = new EmbedFieldBuilder();
             botBuilder.WithIsInline(true);
-            botBuilder.WithName("\nBots: " + totalBots);
+            botBuilder.WithName($"\nBots: {totalBots}");
             botBuilder.WithValue(
-                "\nOnline: " + onlineBots +
-                "\nOffline: " + offlineBots);
+                $"\nOnline: {onlineBots}" +
+                $"\nOffline: {offlineBots}");
             onlineMessage.AddField(botBuilder);
 
-            await Context.Channel.SendMessageAsync("", false, onlineMessage);
+            await Context.Channel.SendMessageAsync("", false, onlineMessage.Build());
         }
 
         [Command("changelog")]
@@ -107,7 +105,7 @@ namespace AttentionBot.Modules
         {
             if (_botID == SecurityInfo.botID || _botID == null)
             {
-                await Context.Channel.SendMessageAsync("**Attention! v" + SecurityInfo.botVersion + "**\n" +
+                await Context.Channel.SendMessageAsync($"**Attention! v{SecurityInfo.botVersion}**\n" +
                     "Changelog can be found at:\n" +
                     "https://github.com/josedolf-staller/AttentionBot#release-notes");
             }
@@ -122,16 +120,18 @@ namespace AttentionBot.Modules
                 _botID = null;
             }
 
-            List<string> _params = new List<string>();
-            _params.Add((_param == null) ? _param : _param.ToLower());
-            _params.Add((_param2 == null) ? _param2 : _param2.ToLower());
-            _params.Add((_param3 == null) ? _param3 : _param3.ToLower());
-            _params.Add((_param4 == null) ? _param4 : _param4.ToLower());
+            List<string> _params = new List<string>
+            {
+                (_param == null) ? _param : _param.ToLower(),
+                (_param2 == null) ? _param2 : _param2.ToLower(),
+                (_param3 == null) ? _param3 : _param3.ToLower(),
+                (_param4 == null) ? _param4 : _param4.ToLower()
+            };
 
             EmbedBuilder helpMessage = new EmbedBuilder();
 
             helpMessage.WithTitle("Attention! Bot for Discord");
-            helpMessage.WithDescription("Bot Version " + SecurityInfo.botVersion + "  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
+            helpMessage.WithDescription($"Bot Version {SecurityInfo.botVersion}  -  Programmed using Discord.Net 1.0.2 and Microsoft .NET Framework 4.7.1");
             helpMessage.WithColor(SecurityInfo.botColor);
             helpMessage.WithCurrentTimestamp();
 
@@ -145,7 +145,7 @@ namespace AttentionBot.Modules
             helpField.WithIsInline(true);
             helpField.WithName("\\help Parameters");
             helpField.WithValue(
-                "***NOTE:** If you choose to supply the " + SecurityInfo.botID + " parameter, it must be first. If you do not supply it, only one parameter may be given.*\n\n" +
+                $"***NOTE:** If you choose to supply the {SecurityInfo.botID} parameter, it must be first. If you do not supply it, only one parameter may be given.*\n\n" +
 
                 SecurityInfo.botID + "\n" +
                 "  - DMs you all available help commands for the bot or the bot commands for any other given parameters.\n\n" +
@@ -172,7 +172,7 @@ namespace AttentionBot.Modules
                 "\\ping\n" +
                 "  - Returns the latency of the bot.\n\n" +
 
-                "\\changelog [" + SecurityInfo.botID + " (optional)]\n" +
+                $"\\changelog [{SecurityInfo.botID} (optional)]\n" +
                 "  - Sends a link to the version history (changelog) of the bot.\n\n" +
 
                 "\\membercount\n" +
@@ -213,7 +213,7 @@ namespace AttentionBot.Modules
                 "***NOTE:** Users with the \"Administrator\" power are considered Server Owners for these commands. \"Admins\" are the role(s) the Server Owners have designated as \"Admin\" roles.*\n\n" +
                 "***NOTE 2:** The Role and Channel parameters can either be their respective ID or a mention of the channel/role.*\n\n" +
 
-                "\\settings [" + SecurityInfo.botID + " (optional)]\n" +
+                $"\\settings [{SecurityInfo.botID} (optional)]\n" +
                 "  - **ADMINS/SERVER OWNERS:** Displays the current configuration of the bot.\n\n" +
 
                 "\\admin [role]\n" +
@@ -233,7 +233,7 @@ namespace AttentionBot.Modules
                 "***NOTE:** All of these commands require the user to be a Server Owner or a user with the \"Administrator\" permission.*\n\n" +
                 "***NOTE 2:** The channel parameter can either be its ID or a mention of the channel.*\n\n" +
 
-                "\\interserver-settings [" + SecurityInfo.botID + " (optional)]\n" +
+                $"\\interserver-settings [{SecurityInfo.botID} (optional)]\n" +
                 "  - Displays the current InterServer Chat configuration for the bot.\n\n" +
 
                 "\\interserver-chat [channel]\n" +
@@ -259,11 +259,13 @@ namespace AttentionBot.Modules
                 "\\blacklist [Server ID]\n" +
                 "  - Adds the given server to the blacklist.\n\u200b");
 
-            List<string> parameters = new List<string>();
-            parameters.Add("useful");
-            parameters.Add("spam");
-            parameters.Add("admin");
-            parameters.Add("interserver");
+            List<string> parameters = new List<string>
+            {
+                "useful",
+                "spam",
+                "admin",
+                "interserver"
+            };
 
             bool fieldExists = false;
             foreach (string param in parameters)
@@ -311,7 +313,7 @@ namespace AttentionBot.Modules
                     helpMessage.AddField(interServerWBLField);
                 }
 
-                await Context.Channel.SendMessageAsync("", false, helpMessage);
+                await Context.Channel.SendMessageAsync("", false, helpMessage.Build());
             }
             else if (_botID == SecurityInfo.botID)
             {
@@ -333,7 +335,7 @@ namespace AttentionBot.Modules
                     helpMessage.AddField(interServerWBLField);
                 }
 
-                await Context.User.SendMessageAsync("", false, helpMessage);
+                await Context.User.SendMessageAsync("", false, helpMessage.Build());
             }
         }
     }

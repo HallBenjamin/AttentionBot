@@ -1,5 +1,4 @@
-﻿using System.Threading.Tasks;
-using Discord.WebSocket;
+﻿using Discord.WebSocket;
 
 namespace AttentionBot
 {
@@ -7,7 +6,7 @@ namespace AttentionBot
     {
         public static bool HasSend(SocketGuild g, SocketTextChannel channel)
         {
-            return g.GetUser(SecurityInfo.botClient).GetPermissions(channel).ReadMessages
+            return g.GetUser(SecurityInfo.botClient).GetPermissions(channel).ViewChannel
                     && g.GetUser(SecurityInfo.botClient).GetPermissions(channel).SendMessages;
         }
     }
