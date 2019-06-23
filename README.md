@@ -127,6 +127,7 @@ Want to report bugs or give suggestions on what should be added next? Join the s
 - This is an alpha build. Features in this build are unofficial and may not be released in the final version.
 ## v2.2.2.1 (Stable)
 - Fixed a bug where some lists were being modified within a foreach loop of themselves
+- Updated code to match new requirements for Discord.Net 2.0+
 ## v2.2.2.0
 - Added a server blacklist and whitelist for the InterServer Chat
 - Added "Whitelist" to \interserver-settings
