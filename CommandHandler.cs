@@ -181,7 +181,6 @@ namespace AttentionBot
 
                                 if (sendMsg)
                                 {
-
                                     if (Program.showUserServer.Contains(serverID))
                                     {
                                         sendMessage.Add(chan.SendMessageAsync("", false, embedGuild.Build()));
