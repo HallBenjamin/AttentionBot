@@ -1,6 +1,6 @@
 # Attention! Bot for Discord
 
-[![CodeFactor](https://www.codefactor.io/repository/github/josedolf-staller/attentionbot/badge)](https://www.codefactor.io/repository/github/josedolf-staller/attentionbot)
+[![CodeFactor](https://www.codefactor.io/repository/github/the-mighty-mo/attentionbot/badge)](https://www.codefactor.io/repository/github/josedolf-staller/attentionbot)
 [![Build Status](https://hallb1016.visualstudio.com/FBIBot/_apis/build/status/josedolf-staller.AttentionBot?branchName=master)](https://hallb1016.visualstudio.com/FBIBot/_build/latest?definitionId=3&branchName=master)
 
 ### Written using Discord.Net 2.1.1 and Microsoft .NET Framework 4.7.2
