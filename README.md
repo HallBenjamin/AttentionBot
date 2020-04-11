@@ -1,7 +1,7 @@
 # Attention! Bot for Discord
 
 [![CodeFactor](https://www.codefactor.io/repository/github/the-mighty-mo/attentionbot/badge)](https://www.codefactor.io/repository/github/the-mighty-mo/attentionbot)
-[![Build Status](https://hallb1016.visualstudio.com/FBIBot/_apis/build/status/josedolf-staller.AttentionBot?branchName=master)](https://hallb1016.visualstudio.com/FBIBot/_build/latest?definitionId=3&branchName=master)
+[![Build Status](https://hallb1016.visualstudio.com/FBIBot/_apis/build/status/the-mighty-mo.AttentionBot?branchName=master)](https://hallb1016.visualstudio.com/FBIBot/_build/latest?definitionId=3&branchName=master)
 
 ### Written using Discord.Net 2.1.1 and Microsoft .NET Framework 4.7.2
 "Attention to the designated grid square! (E3)" for Discord (from War Thunder®, quite annoying when spammed but fun to spam). Do not compile and run (it's on a server, and you don't have the token).
