@@ -16,8 +16,8 @@ namespace AttentionBot.Modules
         public async Task MemberCount()
         {
             long total = (long)Context.Guild.MemberCount;
-            long totalBots = 0L, onlineBots = 0L, offlineBots = 0L;
-            long totalUsers = total, onlineUsers = 0L, awayUsers = 0L, doNotDisturbUsers = 0L, invisibleUsers = 0L, offlineUsers = 0L;
+            long totalBots = 0L, onlineBots = 0L;
+            long totalUsers = total, onlineUsers = 0L, awayUsers = 0L, doNotDisturbUsers = 0L, invisibleUsers = 0L;
 
             foreach (SocketGuildUser user in Context.Guild.Users)
             {
@@ -64,8 +64,8 @@ namespace AttentionBot.Modules
                 }
             }
 
-            offlineUsers = totalUsers - (onlineUsers + awayUsers + doNotDisturbUsers + invisibleUsers);
-            offlineBots = totalBots - onlineBots;
+            long offlineUsers = totalUsers - (onlineUsers + awayUsers + doNotDisturbUsers + invisibleUsers);
+            long offlineBots = totalBots - onlineBots;
 
             EmbedBuilder onlineMessage = new EmbedBuilder();
             onlineMessage.WithColor(SecurityInfo.botColor);

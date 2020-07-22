@@ -14,10 +14,7 @@ namespace AttentionBot.Modules
         {
             bool hasAdmin = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(GuildPermission.Administrator); // Is admin?
 
-            return await Task.Run(() =>
-            {
-                return hasAdmin;
-            });
+            return await Task.Run(() => hasAdmin);
         }
 
         [Command("interserver-settings")]

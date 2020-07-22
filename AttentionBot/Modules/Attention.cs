@@ -9,11 +9,11 @@ namespace AttentionBot.Modules
     public class Attention : ModuleBase<SocketCommandContext>
     {
         private static readonly Random rnd = new Random();
-        private static readonly string KARFSpecial =
+        private const string KARFSpecial =
             "Every day, hopeless idiots go out into the world, driving drunk or using the word \"literally\" incorrectly without anyone to explain just how wrong they are.\n" +
             "Seriously Greg, you can LITERALLY go die in a barn fire.";
 
-        public async Task<string> AttentionMessage(string position = null) // Get the message to use
+        public static async Task<string> AttentionMessage(string position = null) // Get the message to use
         {
             string[] Letter = new string[10] { "A", "B", "C", "D", "E", "F", "G", "H", "I", "J" };
 
@@ -201,7 +201,7 @@ namespace AttentionBot.Modules
             }
         }
 
-        public async Task<string> KARFMessage()
+        public static async Task<string> KARFMessage()
         {
             string[] Messages = new string[8]
             {

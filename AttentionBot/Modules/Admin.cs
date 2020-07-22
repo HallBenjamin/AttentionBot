@@ -23,20 +23,14 @@ namespace AttentionBot.Modules
                 }
             }
 
-            return await Task.Run(() =>
-            {
-                return hasRole;
-            });
+            return await Task.Run(() => hasRole);
         }
 
         public async Task<bool> HasAdmin()
         {
             bool hasAdmin = Context.Guild.GetUser(Context.User.Id).GuildPermissions.Has(GuildPermission.Administrator);
 
-            return await Task.Run(() =>
-            {
-                return hasAdmin;
-            });
+            return await Task.Run(() => hasAdmin);
         }
 
         [Command("settings")]
