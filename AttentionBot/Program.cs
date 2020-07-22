@@ -67,6 +67,7 @@ namespace AttentionBot
             IServiceProvider _services = new ServiceCollection().BuildServiceProvider();
 
             _handler = new CommandHandler(_client, _services);
+            await _handler.InitCommandsAsync();
 
             servChanID = await Files.FileToDict("servers.txt", "channels.txt");
             roleID = await Files.FileToList("roles.txt");

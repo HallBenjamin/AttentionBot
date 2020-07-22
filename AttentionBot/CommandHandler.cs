@@ -15,7 +15,7 @@ namespace AttentionBot
         public const char prefix = '\\';
 
         private readonly DiscordSocketClient _client;
-        private readonly CommandService _service;
+        private readonly CommandService _commands;
         private readonly IServiceProvider _services;
 
         public CommandHandler(DiscordSocketClient client, IServiceProvider services)
@@ -23,14 +23,22 @@ namespace AttentionBot
             _client = client;
             _services = services;
 
-            _service = new CommandService();
-            _service.AddModulesAsync(Assembly.GetEntryAssembly(), services);
+            CommandServiceConfig config = new CommandServiceConfig()
+            {
+                DefaultRunMode = RunMode.Async
+            };
+            _commands = new CommandService(config);
+        }
 
+        public async Task InitCommandsAsync()
+        {
             _client.Connected += SendConnectMessage;
             _client.Disconnected += SendDisconnectError;
             _client.MessageReceived += HandleCommandAsync;
             _client.JoinedGuild += SendWelcomeMessage;
             _client.LeftGuild += CleanDatabase;
+            
+            await _commands.AddModulesAsync(Assembly.GetEntryAssembly(), _services);
         }
 
         private async Task SendConnectMessage()
@@ -64,7 +72,7 @@ namespace AttentionBot
                 // Commands
                 if (msg.HasCharPrefix(prefix, ref argPos))
                 {
-                    var result = await _service.ExecuteAsync(context, argPos, _services);
+                    var result = await _commands.ExecuteAsync(context, argPos, _services);
 
                     if (!result.IsSuccess && result.Error != CommandError.UnknownCommand)
                     {
@@ -185,7 +193,7 @@ namespace AttentionBot
                                     {
                                         sendMessage.Add(chan.SendMessageAsync("", false, embedGuild.Build()));
 
-                                        if (fileName != "")
+                                        if (fileName.Length == 0)
                                         {
                                             sendFile.Add(chan.SendFileAsync(fileName, ""));
                                         }
@@ -194,7 +202,7 @@ namespace AttentionBot
                                     {
                                         sendMessage.Add(chan.SendMessageAsync("", false, embed.Build()));
 
-                                        if (fileName != "")
+                                        if (fileName.Length == 0)
                                         {
                                             sendFile.Add(chan.SendFileAsync(fileName, ""));
                                         }
@@ -206,7 +214,7 @@ namespace AttentionBot
 
                     await Task.WhenAll(sendMessage.ToArray()).ContinueWith(t => Task.WhenAll(sendFile.ToArray()).ContinueWith(r => Task.Run(() =>
                     {
-                        if (fileName != "")
+                        if (fileName.Length == 0)
                         {
                             System.IO.File.Delete(fileName);
                         }

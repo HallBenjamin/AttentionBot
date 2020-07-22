@@ -2,7 +2,7 @@
 
 namespace AttentionBot
 {
-    public class PermissionChecker
+    public static class PermissionChecker
     {
         public static bool HasSend(SocketGuild g, SocketTextChannel channel)
         {

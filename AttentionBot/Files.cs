@@ -94,10 +94,7 @@ namespace AttentionBot
                 dict.Put(keyList[i], valueList[i]);
             }
 
-            return await Task.Run(() =>
-            {
-                return dict;
-            });
+            return await Task.Run(() => dict);
         }
 
         public static async Task<List<ulong>> FileToList(string fileName)
@@ -113,10 +110,7 @@ namespace AttentionBot
             }
             reader.Close();
 
-            return await Task.Run(() =>
-            {
-                return list;
-            });
+            return await Task.Run(() => list);
         }
 
         public static async Task<Dictionary<ulong, ulong>> FileToDict(string keyFile, string valueFile)
@@ -148,10 +142,7 @@ namespace AttentionBot
                 dict.Put(keyList[i], valueList[i]);
             }
 
-            return await Task.Run(() =>
-            {
-                return dict;
-            });
+            return await Task.Run(() => dict);
         }
     }
 }
