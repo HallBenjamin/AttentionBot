@@ -2,7 +2,7 @@
 
 namespace AttentionBot
 {
-    class SecurityInfo
+    public static class SecurityInfo
     {
         public const string token = "Insert Bot Security Token here";
         public const string botID = "Insert Bot Tag/ID here";
