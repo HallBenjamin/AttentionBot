@@ -7,7 +7,6 @@ using System.Diagnostics;
 using System.IO;
 using System.Linq;
 using System.Threading.Tasks;
-using System.Windows.Forms;
 
 namespace AttentionBot
 {
@@ -47,7 +46,11 @@ namespace AttentionBot
 
                 if (isRunning)
                 {
-                    MessageBox.Show("Program is already running", SecurityInfo.botName);
+                    if (isConsole)
+                    {
+                        Console.WriteLine("Program is already running");
+                        Console.ReadLine();
+                    }
                     return;
                 }
             }

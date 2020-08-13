@@ -244,7 +244,7 @@ namespace AttentionBot.Modules
                     Program.servChanID.Put(Context.Guild.Id, Convert.ToUInt64(_chanID));
                     await Files.WriteToFile(Program.servChanID, "servers.txt", "channels.txt");
 
-                    await Context.Channel.SendMessageAsync($"The announcements channel is now {(Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention} with ID {_chanID}.");
+                    await Context.Channel.SendMessageAsync($"The announcements channel is now {(Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel)?.Mention} with ID {_chanID}.");
                 }
                 else
                 {

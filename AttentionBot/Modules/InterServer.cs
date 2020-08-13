@@ -110,7 +110,7 @@ namespace AttentionBot.Modules
                     Program.interServerChats.Put(Context.Guild.Id, Convert.ToUInt64(_chanID));
                     await Files.WriteToFile(Program.interServerChats, "interservers.txt", "interchannels.txt");
 
-                    await Context.Channel.SendMessageAsync($"The InterServer Chat is now {(Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel).Mention} with ID {_chanID}.");
+                    await Context.Channel.SendMessageAsync($"The InterServer Chat is now {(Context.Guild.GetChannel(Convert.ToUInt64(_chanID)) as SocketTextChannel)?.Mention} with ID {_chanID}.");
                 }
                 else
                 {

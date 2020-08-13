@@ -1,9 +1,9 @@
 ﻿
 Microsoft Visual Studio Solution File, Format Version 12.00
 # Visual Studio Version 16
-VisualStudioVersion = 16.0.28714.193
+VisualStudioVersion = 16.0.30406.217
 MinimumVisualStudioVersion = 10.0.40219.1
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttentionBot", "AttentionBot\AttentionBot.csproj", "{B9B52A8F-E183-438B-88B8-9C682C15825B}"
+Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "AttentionBot", "AttentionBot\AttentionBot.csproj", "{EB03B57B-9F8B-45DB-AF38-2F5121E41CBA}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -11,15 +11,15 @@ Global
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
-		{B9B52A8F-E183-438B-88B8-9C682C15825B}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
-		{B9B52A8F-E183-438B-88B8-9C682C15825B}.Debug|Any CPU.Build.0 = Debug|Any CPU
-		{B9B52A8F-E183-438B-88B8-9C682C15825B}.Release|Any CPU.ActiveCfg = Release|Any CPU
-		{B9B52A8F-E183-438B-88B8-9C682C15825B}.Release|Any CPU.Build.0 = Release|Any CPU
+		{EB03B57B-9F8B-45DB-AF38-2F5121E41CBA}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{EB03B57B-9F8B-45DB-AF38-2F5121E41CBA}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{EB03B57B-9F8B-45DB-AF38-2F5121E41CBA}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{EB03B57B-9F8B-45DB-AF38-2F5121E41CBA}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE
 	EndGlobalSection
 	GlobalSection(ExtensibilityGlobals) = postSolution
-		SolutionGuid = {1F4477E5-4FB2-4BB5-B59B-0037C5A6AE2C}
+		SolutionGuid = {0DA8590A-50DB-4CD8-BBB8-2E5D339DC31B}
 	EndGlobalSection
 EndGlobal
